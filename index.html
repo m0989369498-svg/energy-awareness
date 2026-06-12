@@ -3,173 +3,305 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#FAFAFA">
+<meta name="theme-color" content="#0A0A0B">
 <title>意識能量覺察 · Energy Awareness</title>
 <style>
   :root{
-    --bg:#FAFAFA;
-    --surface:#FFFFFF;
-    --primary:#78866B;
-    --primary-soft:#EEF1EA;
-    --secondary:#E5E7EB;
-    --text:#374151;
-    --muted:#9CA3AF;
-    --accent-blue:#7B86B8;
-    --shadow:0 8px 30px rgba(0,0,0,0.04);
-    --shadow-lg:0 12px 40px rgba(0,0,0,0.07);
-    --radius:1.5rem;
+    --bg:#0A0A0B;
+    --surface:#1A1A1E;
+    --surface-2:#202024;
+    --primary:#B89947;
+    --primary-dim:#8A6D2F;
+    --jade:#7A8B7A;
+    --border:rgba(255,255,255,0.05);
+    --border-strong:rgba(255,255,255,0.1);
+    --text:#E4E4E7;
+    --muted:#A1A1AA;
+    --glow:0 0 40px rgba(184,153,71,0.06);
+    --radius:1.25rem;
     --ease:all .5s ease-in-out;
+    --serif:Georgia,"Noto Serif TC","Songti TC","Songti SC","Yu Mincho",PMingLiU,SimSun,"Nanum Myeongjo","Times New Roman",serif;
+    --sans:-apple-system,BlinkMacSystemFont,"PingFang TC","PingFang SC","Hiragino Sans","Yu Gothic","Microsoft JhengHei","Microsoft YaHei","Malgun Gothic","Noto Sans TC","Noto Sans SC","Segoe UI",Roboto,sans-serif;
   }
   *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
   html{font-size:16px;}
   body{
     background:var(--bg);
     color:var(--text);
-    font-family:-apple-system,BlinkMacSystemFont,"PingFang TC","PingFang SC","Hiragino Sans","Yu Gothic","Microsoft JhengHei","Microsoft YaHei","Malgun Gothic","Noto Sans TC","Noto Sans SC","Segoe UI",Roboto,sans-serif;
+    font-family:var(--sans);
     font-weight:300;
     line-height:1.8;
     min-height:100vh;
     -webkit-font-smoothing:antialiased;
   }
   #wrap{max-width:30rem;margin:0 auto;padding:1.5rem 1.5rem 4rem;}
-  header{
-    display:flex;justify-content:space-between;align-items:center;
-    padding:.75rem 0 2.5rem;
-  }
-  .logo{display:flex;align-items:center;gap:.6rem;font-weight:400;letter-spacing:.05em;color:var(--text);}
+  header{display:flex;justify-content:space-between;align-items:center;padding:.75rem 0 2.5rem;}
+  .logo{display:flex;align-items:center;gap:.6rem;font-weight:400;letter-spacing:.08em;font-size:.95rem;}
   .logo-dot{
-    width:.9rem;height:.9rem;border-radius:50%;
-    background:radial-gradient(circle at 35% 35%, #B9C4AC, var(--primary));
-    box-shadow:0 0 12px rgba(120,134,107,.45);
+    width:.85rem;height:.85rem;border-radius:50%;
+    background:radial-gradient(circle at 35% 35%, #E8D9A8, var(--primary) 60%, #6B5524);
+    box-shadow:0 0 14px rgba(184,153,71,.5);
   }
   select#lang{
-    appearance:none;-webkit-appearance:none;
-    border:none;outline:none;cursor:pointer;
-    background:var(--surface);color:var(--muted);
-    font-family:inherit;font-size:.8rem;font-weight:300;
+    appearance:none;-webkit-appearance:none;border:1px solid var(--border);outline:none;cursor:pointer;
+    background-color:var(--surface);color:var(--muted);
+    font-family:inherit;font-size:.78rem;font-weight:300;
     padding:.45rem 1.9rem .45rem 1rem;border-radius:9999px;
-    box-shadow:var(--shadow);
-    background-image:url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%239CA3AF' stroke-width='1.4' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-image:url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23A1A1AA' stroke-width='1.4' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
     background-repeat:no-repeat;background-position:right .8rem center;
     transition:var(--ease);
   }
-  .fade{animation:fadeIn .5s ease-in-out;}
-  @keyframes fadeIn{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:none;}}
-  @keyframes breathe{0%,100%{transform:scale(1);opacity:.85;}50%{transform:scale(1.06);opacity:1;}}
+  .fade{animation:fadeIn .7s ease-in-out;}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:none;}}
+  @keyframes breathe{0%,100%{transform:scale(1);opacity:.88;}50%{transform:scale(1.05);opacity:1;}}
 
   /* ---------- landing ---------- */
-  .hero{text-align:center;padding:1.5rem 0 0;}
+  .hero{text-align:center;padding:1.2rem 0 0;}
   .aura{
-    width:8.5rem;height:8.5rem;margin:0 auto 2.5rem;border-radius:50%;
-    background:radial-gradient(circle at 38% 32%, #FFFFFF 0%, #DCE8D5 35%, #B9C4AC 70%, #78866B 100%);
-    box-shadow:0 0 60px rgba(120,134,107,.35), var(--shadow-lg);
-    animation:breathe 6s ease-in-out infinite;
+    width:8.5rem;height:8.5rem;margin:0 auto 2.6rem;border-radius:50%;
+    background:radial-gradient(circle at 38% 32%, #F2E7C5 0%, #D6BC76 30%, var(--primary) 62%, #4A3B16 100%);
+    box-shadow:0 0 70px rgba(184,153,71,.28), 0 0 140px rgba(184,153,71,.12);
+    animation:breathe 7s ease-in-out infinite;
   }
-  h1{font-size:1.7rem;font-weight:500;letter-spacing:.08em;margin-bottom:1rem;}
-  .subtitle{color:var(--muted);font-size:.92rem;font-weight:300;margin-bottom:3rem;padding:0 .5rem;}
+  h1{font-family:var(--serif);font-size:1.75rem;font-weight:500;letter-spacing:.1em;margin-bottom:1rem;}
+  .subtitle{color:var(--muted);font-size:.9rem;font-weight:300;margin-bottom:3rem;padding:0 .25rem;}
   .domains{display:flex;gap:1rem;margin-bottom:3rem;}
   .domain-chip{
-    flex:1;background:var(--surface);border-radius:var(--radius);
-    padding:1.6rem 1rem;box-shadow:var(--shadow);transition:var(--ease);
+    flex:1;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
+    padding:1.6rem 1rem;box-shadow:var(--glow);transition:var(--ease);text-align:center;
   }
-  .domain-chip .d-icon{font-size:1.5rem;margin-bottom:.6rem;}
-  .domain-chip .d-name{font-weight:500;font-size:.95rem;margin-bottom:.25rem;}
-  .domain-chip .d-desc{color:var(--muted);font-size:.78rem;}
+  .domain-chip .d-mark{width:2.2rem;height:2.2rem;margin:0 auto .8rem;border-radius:50%;}
+  .d-mark.a{background:radial-gradient(circle at 35% 35%, #E8D9A8, var(--primary) 70%);box-shadow:0 0 16px rgba(184,153,71,.35);}
+  .d-mark.b{background:radial-gradient(circle at 35% 35%, #B9C6B9, var(--jade) 70%);box-shadow:0 0 16px rgba(122,139,122,.35);}
+  .domain-chip .d-name{font-weight:400;font-size:.95rem;margin-bottom:.2rem;letter-spacing:.05em;}
+  .domain-chip .d-desc{color:var(--muted);font-size:.76rem;}
   .btn{
     display:block;width:100%;border:none;cursor:pointer;
-    font-family:inherit;font-size:1rem;font-weight:400;letter-spacing:.12em;
-    padding:1.15rem;border-radius:9999px;
-    background:var(--primary);color:#fff;
-    box-shadow:0 10px 28px rgba(120,134,107,.35);
+    font-family:inherit;font-size:.95rem;font-weight:400;letter-spacing:.18em;
+    padding:1.1rem;border-radius:9999px;
+    background:linear-gradient(135deg,#C9A954,var(--primary) 55%,#9A7E38);
+    color:#121009;
+    box-shadow:0 0 28px rgba(184,153,71,.22);
     transition:var(--ease);
   }
-  .btn:hover{filter:brightness(1.06);transform:translateY(-2px);}
+  .btn:hover{filter:brightness(1.1);transform:translateY(-2px);}
   .btn:active{transform:translateY(0);}
   .btn-ghost{
     background:var(--surface);color:var(--text);
-    box-shadow:var(--shadow);font-weight:300;
+    border:1px solid var(--border-strong);box-shadow:none;font-weight:300;
   }
-  .meta-note{color:var(--muted);font-size:.78rem;text-align:center;margin-top:1.5rem;}
+  .btn-ghost:hover{border-color:rgba(184,153,71,.45);filter:none;}
+  .meta-note{color:var(--muted);font-size:.76rem;text-align:center;margin-top:1.6rem;letter-spacing:.04em;}
 
   /* ---------- quiz ---------- */
   .q-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.2rem;}
   .q-domain{
-    font-size:.75rem;letter-spacing:.1em;color:var(--primary);
-    background:var(--primary-soft);padding:.35rem 1rem;border-radius:9999px;font-weight:400;
+    font-size:.72rem;letter-spacing:.14em;color:var(--primary);
+    border:1px solid rgba(184,153,71,.35);padding:.3rem 1rem;border-radius:9999px;font-weight:400;
   }
-  .q-domain.b{color:var(--accent-blue);background:#EDEFF7;}
-  .q-count{color:var(--muted);font-size:.8rem;}
-  .progress{height:.3rem;background:var(--secondary);border-radius:9999px;overflow:hidden;margin-bottom:2.8rem;}
-  .progress > div{height:100%;background:var(--primary);border-radius:9999px;transition:width .5s ease-in-out;}
-  .q-text{font-size:1.22rem;font-weight:400;line-height:1.7;margin-bottom:2.2rem;min-height:4.2rem;}
-  .opts{display:flex;flex-direction:column;gap:1rem;}
+  .q-domain.b{color:#9DB39D;border-color:rgba(122,139,122,.45);}
+  .q-count{color:var(--muted);font-size:.8rem;letter-spacing:.1em;}
+  .progress{height:2px;background:rgba(255,255,255,.08);border-radius:9999px;overflow:hidden;margin-bottom:2.8rem;}
+  .progress > div{height:100%;background:linear-gradient(90deg,var(--primary-dim),var(--primary));transition:width .5s ease-in-out;}
+  .q-text{font-family:var(--serif);font-size:1.25rem;font-weight:400;line-height:1.75;margin-bottom:2.2rem;min-height:4.4rem;}
+  .opts{display:flex;flex-direction:column;gap:.9rem;}
   .opt{
-    background:var(--surface);border:none;cursor:pointer;text-align:left;
-    font-family:inherit;font-size:.95rem;font-weight:300;color:var(--text);line-height:1.7;
-    padding:1.2rem 1.4rem;border-radius:1.25rem;
-    box-shadow:var(--shadow);transition:var(--ease);
+    background:var(--surface);border:1px solid var(--border);cursor:pointer;text-align:left;
+    font-family:inherit;font-size:.92rem;font-weight:300;color:var(--text);line-height:1.7;
+    padding:1.15rem 1.4rem;border-radius:1rem;
+    box-shadow:var(--glow);transition:var(--ease);
   }
-  .opt:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg);background:var(--primary-soft);}
+  .opt:hover{border-color:rgba(184,153,71,.5);background:#1E1C16;transform:translateY(-1px);}
   .q-back{
     margin-top:2.2rem;background:none;border:none;cursor:pointer;
-    color:var(--muted);font-family:inherit;font-size:.85rem;font-weight:300;
+    color:var(--muted);font-family:inherit;font-size:.84rem;font-weight:300;letter-spacing:.05em;
     transition:var(--ease);
   }
   .q-back:hover{color:var(--text);}
 
   /* ---------- result ---------- */
-  .r-head{text-align:center;margin-bottom:2.5rem;}
+  .r-head{text-align:center;margin-bottom:2.4rem;}
   .r-aura{
     width:9.5rem;height:9.5rem;margin:0 auto 1.8rem;border-radius:50%;
-    box-shadow:var(--shadow-lg);animation:breathe 6s ease-in-out infinite;
+    animation:breathe 7s ease-in-out infinite;
   }
-  .r-label{color:var(--muted);font-size:.8rem;letter-spacing:.18em;margin-bottom:.5rem;}
-  .r-archetype{font-size:1.55rem;font-weight:500;letter-spacing:.06em;margin-bottom:.4rem;}
-  .r-levelname{color:var(--muted);font-size:.9rem;}
-  .cards{display:flex;flex-direction:column;gap:1.25rem;margin-bottom:1.25rem;}
+  .r-label{color:var(--muted);font-size:.74rem;letter-spacing:.32em;margin-bottom:.7rem;text-transform:uppercase;}
+  .r-archetype{font-family:var(--serif);font-size:1.7rem;font-weight:500;letter-spacing:.08em;margin-bottom:.4rem;color:#EFE7CE;}
+  .r-levelname{color:var(--muted);font-size:.88rem;letter-spacing:.05em;}
+  .cards{display:flex;flex-direction:column;gap:1.1rem;margin-bottom:1.1rem;}
   .card{
-    background:var(--surface);border-radius:var(--radius);
-    padding:1.8rem;box-shadow:var(--shadow);
+    background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
+    padding:1.7rem;box-shadow:var(--glow);
   }
-  .scores{display:flex;gap:1.25rem;}
-  .scores .card{flex:1;text-align:center;padding:1.6rem .8rem;}
-  .s-title{color:var(--muted);font-size:.76rem;margin-bottom:.6rem;letter-spacing:.04em;}
-  .s-value{font-size:2rem;font-weight:500;line-height:1.2;}
-  .s-level{font-size:.85rem;margin-top:.35rem;font-weight:400;}
+  .scores{display:flex;gap:1.1rem;}
+  .scores .card{flex:1;text-align:center;padding:1.5rem .7rem;}
+  .s-title{color:var(--muted);font-size:.74rem;margin-bottom:.6rem;letter-spacing:.06em;}
+  .s-value{font-family:var(--serif);font-size:2.1rem;font-weight:500;line-height:1.2;}
+  .s-level{font-size:.84rem;margin-top:.3rem;font-weight:400;letter-spacing:.08em;}
   .s-a .s-value,.s-a .s-level{color:var(--primary);}
-  .s-b .s-value,.s-b .s-level{color:var(--accent-blue);}
-  .card h3{font-size:.95rem;font-weight:500;margin-bottom:.8rem;letter-spacing:.04em;}
-  .card p{font-size:.88rem;color:var(--text);font-weight:300;}
-  .gap-warn{border-left:3px solid #C9A86A;}
-  .gap-ok{border-left:3px solid var(--primary);}
-  .chart-wrap{overflow:hidden;}
-  .legend{display:flex;gap:1.4rem;margin-top:.8rem;font-size:.75rem;color:var(--muted);}
-  .legend span::before{content:"";display:inline-block;width:.85rem;height:.2rem;border-radius:2px;margin-right:.4rem;vertical-align:middle;}
+  .s-b .s-value,.s-b .s-level{color:#9DB39D;}
+  .card h3{font-size:.92rem;font-weight:400;margin-bottom:.8rem;letter-spacing:.1em;display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;}
+  .card p{font-size:.87rem;color:var(--muted);font-weight:300;}
+  .tag{
+    font-size:.66rem;letter-spacing:.12em;padding:.12rem .6rem;border-radius:9999px;font-weight:400;
+  }
+  .tag-loss{color:#D4A24E;border:1px solid rgba(212,162,78,.5);}
+  .tag-ok{color:#9DB39D;border:1px solid rgba(122,139,122,.5);}
+  .tag-pro{color:var(--primary);border:1px solid rgba(184,153,71,.5);}
+  .gap-warn{border-left:2px solid var(--primary-dim);}
+  .gap-ok{border-left:2px solid var(--jade);}
+  .seg{display:flex;gap:.4rem;margin-left:auto;}
+  .seg button{
+    background:none;border:1px solid var(--border-strong);color:var(--muted);cursor:pointer;
+    font-family:inherit;font-size:.68rem;letter-spacing:.08em;font-weight:300;
+    padding:.18rem .7rem;border-radius:9999px;transition:var(--ease);
+  }
+  .seg button.on{color:var(--primary);border-color:rgba(184,153,71,.55);}
+  .legend{display:flex;gap:1.4rem;margin-top:.8rem;font-size:.72rem;color:var(--muted);}
+  .legend span::before{content:"";display:inline-block;width:.85rem;height:2px;border-radius:2px;margin-right:.4rem;vertical-align:middle;}
   .legend .la::before{background:var(--primary);}
-  .legend .lb::before{background:var(--accent-blue);}
-  .r-actions{display:flex;flex-direction:column;gap:1rem;margin-top:2.2rem;}
+  .legend .lb::before{background:var(--jade);}
+  .locked{
+    text-align:center;padding:2.2rem 1.5rem;
+    border:1px dashed var(--border-strong);
+  }
+  .locked p{margin-bottom:1.2rem;}
+  .locked .btn{max-width:14rem;margin:0 auto;padding:.8rem;font-size:.84rem;}
+  .reminder-row{display:flex;gap:.7rem;margin-top:1.1rem;}
+  .reminder-row select,.reminder-row input{
+    flex:1;background:var(--surface-2);border:1px solid var(--border-strong);color:var(--text);
+    font-family:inherit;font-size:.85rem;font-weight:300;
+    padding:.6rem .8rem;border-radius:.7rem;outline:none;transition:var(--ease);
+    color-scheme:dark;
+  }
+  .reminder-row select:focus,.reminder-row input:focus{border-color:rgba(184,153,71,.5);}
+  .card .btn{margin-top:1.2rem;padding:.85rem;font-size:.86rem;}
+  .r-actions{display:flex;flex-direction:column;gap:.9rem;margin-top:2.1rem;}
+  .text-link{
+    display:block;text-align:center;margin-top:1.4rem;background:none;border:none;cursor:pointer;
+    color:var(--muted);font-family:inherit;font-size:.76rem;font-weight:300;
+    text-decoration:underline;text-underline-offset:3px;text-decoration-color:rgba(161,161,170,.4);
+    transition:var(--ease);
+  }
+  .text-link:hover{color:var(--text);}
+  .consult{
+    background:linear-gradient(160deg,#1C1A14,#1A1A1E 70%);
+    border:1px solid rgba(184,153,71,.25);
+  }
+  .consult h3{color:#EFE7CE;font-family:var(--serif);letter-spacing:.12em;font-size:1rem;}
+  .consult .btn{display:inline-block;width:auto;padding:.7rem 1.8rem;text-decoration:none;text-align:center;}
 
-  /* ---------- share modal ---------- */
-  #modal{
+  /* ---------- modals ---------- */
+  .overlay{
     position:fixed;inset:0;display:none;z-index:50;
-    background:rgba(55,65,81,.45);backdrop-filter:blur(6px);
+    background:rgba(5,5,6,.72);backdrop-filter:blur(8px);
     align-items:center;justify-content:center;padding:1.5rem;
   }
-  #modal.open{display:flex;}
+  .overlay.open{display:flex;}
   .modal-box{
-    background:var(--surface);border-radius:var(--radius);
-    padding:1.5rem;max-width:21rem;width:100%;
-    box-shadow:var(--shadow-lg);text-align:center;
+    background:var(--surface);border:1px solid var(--border-strong);border-radius:var(--radius);
+    padding:1.6rem;max-width:22rem;width:100%;
+    box-shadow:0 0 60px rgba(0,0,0,.6);text-align:center;
     max-height:92vh;overflow-y:auto;
   }
-  .modal-box img{width:100%;border-radius:1rem;box-shadow:var(--shadow);}
-  .modal-hint{color:var(--muted);font-size:.8rem;margin:.9rem 0 1.1rem;}
+  .modal-box img{width:100%;border-radius:.9rem;border:1px solid var(--border);}
+  .modal-hint{color:var(--muted);font-size:.78rem;margin:.9rem 0 1.1rem;}
   .modal-actions{display:flex;gap:.8rem;}
-  .modal-actions .btn{padding:.85rem;font-size:.88rem;}
-  footer{
-    text-align:center;color:var(--muted);font-size:.72rem;font-weight:300;
-    margin-top:3.5rem;letter-spacing:.05em;
+  .modal-actions .btn{padding:.85rem;font-size:.86rem;}
+
+  /* paywall */
+  .pw-title{font-family:var(--serif);font-size:1.3rem;letter-spacing:.1em;margin-bottom:.5rem;color:#EFE7CE;}
+  .pw-sub{color:var(--muted);font-size:.82rem;margin-bottom:1.4rem;}
+  .pw-feats{text-align:left;margin:0 0 1.5rem;list-style:none;}
+  .pw-feats li{
+    font-size:.82rem;color:var(--text);font-weight:300;padding:.45rem 0 .45rem 1.4rem;position:relative;
+    border-bottom:1px solid var(--border);
   }
+  .pw-feats li:last-child{border-bottom:none;}
+  .pw-feats li::before{content:"◆";position:absolute;left:.1rem;color:var(--primary);font-size:.6rem;top:.62rem;}
+  .cur-tabs{display:flex;gap:.5rem;justify-content:center;margin-bottom:1.1rem;}
+  .cur-tabs button{
+    background:none;border:1px solid var(--border-strong);color:var(--muted);cursor:pointer;
+    font-family:inherit;font-size:.74rem;letter-spacing:.1em;padding:.3rem 1rem;border-radius:9999px;transition:var(--ease);
+  }
+  .cur-tabs button.on{color:var(--primary);border-color:rgba(184,153,71,.55);}
+  .pw-price{font-family:var(--serif);font-size:1.6rem;color:#EFE7CE;margin-bottom:.2rem;}
+  .pw-price span{font-size:.8rem;color:var(--muted);font-family:var(--sans);}
+  .pw-year{color:var(--muted);font-size:.78rem;margin-bottom:1.3rem;}
+  .pw-methods{display:flex;flex-direction:column;gap:.55rem;margin-bottom:1.3rem;}
+  .pw-method{
+    display:flex;justify-content:space-between;align-items:center;
+    background:var(--surface-2);border:1px solid var(--border);border-radius:.7rem;
+    padding:.65rem 1rem;font-size:.82rem;color:var(--muted);
+  }
+  .pw-method em{font-style:normal;font-size:.64rem;letter-spacing:.1em;color:var(--primary-dim);}
+  .pw-note{color:var(--muted);font-size:.74rem;margin-bottom:1rem;}
+  .seed-row{display:flex;gap:.6rem;}
+  .seed-row input{
+    flex:1;background:var(--surface-2);border:1px solid var(--border-strong);color:var(--text);
+    font-family:inherit;font-size:.85rem;letter-spacing:.15em;text-align:center;
+    padding:.7rem;border-radius:9999px;outline:none;transition:var(--ease);
+  }
+  .seed-row input:focus{border-color:rgba(184,153,71,.5);}
+  .seed-row .btn{width:auto;padding:.7rem 1.4rem;font-size:.82rem;}
+  .seed-err{color:#C4836B;font-size:.74rem;margin-top:.7rem;min-height:1.1rem;}
+
+  #toast{
+    position:fixed;left:50%;bottom:2rem;transform:translateX(-50%) translateY(160%);z-index:60;
+    background:var(--surface);border:1px solid rgba(184,153,71,.45);color:var(--text);
+    font-size:.82rem;letter-spacing:.05em;padding:.8rem 1.6rem;border-radius:9999px;
+    box-shadow:0 0 40px rgba(0,0,0,.5);transition:transform .5s ease-in-out;white-space:nowrap;
+  }
+  #toast.show{transform:translateX(-50%) translateY(0);}
+  footer{
+    text-align:center;color:#5B5B62;font-size:.7rem;font-weight:300;
+    margin-top:3.5rem;letter-spacing:.06em;
+  }
+
+  /* ---------- A4 report (print only) ---------- */
+  #reportRoot{display:none;}
+  @media print{
+    @page{size:A4;margin:14mm;}
+    body{background:#fff;}
+    #wrap,#modal,#paywall,#toast{display:none !important;}
+    #reportRoot{display:block !important;}
+  }
+  #reportRoot{
+    font-family:var(--serif);color:#26241E;background:#fff;line-height:1.75;
+  }
+  .rp-head{border-bottom:2px solid #8A6D2F;padding-bottom:4mm;margin-bottom:7mm;display:flex;justify-content:space-between;align-items:flex-end;}
+  .rp-brand{font-size:13pt;letter-spacing:.2em;color:#26241E;}
+  .rp-doc{font-size:9pt;color:#8A6D2F;letter-spacing:.18em;margin-top:1mm;}
+  .rp-date{font-size:9pt;color:#7A766B;}
+  .rp-sec{margin-bottom:6.5mm;}
+  .rp-sec h2{
+    font-size:10.5pt;letter-spacing:.22em;color:#8A6D2F;font-weight:600;
+    margin-bottom:2.5mm;border-left:3px solid #8A6D2F;padding-left:3mm;
+  }
+  .rp-sec p{font-size:10pt;color:#3A372F;}
+  .rp-grid{display:flex;gap:5mm;}
+  .rp-cell{flex:1;border:1px solid #DDD8C8;border-radius:2.5mm;padding:4mm;text-align:center;}
+  .rp-cell .l{font-size:8.5pt;color:#7A766B;letter-spacing:.1em;}
+  .rp-cell .v{font-size:18pt;color:#26241E;margin:1mm 0;}
+  .rp-cell .n{font-size:9.5pt;color:#8A6D2F;letter-spacing:.12em;}
+  .rp-tagline{display:inline-block;font-size:8.5pt;letter-spacing:.15em;border:1px solid #8A6D2F;color:#8A6D2F;border-radius:9999px;padding:.5mm 4mm;margin-bottom:2mm;}
+  .rp-actions{list-style:none;counter-reset:act;}
+  .rp-actions li{
+    font-size:10pt;color:#3A372F;padding:1.8mm 0 1.8mm 9mm;position:relative;counter-increment:act;
+    border-bottom:1px dashed #DDD8C8;
+  }
+  .rp-actions li::before{
+    content:counter(act,decimal-leading-zero);position:absolute;left:0;color:#8A6D2F;font-size:9pt;letter-spacing:.05em;
+  }
+  .rp-notes{
+    border:1.5px dashed #B8B19C;border-radius:3mm;height:62mm;padding:4mm;
+  }
+  .rp-notes .hint{font-size:8.5pt;color:#A39E8D;font-style:italic;}
+  .rp-consult{background:#F7F4EA;border-radius:3mm;padding:5mm;}
+  .rp-consult .t{font-size:10.5pt;color:#26241E;letter-spacing:.12em;margin-bottom:1mm;}
+  .rp-consult p{font-size:9pt;color:#5A564A;}
+  .rp-consult .mail{font-size:9pt;color:#8A6D2F;letter-spacing:.04em;}
+  .rp-foot{margin-top:7mm;border-top:1px solid #DDD8C8;padding-top:3mm;font-size:8pt;color:#A39E8D;}
 </style>
 </head>
 <body>
@@ -188,7 +320,8 @@
   <footer id="foot"></footer>
 </div>
 
-<div id="modal">
+<!-- share card modal -->
+<div id="modal" class="overlay">
   <div class="modal-box">
     <img id="cardImg" alt="energy card">
     <div class="modal-hint" id="modalHint"></div>
@@ -199,16 +332,41 @@
   </div>
 </div>
 
+<!-- paywall modal -->
+<div id="paywall" class="overlay">
+  <div class="modal-box" style="text-align:center">
+    <div class="pw-title" id="pwTitle"></div>
+    <div class="pw-sub" id="pwSub"></div>
+    <ul class="pw-feats" id="pwFeats"></ul>
+    <div class="cur-tabs" id="curTabs">
+      <button data-cur="TWD">TWD</button>
+      <button data-cur="USD">USD</button>
+      <button data-cur="CNY">CNY</button>
+    </div>
+    <div class="pw-price" id="pwPrice"></div>
+    <div class="pw-year" id="pwYear"></div>
+    <div class="pw-methods" id="pwMethods"></div>
+    <div class="pw-note" id="pwNote"></div>
+    <div class="seed-row">
+      <input id="seedInput" autocomplete="off" spellcheck="false">
+      <button class="btn" id="btnSeed"></button>
+    </div>
+    <div class="seed-err" id="seedErr"></div>
+    <button class="text-link" id="pwClose" style="margin-top:.6rem"></button>
+  </div>
+</div>
+
+<div id="toast"></div>
+<div id="reportRoot"></div>
+
 <script>
-/* ================= energy values per option (shared across locales) ================= */
+/* ================= constants ================= */
 const Q_VALUES = [
-  /* Domain A 日常情緒 */
   [50, 100, 250, 540],
   [150, 100, 200, 350],
   [30, 50, 350, 500],
   [75, 125, 310, 500],
   [100, 250, 310, 540],
-  /* Domain B 職場壓力 */
   [100, 150, 310, 400],
   [75, 175, 400, 350],
   [100, 175, 310, 500],
@@ -225,44 +383,75 @@ const LEVELS = [
 ];
 
 const ARCHETYPES = [
-  {min:450,k:"resonant", c1:"#E8C5BC", c2:"#F6E7E0", deep:"#B07D72"},
-  {min:350,k:"guardian", c1:"#9AA3CC", c2:"#DFE3F2", deep:"#5A6499"},
-  {min:250,k:"creator",  c1:"#9DB18C", c2:"#E2EAD8", deep:"#5F6E51"},
-  {min:150,k:"walker",   c1:"#D3C29B", c2:"#F2EAD7", deep:"#9A8757"},
-  {min:0,  k:"sage",     c1:"#B5CDB3", c2:"#E6F0E4", deep:"#6F8A6D"},
+  {min:450,k:"resonant", c1:"#D9A8A0", c2:"#F2DCD3", deep:"#8F5F56"},
+  {min:350,k:"guardian", c1:"#9AA3CC", c2:"#DFE3F2", deep:"#4E5887"},
+  {min:250,k:"creator",  c1:"#B89947", c2:"#EBDFB7", deep:"#6B5524"},
+  {min:150,k:"walker",   c1:"#C9B584", c2:"#EFE7D3", deep:"#7E6B3F"},
+  {min:0,  k:"sage",     c1:"#7A8B7A", c2:"#D6E0D6", deep:"#465446"},
 ];
+
+const SEED_CODES = ["HX-3K7F","HX-9M2Q","HX-5T8L","HX-7R4D","HX-2W6N","HX-8C1Z","HX-4J9P","HX-6V5B","HX-1G3Y","HX-0S7E"];
+const PRICING = { TWD:{m:"NT$299",y:"NT$2,388"}, USD:{m:"US$9.90",y:"US$79"}, CNY:{m:"¥68",y:"¥528"} };
+const METHODS_BY_CUR = { TWD:["card","ecpay","linepay"], USD:["card"], CNY:["wechat","alipay"] };
+const CONSULT_MAIL = "zraymon@gmail.com";
 
 /* ================= i18n ================= */
 const I18N = {
 "zh-TW": {
   ui: {
     appTitle:"意識能量覺察", logo:"意識能量覺察",
-    subtitle:"基於大衛・霍金斯意識能量層級理論的雙軌覺察測驗，看見你的內在基準與壓力頻率",
+    subtitle:"基於大衛・霍金斯意識能量層級理論的雙軌測定系統。定位內在基準，量化壓力耗損。",
     domainA:"日常情緒", domainADesc:"內在基準頻率",
-    domainB:"職場壓力", domainBDesc:"壓力情境頻率",
-    start:"開始測驗", duration:"約 3 分鐘 · 10 題", privacy:"測驗結果僅儲存於你的裝置",
+    domainB:"職場壓力", domainBDesc:"壓力測試頻率",
+    start:"開始測定", duration:"約 3 分鐘 · 10 題", privacy:"測定結果僅儲存於您的裝置",
     back:"← 上一題", qOf:(n,t)=>`${n} / ${t}`,
-    resultLabel:"你的能量原型", levelOf:"主要頻率",
+    resultLabel:"初步診斷假說", levelOf:"主要頻率",
     innerBase:"內在基準", innerBaseSub:"日常情緒",
     stressFreq:"壓力頻率", stressFreqSub:"職場人際",
-    gapTitle:"內外能量落差",
-    gapWarn:"您的內外能量落差較大，表明特定高壓情境正在過度消耗您的內在基準能量，建議優化外部應變機制，並為自己安排恢復的空間。",
-    gapOk:"你的內外能量相對一致，內在基準能穩定支撐外部高壓情境，請繼續保持目前的節奏。",
-    insightTitle:"本次洞察",
-    trendTitle:"能量趨勢", trendA:"日常情緒", trendB:"職場壓力",
-    share:"生成能量卡片", retake:"重新測驗",
-    modalHint:"長按圖片即可儲存，分享到限時動態或群組",
-    closeBtn:"關閉", shareBtn:"分享 / 儲存",
-    cardTag:"我的能量原型", cardCta:"測測你現在的能量頻率",
-    foot:"靈感源自 David R. Hawkins《Power vs. Force》· 本測驗僅供自我覺察參考",
+    gapTitle:"內外能量落差", lossTag:"結構性耗損", stableTag:"結構穩定",
+    gapWarn:"您的內外能量落差較大，表明特定高壓情境正在過度消耗您的內在基準能量。建議優化外部應變機制，並為系統安排恢復區間。",
+    gapOk:"內外頻率對齊。內在基準足以支撐當前外部負載，維持現行節奏即可。",
+    insightTitle:"核心假說",
+    trendTitle:"能量時序追蹤", trendBoth:"雙線", trendA:"日常", trendB:"職場",
+    trendLocked:"累積兩次以上測定後，系統將解鎖 6 週內外雙軌時序曲線。",
+    share:"生成能量卡片", retake:"重新測定",
+    exportPdf:"匯出假說報告 (A4)", printHint:"請於列印視窗選擇「另存為 PDF」",
+    reminderTitle:"每週定錨提醒", reminderDesc:"選定每週固定時間，將定錨儀式寫入您的行事曆。",
+    weekdays:["週日","週一","週二","週三","週四","週五","週六"],
+    addToCalendar:"生成行事曆檔案", reminderEvent:"能量定錨測定",
+    paywallTitle:"升級 Pro 訂閱", paywallSub:"解鎖時序儀表板、A4 假說報告與每週定錨提醒。",
+    pwFeatures:["6 週內外雙軌時序儀表板","A4 深度假說報告匯出","每週定錨提醒排程","無廣告沉浸體驗"],
+    perMonth:"月", perYear:"年",
+    payBuilding:"金流通道建置中。種子測試期間，輸入邀請碼即可解鎖全部功能。",
+    comingSoon:"建置中",
+    methods:{card:"信用卡 / Apple Pay",wechat:"微信支付",alipay:"支付寶",ecpay:"綠界科技",linepay:"LINE Pay"},
+    seedPlaceholder:"邀請碼", unlock:"解鎖", seedInvalid:"邀請碼無效。",
+    seedOk:"確認定錨。Pro 權限已解鎖。",
+    consultTitle:"15 分鐘線上覆盤", consultDesc:"若結構性耗損持續超過三週，建議預約一對一線上覆盤，直擊您的能量波動斷層。",
+    consultCta:"預約線上覆盤", consultSubject:"預約 15 分鐘線上覆盤",
+    exportData:"匯出原始數據 (JSON)",
+    modalHint:"長按圖片即可儲存與分享", closeBtn:"關閉", shareBtn:"分享 / 儲存",
+    cardTag:"我的能量原型", cardCta:"測定你當前的能量頻率",
+    laterBtn:"暫不升級",
+    foot:"靈感源自 David R. Hawkins《Power vs. Force》· 本測定僅供自我覺察參考",
+    reportTitle:"能量狀態假說報告",
+    rSec1:"本次測定", rSec2:"落差分析", rSec3:"原型解讀", rSec4:"時序回顧", rSec5:"下週行動指南", rSec6:"Notes & Reflections",
+    notesHint:"請以 Apple Pencil 或筆寫下您的反駁點與直覺感受，並攜帶本頁參加線上覆盤。",
+    overallLabel:"綜合頻率", gapLabel:"落差值",
+    reportFooter:"本報告由系統根據單次測定自動生成，屬初步假說而非醫療診斷。",
   },
   levels:{shame:"羞愧",guilt:"內疚",apathy:"冷漠",grief:"悲傷",fear:"恐懼",desire:"慾望",anger:"憤怒",pride:"驕傲",courage:"勇氣",neutrality:"中立",willingness:"主動",acceptance:"寬容",reason:"理智",love:"愛",joy:"喜悅"},
   archetypes:{
-    sage:{name:"蓄力智者", insight:"你正處於能量蓄積期，內在資源暫時偏低。這不是缺陷，而是身心在提醒你需要休息與滋養。請放慢腳步，從充足睡眠與一件小小的愉悅開始，溫柔地為自己補充能量。"},
-    walker:{name:"覺醒行者", insight:"你的勇氣正在升起，已經能直面許多不舒服的情緒。接下來的關鍵是減少自我批判：每當你察覺情緒而不被捲入，能量就再上一階。"},
-    creator:{name:"主動創建者", insight:"你擁有穩定的行動力與中性視角，能把壓力轉化為前進的燃料。試著把這份主動延伸到人際支持系統，你的能量會更有韌性。"},
-    guardian:{name:"理智守護者", insight:"你以清晰的思考與包容駕馭大多數情境，是他人眼中可靠的定錨。留意別讓理性過度接管——允許情感流動，會帶你走向更高的頻率。"},
-    resonant:{name:"愛的共鳴者", insight:"你的頻率以愛與喜悅為主導，能自然滋養身邊的人。請持續守護這份狀態，並留意在高壓情境中為自己設立健康界線。"},
+    sage:{name:"蓄力智者", insight:"您正處於能量蓄積期，內在資源暫時偏低。這並非缺陷，而是系統在請求休息與滋養。請放慢節奏，從充足睡眠與一件微小的愉悅開始，逐步回填能量。",
+      actions:["將睡眠提前三十分鐘，連續執行七天","每日記錄一件耗能最高的事件，僅記錄，不評價","暫停一項非必要承諾，為系統保留恢復餘裕"]},
+    walker:{name:"覺醒行者", insight:"您的勇氣正在升起，已能直面多數不適情緒。下一步的關鍵在於降低自我批判：每一次覺察情緒而不被捲入，能量即上升一階。",
+      actions:["每日進行一次三分鐘的情緒命名練習","在壓力事件後寫下三行客觀事實，與感受分離","本週完成一件擱置已久的小事，回收懸置能量"]},
+    creator:{name:"主動創建者", insight:"您具備穩定的行動力與中性視角，能將壓力轉化為前進的燃料。建議將這份主動延伸至人際支持系統，使能量結構更具韌性。",
+      actions:["為本週設定單一優先目標，拒絕並行消耗","安排一次主動的人際支持對話","在高壓時段前預留十分鐘的緩衝區間"]},
+    guardian:{name:"理智守護者", insight:"您以清晰的思考與包容駕馭多數情境，是他人眼中可靠的定錨。請留意理性過度接管的傾向——允許情感流動，是通往更高頻率的路徑。",
+      actions:["每日安排一段不分析、不規劃的留白時間","練習在對話中先回應感受，再回應邏輯","檢視一項長期堅持的標準，評估其當前必要性"]},
+    resonant:{name:"愛的共鳴者", insight:"您的頻率以愛與喜悅為主導，能自然滋養周圍的人。請持續守護此狀態，並在高壓情境中為自己設立清晰的能量邊界。",
+      actions:["為高耗能關係設定明確的時間邊界","將您的狀態管理方法輸出給一位同事或夥伴","每週保留一次獨處充電的固定區間"]},
   },
   questions:[
     {t:"早晨醒來，你最常浮現的第一個念頭是？",o:["好累，真不想起床","有點擔心今天的安排","平靜醒來，按自己的步調開始","期待今天，感覺充滿可能"]},
@@ -274,38 +463,64 @@ const I18N = {
     {t:"會議上你的意見被當眾否定，你會？",o:["沉默不語，事後一直耿耿於懷","立刻防衛反擊，捍衛自己的立場","聽完對方的理由，就事論事討論","感謝不同觀點，試著整合出更好的方案"]},
     {t:"面對職場中的競爭，你通常？",o:["提防同事，擔心被超越","一定要贏，輸了很沒面子","專注在自己的成長上","樂於合作，相信可以雙贏"]},
     {t:"壓力特別大的那幾週，你的狀態是？",o:["麻木硬撐，下班只想躺著","變得易怒，容易遷怒身邊的人","刻意安排休息，主動調節節奏","忙碌中仍能感受到成就與樂趣"]},
-    {t:"明天要向高層做重要簡報，今晚的你？",o:["緊張到睡不好，反覆想像搞砸的畫面","心想「隨便啦，講完就好」","有點緊張，但相信自己準備得夠了","躍躍欲試，期待展現成果"]},
+    {t:"明天要向高層做重要簡報，今晚的你？",o:["緊張到睡不好，反覆想像搞砸的畫面","心想「隨便，講完就好」","有點緊張，但相信自己準備得夠了","躍躍欲試，期待展現成果"]},
   ],
 },
 "zh-CN": {
   ui: {
     appTitle:"意识能量觉察", logo:"意识能量觉察",
-    subtitle:"基于大卫·霍金斯意识能量层级理论的双轨觉察测验，看见你的内在基准与压力频率",
+    subtitle:"基于大卫·霍金斯意识能量层级理论的双轨测定系统。定位内在基准，量化压力耗损。",
     domainA:"日常情绪", domainADesc:"内在基准频率",
-    domainB:"职场压力", domainBDesc:"压力情境频率",
-    start:"开始测验", duration:"约 3 分钟 · 10 题", privacy:"测验结果仅保存在你的设备上",
+    domainB:"职场压力", domainBDesc:"压力测试频率",
+    start:"开始测定", duration:"约 3 分钟 · 10 题", privacy:"测定结果仅保存在您的设备上",
     back:"← 上一题", qOf:(n,t)=>`${n} / ${t}`,
-    resultLabel:"你的能量原型", levelOf:"主要频率",
+    resultLabel:"初步诊断假说", levelOf:"主要频率",
     innerBase:"内在基准", innerBaseSub:"日常情绪",
     stressFreq:"压力频率", stressFreqSub:"职场人际",
-    gapTitle:"内外能量落差",
-    gapWarn:"您的内外能量落差较大，表明特定高压情境正在过度消耗您的内在基准能量，建议优化外部应变机制，并为自己安排恢复的空间。",
-    gapOk:"你的内外能量相对一致，内在基准能稳定支撑外部高压情境，请继续保持当前的节奏。",
-    insightTitle:"本次洞察",
-    trendTitle:"能量趋势", trendA:"日常情绪", trendB:"职场压力",
-    share:"生成能量卡片", retake:"重新测验",
-    modalHint:"长按图片即可保存，分享到朋友圈或群聊",
-    closeBtn:"关闭", shareBtn:"分享 / 保存",
-    cardTag:"我的能量原型", cardCta:"测测你现在的能量频率",
-    foot:"灵感源自 David R. Hawkins《Power vs. Force》· 本测验仅供自我觉察参考",
+    gapTitle:"内外能量落差", lossTag:"结构性耗损", stableTag:"结构稳定",
+    gapWarn:"您的内外能量落差较大，表明特定高压情境正在过度消耗您的内在基准能量。建议优化外部应变机制，并为系统安排恢复区间。",
+    gapOk:"内外频率对齐。内在基准足以支撑当前外部负载，维持现行节奏即可。",
+    insightTitle:"核心假说",
+    trendTitle:"能量时序追踪", trendBoth:"双线", trendA:"日常", trendB:"职场",
+    trendLocked:"累积两次以上测定后，系统将解锁 6 周内外双轨时序曲线。",
+    share:"生成能量卡片", retake:"重新测定",
+    exportPdf:"导出假说报告 (A4)", printHint:"请在打印窗口选择「另存为 PDF」",
+    reminderTitle:"每周定锚提醒", reminderDesc:"选定每周固定时间，将定锚仪式写入您的日历。",
+    weekdays:["周日","周一","周二","周三","周四","周五","周六"],
+    addToCalendar:"生成日历文件", reminderEvent:"能量定锚测定",
+    paywallTitle:"升级 Pro 订阅", paywallSub:"解锁时序仪表板、A4 假说报告与每周定锚提醒。",
+    pwFeatures:["6 周内外双轨时序仪表板","A4 深度假说报告导出","每周定锚提醒排程","无广告沉浸体验"],
+    perMonth:"月", perYear:"年",
+    payBuilding:"支付通道建设中。种子测试期间，输入邀请码即可解锁全部功能。",
+    comingSoon:"建设中",
+    methods:{card:"信用卡 / Apple Pay",wechat:"微信支付",alipay:"支付宝",ecpay:"绿界科技",linepay:"LINE Pay"},
+    seedPlaceholder:"邀请码", unlock:"解锁", seedInvalid:"邀请码无效。",
+    seedOk:"确认定锚。Pro 权限已解锁。",
+    consultTitle:"15 分钟在线复盘", consultDesc:"若结构性耗损持续超过三周，建议预约一对一在线复盘，直击您的能量波动断层。",
+    consultCta:"预约在线复盘", consultSubject:"预约 15 分钟在线复盘",
+    exportData:"导出原始数据 (JSON)",
+    modalHint:"长按图片即可保存与分享", closeBtn:"关闭", shareBtn:"分享 / 保存",
+    cardTag:"我的能量原型", cardCta:"测定你当前的能量频率",
+    laterBtn:"暂不升级",
+    foot:"灵感源自 David R. Hawkins《Power vs. Force》· 本测定仅供自我觉察参考",
+    reportTitle:"能量状态假说报告",
+    rSec1:"本次测定", rSec2:"落差分析", rSec3:"原型解读", rSec4:"时序回顾", rSec5:"下周行动指南", rSec6:"Notes & Reflections",
+    notesHint:"请以 Apple Pencil 或笔写下您的反驳点与直觉感受，并携带本页参加在线复盘。",
+    overallLabel:"综合频率", gapLabel:"落差值",
+    reportFooter:"本报告由系统根据单次测定自动生成，属初步假说而非医疗诊断。",
   },
   levels:{shame:"羞愧",guilt:"内疚",apathy:"冷漠",grief:"悲伤",fear:"恐惧",desire:"欲望",anger:"愤怒",pride:"骄傲",courage:"勇气",neutrality:"中立",willingness:"主动",acceptance:"宽容",reason:"理智",love:"爱",joy:"喜悦"},
   archetypes:{
-    sage:{name:"蓄力智者", insight:"你正处于能量蓄积期，内在资源暂时偏低。这不是缺陷，而是身心在提醒你需要休息与滋养。请放慢脚步，从充足睡眠与一件小小的愉悦开始，温柔地为自己补充能量。"},
-    walker:{name:"觉醒行者", insight:"你的勇气正在升起，已经能直面许多不舒服的情绪。接下来的关键是减少自我批判：每当你觉察情绪而不被卷入，能量就再上一阶。"},
-    creator:{name:"主动创建者", insight:"你拥有稳定的行动力与中性视角，能把压力转化为前进的燃料。试着把这份主动延伸到人际支持系统，你的能量会更有韧性。"},
-    guardian:{name:"理智守护者", insight:"你以清晰的思考与包容驾驭大多数情境，是他人眼中可靠的定锚。留意别让理性过度接管——允许情感流动，会带你走向更高的频率。"},
-    resonant:{name:"爱的共鸣者", insight:"你的频率以爱与喜悦为主导，能自然滋养身边的人。请持续守护这份状态，并留意在高压情境中为自己设立健康边界。"},
+    sage:{name:"蓄力智者", insight:"您正处于能量蓄积期，内在资源暂时偏低。这并非缺陷，而是系统在请求休息与滋养。请放慢节奏，从充足睡眠与一件微小的愉悦开始，逐步回填能量。",
+      actions:["将睡眠提前三十分钟，连续执行七天","每日记录一件耗能最高的事件，仅记录，不评价","暂停一项非必要承诺，为系统保留恢复余裕"]},
+    walker:{name:"觉醒行者", insight:"您的勇气正在升起，已能直面多数不适情绪。下一步的关键在于降低自我批判：每一次觉察情绪而不被卷入，能量即上升一阶。",
+      actions:["每日进行一次三分钟的情绪命名练习","在压力事件后写下三行客观事实，与感受分离","本周完成一件搁置已久的小事，回收悬置能量"]},
+    creator:{name:"主动创建者", insight:"您具备稳定的行动力与中性视角，能将压力转化为前进的燃料。建议将这份主动延伸至人际支持系统，使能量结构更具韧性。",
+      actions:["为本周设定单一优先目标，拒绝并行消耗","安排一次主动的人际支持对话","在高压时段前预留十分钟的缓冲区间"]},
+    guardian:{name:"理智守护者", insight:"您以清晰的思考与包容驾驭多数情境，是他人眼中可靠的定锚。请留意理性过度接管的倾向——允许情感流动，是通往更高频率的路径。",
+      actions:["每日安排一段不分析、不规划的留白时间","练习在对话中先回应感受，再回应逻辑","检视一项长期坚持的标准，评估其当前必要性"]},
+    resonant:{name:"爱的共鸣者", insight:"您的频率以爱与喜悦为主导，能自然滋养周围的人。请持续守护此状态，并在高压情境中为自己设立清晰的能量边界。",
+      actions:["为高耗能关系设定明确的时间边界","将您的状态管理方法输出给一位同事或伙伴","每周保留一次独处充电的固定区间"]},
   },
   questions:[
     {t:"早晨醒来，你最常浮现的第一个念头是？",o:["好累，真不想起床","有点担心今天的安排","平静醒来，按自己的节奏开始","期待今天，感觉充满可能"]},
@@ -317,38 +532,64 @@ const I18N = {
     {t:"会议上你的意见被当众否定，你会？",o:["沉默不语，事后一直耿耿于怀","立刻防卫反击，捍卫自己的立场","听完对方的理由，就事论事讨论","感谢不同观点，尝试整合出更好的方案"]},
     {t:"面对职场中的竞争，你通常？",o:["提防同事，担心被超越","一定要赢，输了很没面子","专注在自己的成长上","乐于合作，相信可以双赢"]},
     {t:"压力特别大的那几周，你的状态是？",o:["麻木硬撑，下班只想躺着","变得易怒，容易迁怒身边的人","刻意安排休息，主动调节节奏","忙碌中仍能感受到成就与乐趣"]},
-    {t:"明天要向高层做重要汇报，今晚的你？",o:["紧张到睡不好，反复想象搞砸的画面","心想「随便吧，讲完就好」","有点紧张，但相信自己准备得够了","跃跃欲试，期待展现成果"]},
+    {t:"明天要向高层做重要汇报，今晚的你？",o:["紧张到睡不好，反复想象搞砸的画面","心想「随便，讲完就好」","有点紧张，但相信自己准备得够了","跃跃欲试，期待展现成果"]},
   ],
 },
 "en": {
   ui: {
     appTitle:"Energy Awareness", logo:"Energy Awareness",
-    subtitle:"A dual-track self-awareness test based on Dr. David Hawkins' Map of Consciousness — see your inner baseline and stress frequency",
+    subtitle:"A dual-track measurement system based on Dr. David Hawkins' Map of Consciousness. Locate your inner baseline. Quantify stress depletion.",
     domainA:"Daily Emotions", domainADesc:"Inner baseline",
     domainB:"Work Stress", domainBDesc:"Under-pressure frequency",
-    start:"Begin", duration:"About 3 minutes · 10 questions", privacy:"Results are stored only on your device",
+    start:"Begin Measurement", duration:"About 3 minutes · 10 questions", privacy:"Results are stored only on your device",
     back:"← Previous", qOf:(n,t)=>`${n} / ${t}`,
-    resultLabel:"Your Energy Archetype", levelOf:"Dominant frequency",
+    resultLabel:"Preliminary Hypothesis", levelOf:"Dominant frequency",
     innerBase:"Inner Baseline", innerBaseSub:"Daily emotions",
     stressFreq:"Stress Frequency", stressFreqSub:"Work & relationships",
-    gapTitle:"Inner–Outer Energy Gap",
-    gapWarn:"There is a significant gap between your inner and outer energy. High-pressure situations are draining your inner baseline — consider strengthening your coping strategies and scheduling real recovery time.",
-    gapOk:"Your inner and outer energy are well aligned. Your baseline is steadily supporting you through pressure — keep this rhythm going.",
-    insightTitle:"Insight",
-    trendTitle:"Energy Trend", trendA:"Daily", trendB:"Work",
-    share:"Create Energy Card", retake:"Retake Test",
-    modalHint:"Press and hold the image to save, then share it to your story",
-    closeBtn:"Close", shareBtn:"Share / Save",
-    cardTag:"MY ENERGY ARCHETYPE", cardCta:"Discover your energy frequency",
+    gapTitle:"Inner–Outer Energy Gap", lossTag:"Structural Depletion", stableTag:"Structurally Stable",
+    gapWarn:"A significant gap exists between your inner and outer energy. Specific high-pressure contexts are draining your inner baseline. Recalibrate your coping mechanisms and schedule recovery intervals.",
+    gapOk:"Inner and outer frequencies are aligned. Your baseline sustains the current external load. Maintain the present rhythm.",
+    insightTitle:"Core Hypothesis",
+    trendTitle:"Energy Timeline", trendBoth:"Both", trendA:"Daily", trendB:"Work",
+    trendLocked:"Complete two or more measurements to unlock the 6-week dual-track timeline.",
+    share:"Create Energy Card", retake:"Measure Again",
+    exportPdf:"Export Hypothesis Report (A4)", printHint:"Choose “Save as PDF” in the print dialog",
+    reminderTitle:"Weekly Anchor Reminder", reminderDesc:"Set a fixed weekly time and write the anchoring ritual into your calendar.",
+    weekdays:["Sun","Mon","Tue","Wed","Thu","Fri","Sat"],
+    addToCalendar:"Generate Calendar File", reminderEvent:"Energy Anchor Measurement",
+    paywallTitle:"Upgrade to Pro", paywallSub:"Unlock the timeline dashboard, A4 hypothesis reports, and weekly anchor reminders.",
+    pwFeatures:["6-week dual-track timeline dashboard","A4 in-depth hypothesis report export","Weekly anchor reminder scheduling","Ad-free immersive experience"],
+    perMonth:"mo", perYear:"yr",
+    payBuilding:"Payment channels are under construction. During the seed phase, enter an invitation code to unlock all features.",
+    comingSoon:"SOON",
+    methods:{card:"Credit Card / Apple Pay",wechat:"WeChat Pay",alipay:"Alipay",ecpay:"ECPay (Taiwan)",linepay:"LINE Pay"},
+    seedPlaceholder:"Invitation code", unlock:"Unlock", seedInvalid:"Invalid invitation code.",
+    seedOk:"Anchor confirmed. Pro access unlocked.",
+    consultTitle:"15-Minute Online Review", consultDesc:"If structural depletion persists beyond three weeks, a one-on-one online review is recommended to examine your energy delta directly.",
+    consultCta:"Book Online Review", consultSubject:"Booking: 15-minute online review",
+    exportData:"Export Raw Data (JSON)",
+    modalHint:"Press and hold the image to save and share", closeBtn:"Close", shareBtn:"Share / Save",
+    cardTag:"MY ENERGY ARCHETYPE", cardCta:"Measure your current energy frequency",
+    laterBtn:"Not now",
     foot:"Inspired by David R. Hawkins, “Power vs. Force” · For self-reflection only",
+    reportTitle:"Energy State Hypothesis Report",
+    rSec1:"Measurement", rSec2:"Gap Analysis", rSec3:"Archetype Reading", rSec4:"Timeline Review", rSec5:"Action Items for Next Week", rSec6:"Notes & Reflections",
+    notesHint:"Write down your counterpoints and intuitions with Apple Pencil or pen, and bring this page to the online review.",
+    overallLabel:"Composite", gapLabel:"Gap",
+    reportFooter:"This report is auto-generated from a single measurement. It is a preliminary hypothesis, not a medical diagnosis.",
   },
   levels:{shame:"Shame",guilt:"Guilt",apathy:"Apathy",grief:"Grief",fear:"Fear",desire:"Desire",anger:"Anger",pride:"Pride",courage:"Courage",neutrality:"Neutrality",willingness:"Willingness",acceptance:"Acceptance",reason:"Reason",love:"Love",joy:"Joy"},
   archetypes:{
-    sage:{name:"The Gathering Sage", insight:"You are in an energy-gathering season — inner resources feel low right now. That's not a flaw; it's your mind and body asking for rest. Slow down, start with good sleep and one small joy, and refill gently."},
-    walker:{name:"The Awakening Walker", insight:"Courage is rising in you — you can already face uncomfortable feelings. The next step is less self-judgment: every time you notice an emotion without being swept away, your energy climbs another level."},
-    creator:{name:"The Active Creator", insight:"You carry steady drive and a balanced perspective, turning pressure into fuel. Extend that initiative into your support network and your energy will grow even more resilient."},
-    guardian:{name:"The Rational Guardian", insight:"You navigate most situations with clarity and acceptance — a reliable anchor for others. Just don't let reason take over completely; letting feelings flow opens the path to even higher states."},
-    resonant:{name:"The Resonant Heart", insight:"Love and joy lead your frequency, and you naturally nourish people around you. Protect this state — and remember to keep healthy boundaries in high-pressure situations."},
+    sage:{name:"The Gathering Sage", insight:"You are in an energy-gathering season; inner resources are temporarily low. This is not a flaw — the system is requesting rest and nourishment. Slow the rhythm, begin with sufficient sleep and one small pleasure, and refill steadily.",
+      actions:["Move bedtime thirty minutes earlier for seven consecutive days","Log the single most draining event each day — record only, no judgment","Pause one non-essential commitment to preserve recovery margin"]},
+    walker:{name:"The Awakening Walker", insight:"Courage is rising; you can already face most uncomfortable emotions. The next step is reducing self-judgment: each time you observe an emotion without being swept in, your energy rises one level.",
+      actions:["Practice three minutes of emotion-naming once a day","After a stress event, write three lines of objective fact, separated from feeling","Finish one long-deferred small task this week to reclaim suspended energy"]},
+    creator:{name:"The Active Creator", insight:"You hold steady drive and a neutral perspective, converting pressure into forward fuel. Extending this initiative into your support network will make your energy structure more resilient.",
+      actions:["Set a single priority for the week and decline parallel drains","Schedule one proactive support conversation","Reserve a ten-minute buffer before each high-pressure block"]},
+    guardian:{name:"The Rational Guardian", insight:"You navigate most situations with clarity and acceptance — a reliable anchor to others. Watch the tendency of reason to take full control; allowing feeling to flow is the path to higher frequencies.",
+      actions:["Schedule daily white space with no analysis and no planning","In conversation, respond to feeling before logic","Audit one long-held standard and assess its current necessity"]},
+    resonant:{name:"The Resonant Heart", insight:"Love and joy lead your frequency, and you naturally nourish those around you. Guard this state, and set clear energy boundaries in high-pressure contexts.",
+      actions:["Set explicit time boundaries for high-drain relationships","Teach your state-management method to one colleague or partner","Reserve one fixed solo-recharge interval each week"]},
   },
   questions:[
     {t:"What's usually your first thought when you wake up?",o:["So tired — I really don't want to get up","A little worried about today's schedule","I wake calmly and start at my own pace","Excited — today feels full of possibility"]},
@@ -366,32 +607,58 @@ const I18N = {
 "ja": {
   ui: {
     appTitle:"エネルギー・アウェアネス", logo:"エネルギー覚察",
-    subtitle:"デヴィッド・R・ホーキンズ博士の意識のマップに基づく2軸セルフチェック。内なる基準と、ストレス下の周波数を見つめる",
+    subtitle:"デヴィッド・R・ホーキンズの意識レベル理論に基づく2軸測定システム。内なる基準を定位し、ストレス消耗を定量化する。",
     domainA:"日常の感情", domainADesc:"内なる基準周波数",
     domainB:"職場のストレス", domainBDesc:"プレッシャー下の周波数",
-    start:"はじめる", duration:"約3分・全10問", privacy:"結果はあなたの端末にのみ保存されます",
+    start:"測定を開始", duration:"約3分・全10問", privacy:"結果はあなたの端末にのみ保存されます",
     back:"← 前の質問", qOf:(n,t)=>`${n} / ${t}`,
-    resultLabel:"あなたのエネルギー・アーキタイプ", levelOf:"主な周波数",
+    resultLabel:"初期診断仮説", levelOf:"主な周波数",
     innerBase:"内なる基準", innerBaseSub:"日常の感情",
     stressFreq:"ストレス周波数", stressFreqSub:"職場・人間関係",
-    gapTitle:"内外エネルギーのギャップ",
-    gapWarn:"内と外のエネルギー差が大きめです。高圧な状況が内なる基準エネルギーを消耗させています。対処の仕組みを見直し、回復の時間を意識的に確保しましょう。",
-    gapOk:"内と外のエネルギーはよく調和しています。内なる基準がプレッシャーをしっかり支えています。このリズムを大切に。",
-    insightTitle:"今回の気づき",
-    trendTitle:"エネルギーの推移", trendA:"日常", trendB:"職場",
-    share:"エネルギーカードを作る", retake:"もう一度測る",
-    modalHint:"画像を長押しで保存し、ストーリーズなどでシェアできます",
-    closeBtn:"閉じる", shareBtn:"共有 / 保存",
-    cardTag:"私のエネルギー・アーキタイプ", cardCta:"あなたの周波数を測ってみる",
+    gapTitle:"内外エネルギーのギャップ", lossTag:"構造的消耗", stableTag:"構造的に安定",
+    gapWarn:"内外のエネルギー差が大きい状態です。特定の高圧状況が内なる基準エネルギーを過度に消耗させています。対処機構を見直し、回復区間を確保してください。",
+    gapOk:"内外の周波数は整合しています。内なる基準が現在の外部負荷を支えています。現行のリズムを維持してください。",
+    insightTitle:"中核仮説",
+    trendTitle:"エネルギー時系列", trendBoth:"両方", trendA:"日常", trendB:"職場",
+    trendLocked:"2回以上の測定で、6週間の内外2軸時系列カーブが解放されます。",
+    share:"エネルギーカードを生成", retake:"再測定",
+    exportPdf:"仮説レポートを出力 (A4)", printHint:"印刷ダイアログで「PDFとして保存」を選択してください",
+    reminderTitle:"週次アンカーリマインダー", reminderDesc:"毎週の固定時刻を設定し、定錨の儀式をカレンダーに記録します。",
+    weekdays:["日","月","火","水","木","金","土"],
+    addToCalendar:"カレンダーファイルを生成", reminderEvent:"エネルギー定錨測定",
+    paywallTitle:"Pro へアップグレード", paywallSub:"時系列ダッシュボード、A4仮説レポート、週次リマインダーを解放します。",
+    pwFeatures:["6週間の2軸時系列ダッシュボード","A4詳細仮説レポートの出力","週次アンカーリマインダー","広告のない没入体験"],
+    perMonth:"月", perYear:"年",
+    payBuilding:"決済チャネルは構築中です。シードテスト期間中は招待コードで全機能を解放できます。",
+    comingSoon:"準備中",
+    methods:{card:"クレジットカード / Apple Pay",wechat:"WeChat Pay",alipay:"Alipay",ecpay:"ECPay（台湾）",linepay:"LINE Pay"},
+    seedPlaceholder:"招待コード", unlock:"解放", seedInvalid:"招待コードが無効です。",
+    seedOk:"アンカーを確認。Pro権限を解放しました。",
+    consultTitle:"15分オンラインレビュー", consultDesc:"構造的消耗が3週間以上続く場合、1対1のオンラインレビューでエネルギー断層を直接確認することを推奨します。",
+    consultCta:"オンラインレビューを予約", consultSubject:"予約：15分オンラインレビュー",
+    exportData:"生データを出力 (JSON)",
+    modalHint:"画像を長押しで保存・共有できます", closeBtn:"閉じる", shareBtn:"共有 / 保存",
+    cardTag:"私のエネルギー・アーキタイプ", cardCta:"現在のエネルギー周波数を測定する",
+    laterBtn:"今はしない",
     foot:"David R. Hawkins『パワーか、フォースか』に着想 · セルフリフレクション用",
+    reportTitle:"エネルギー状態仮説レポート",
+    rSec1:"今回の測定", rSec2:"ギャップ分析", rSec3:"アーキタイプ解読", rSec4:"時系列レビュー", rSec5:"来週のアクション", rSec6:"Notes & Reflections",
+    notesHint:"Apple Pencilやペンで反証点と直感を書き留め、このページを持ってオンラインレビューにご参加ください。",
+    overallLabel:"総合周波数", gapLabel:"差分",
+    reportFooter:"本レポートは単回測定から自動生成された初期仮説であり、医学的診断ではありません。",
   },
   levels:{shame:"恥",guilt:"罪悪感",apathy:"無気力",grief:"悲しみ",fear:"恐れ",desire:"欲望",anger:"怒り",pride:"プライド",courage:"勇気",neutrality:"中立",willingness:"意欲",acceptance:"受容",reason:"理性",love:"愛",joy:"喜び"},
   archetypes:{
-    sage:{name:"蓄えの賢者", insight:"いまはエネルギーを蓄える季節。内なる資源が少し低めですが、それは欠点ではなく、心身が休息を求めているサインです。十分な睡眠と小さな楽しみから、やさしく充電を。"},
-    walker:{name:"目覚めの旅人", insight:"勇気が立ち上がりつつあり、不快な感情にも向き合えるようになっています。次の鍵は自己批判を減らすこと。感情に呑まれず気づけるたび、エネルギーは一段上がります。"},
-    creator:{name:"主体的な創造者", insight:"安定した行動力と中立的な視点で、プレッシャーを前進の燃料に変えられる人です。その主体性を人とのつながりにも広げると、エネルギーはさらにしなやかになります。"},
-    guardian:{name:"理性の守護者", insight:"明晰な思考と受容で多くの場面を乗りこなす、周囲にとって頼れる存在です。ただし理性に任せすぎず、感情の流れも許すことで、より高い周波数へ進めます。"},
-    resonant:{name:"愛の共鳴者", insight:"愛と喜びが主導する周波数で、周囲を自然に潤しています。この状態を大切に守りつつ、高圧な場面では健全な境界線を意識しましょう。"},
+    sage:{name:"蓄えの賢者", insight:"いまはエネルギーを蓄える季節です。内なる資源がやや低めですが、それは欠陥ではなく、システムが休息と滋養を要求しているサインです。リズムを緩め、十分な睡眠と小さな楽しみから着実に充填してください。",
+      actions:["就寝を30分早め、7日間継続する","毎日最も消耗した出来事を1件記録する（評価はしない）","必須でない約束を1つ保留し、回復の余白を確保する"]},
+    walker:{name:"目覚めの旅人", insight:"勇気が立ち上がり、多くの不快な感情に向き合えるようになっています。次の鍵は自己批判を減らすこと。感情に呑まれず観察できるたび、エネルギーは一段上がります。",
+      actions:["1日1回、3分間の感情ラベリングを行う","ストレス事象の後、感情と切り離した客観的事実を3行書く","長く保留していた小さな用事を今週1件完了させる"]},
+    creator:{name:"主体的な創造者", insight:"安定した行動力と中立的な視点で、プレッシャーを前進の燃料に変換できる状態です。その主体性を支援関係にも拡張すると、エネルギー構造はさらに強靭になります。",
+      actions:["今週の優先事項を1つに絞り、並行消耗を断る","支援につながる対話を1件、能動的に設定する","高圧な時間帯の前に10分の緩衝区間を確保する"]},
+    guardian:{name:"理性の守護者", insight:"明晰な思考と受容で多くの場面を統御する、周囲にとって信頼できる錨です。理性が全権を握る傾向には注意を。感情の流れを許すことが、より高い周波数への経路です。",
+      actions:["分析も計画もしない余白時間を毎日確保する","対話では論理より先に感情へ応答する練習をする","長年維持している基準を1つ点検し、現在の必要性を評価する"]},
+    resonant:{name:"愛の共鳴者", insight:"愛と喜びが主導する周波数で、周囲を自然に潤しています。この状態を守りつつ、高圧な場面では明確なエネルギー境界を設定してください。",
+      actions:["消耗の大きい関係に明確な時間境界を設定する","自分の状態管理法を同僚や仲間に1人共有する","週1回、独りで充電する固定区間を確保する"]},
   },
   questions:[
     {t:"朝目覚めたとき、最初に浮かぶ思いは？",o:["疲れた…起きたくない","今日の予定がちょっと不安","穏やかに、自分のペースで始める","今日が楽しみ。可能性を感じる"]},
@@ -403,38 +670,64 @@ const I18N = {
     {t:"会議で自分の意見を否定されたら？",o:["黙り込み、後々まで引きずる","すぐ防衛的に反論し、立場を守る","相手の理由を聞き、論点ベースで話し合う","別の視点に感謝し、より良い案に統合する"]},
     {t:"職場の競争に対して、あなたは普段？",o:["同僚を警戒し、追い抜かれることを恐れる","絶対に勝ちたい。負けると面子が立たない","自分の成長に集中する","協力を楽しむ。ウィンウィンを信じている"]},
     {t:"特にストレスの強い数週間、あなたの状態は？",o:["麻痺したまま耐え、帰宅後は寝るだけ","怒りっぽくなり、周囲に当たってしまう","意識的に休息を入れ、ペースを整える","忙しさの中にも達成感と楽しさがある"]},
-    {t:"明日は経営層への重要なプレゼン。今夜のあなたは？",o:["失敗する場面を想像して眠れない","「まあ、終わればいいや」と思う","少し緊張するが、準備を信じている","腕が鳴る。成果を見せるのが楽しみ"]},
+    {t:"明日は経営層への重要なプレゼン。今夜のあなたは？",o:["失敗する場面を想像して眠れない","「まあ、終わればいい」と思う","少し緊張するが、準備を信じている","腕が鳴る。成果を見せるのが楽しみ"]},
   ],
 },
 "ko": {
   ui: {
     appTitle:"에너지 어웨어니스", logo:"에너지 자각",
-    subtitle:"데이비드 호킨스 박사의 의식 지도에 기반한 2축 자기 인식 테스트 — 내면의 기준과 스트레스 주파수를 확인하세요",
+    subtitle:"데이비드 호킨스의 의식 지도에 기반한 2축 측정 시스템. 내면 기준을 정위하고 스트레스 소모를 정량화합니다.",
     domainA:"일상 감정", domainADesc:"내면 기준 주파수",
     domainB:"직장 스트레스", domainBDesc:"압박 상황 주파수",
-    start:"시작하기", duration:"약 3분 · 10문항", privacy:"결과는 내 기기에만 저장됩니다",
+    start:"측정 시작", duration:"약 3분 · 10문항", privacy:"결과는 내 기기에만 저장됩니다",
     back:"← 이전 문항", qOf:(n,t)=>`${n} / ${t}`,
-    resultLabel:"나의 에너지 아키타입", levelOf:"주요 주파수",
+    resultLabel:"초기 진단 가설", levelOf:"주요 주파수",
     innerBase:"내면 기준", innerBaseSub:"일상 감정",
     stressFreq:"스트레스 주파수", stressFreqSub:"직장·인간관계",
-    gapTitle:"내·외부 에너지 격차",
-    gapWarn:"내면과 외부 에너지의 격차가 큰 편입니다. 고압적인 상황이 내면의 기준 에너지를 과도하게 소모하고 있어요. 대응 방식을 점검하고 회복 시간을 의식적으로 확보하세요.",
-    gapOk:"내면과 외부 에너지가 잘 정렬되어 있습니다. 내면의 기준이 압박 상황을 안정적으로 지탱하고 있어요. 지금의 리듬을 유지하세요.",
-    insightTitle:"이번 인사이트",
-    trendTitle:"에너지 추이", trendA:"일상", trendB:"직장",
-    share:"에너지 카드 만들기", retake:"다시 테스트",
-    modalHint:"이미지를 길게 눌러 저장한 뒤 스토리에 공유해 보세요",
-    closeBtn:"닫기", shareBtn:"공유 / 저장",
-    cardTag:"나의 에너지 아키타입", cardCta:"지금 나의 에너지 주파수 측정하기",
+    gapTitle:"내·외부 에너지 격차", lossTag:"구조적 소모", stableTag:"구조적 안정",
+    gapWarn:"내면과 외부 에너지의 격차가 큽니다. 특정 고압 상황이 내면 기준 에너지를 과도하게 소모하고 있습니다. 대응 기제를 재정비하고 회복 구간을 확보하십시오.",
+    gapOk:"내외부 주파수가 정렬되어 있습니다. 내면 기준이 현재의 외부 부하를 지탱하고 있습니다. 현재의 리듬을 유지하십시오.",
+    insightTitle:"핵심 가설",
+    trendTitle:"에너지 타임라인", trendBoth:"양쪽", trendA:"일상", trendB:"직장",
+    trendLocked:"두 번 이상 측정하면 6주 2축 타임라인 곡선이 열립니다.",
+    share:"에너지 카드 생성", retake:"다시 측정",
+    exportPdf:"가설 리포트 내보내기 (A4)", printHint:"인쇄 창에서 'PDF로 저장'을 선택하십시오",
+    reminderTitle:"주간 앵커 리마인더", reminderDesc:"매주 고정 시간을 정해 앵커 의식을 캘린더에 기록합니다.",
+    weekdays:["일","월","화","수","목","금","토"],
+    addToCalendar:"캘린더 파일 생성", reminderEvent:"에너지 앵커 측정",
+    paywallTitle:"Pro 업그레이드", paywallSub:"타임라인 대시보드, A4 가설 리포트, 주간 리마인더를 해제합니다.",
+    pwFeatures:["6주 2축 타임라인 대시보드","A4 심층 가설 리포트 내보내기","주간 앵커 리마인더","광고 없는 몰입 경험"],
+    perMonth:"월", perYear:"년",
+    payBuilding:"결제 채널을 구축 중입니다. 시드 테스트 기간에는 초대 코드로 전체 기능을 해제할 수 있습니다.",
+    comingSoon:"준비 중",
+    methods:{card:"신용카드 / Apple Pay",wechat:"WeChat Pay",alipay:"Alipay",ecpay:"ECPay (대만)",linepay:"LINE Pay"},
+    seedPlaceholder:"초대 코드", unlock:"해제", seedInvalid:"초대 코드가 유효하지 않습니다.",
+    seedOk:"앵커 확인. Pro 권한이 해제되었습니다.",
+    consultTitle:"15분 온라인 리뷰", consultDesc:"구조적 소모가 3주 이상 지속되면 일대일 온라인 리뷰로 에너지 단층을 직접 점검하는 것을 권장합니다.",
+    consultCta:"온라인 리뷰 예약", consultSubject:"예약: 15분 온라인 리뷰",
+    exportData:"원시 데이터 내보내기 (JSON)",
+    modalHint:"이미지를 길게 눌러 저장하고 공유하십시오", closeBtn:"닫기", shareBtn:"공유 / 저장",
+    cardTag:"나의 에너지 아키타입", cardCta:"현재 나의 에너지 주파수 측정",
+    laterBtn:"나중에",
     foot:"David R. Hawkins 『의식 혁명』에서 영감 · 자기 성찰용 테스트입니다",
+    reportTitle:"에너지 상태 가설 리포트",
+    rSec1:"이번 측정", rSec2:"격차 분석", rSec3:"아키타입 해석", rSec4:"타임라인 리뷰", rSec5:"다음 주 액션", rSec6:"Notes & Reflections",
+    notesHint:"Apple Pencil이나 펜으로 반박 지점과 직관을 적고, 이 페이지를 가지고 온라인 리뷰에 참여하십시오.",
+    overallLabel:"종합 주파수", gapLabel:"격차",
+    reportFooter:"본 리포트는 단일 측정에서 자동 생성된 초기 가설이며 의학적 진단이 아닙니다.",
   },
   levels:{shame:"수치심",guilt:"죄책감",apathy:"무기력",grief:"슬픔",fear:"두려움",desire:"욕망",anger:"분노",pride:"자존심",courage:"용기",neutrality:"중립",willingness:"자발성",acceptance:"수용",reason:"이성",love:"사랑",joy:"기쁨"},
   archetypes:{
-    sage:{name:"충전하는 현자", insight:"지금은 에너지를 모으는 시기입니다. 내면의 자원이 잠시 낮아져 있지만, 이는 결함이 아니라 몸과 마음이 휴식을 요청하는 신호예요. 충분한 수면과 작은 기쁨부터, 부드럽게 충전하세요."},
-    walker:{name:"깨어나는 여행자", insight:"용기가 차오르고 있어 불편한 감정도 마주할 수 있게 되었어요. 다음 단계는 자기 비판 줄이기 — 감정에 휩쓸리지 않고 알아차릴 때마다 에너지는 한 단계 올라갑니다."},
-    creator:{name:"능동적 창조자", insight:"안정적인 추진력과 중립적인 시각으로 압박을 전진의 연료로 바꾸는 사람입니다. 그 주도성을 주변의 지지 관계로도 넓히면 에너지가 더 단단해집니다."},
-    guardian:{name:"이성의 수호자", insight:"명료한 사고와 수용으로 대부분의 상황을 다루는, 주변에 든든한 닻 같은 존재입니다. 다만 이성에만 기대지 말고 감정의 흐름도 허용하면 더 높은 주파수로 나아갈 수 있어요."},
-    resonant:{name:"사랑의 공명자", insight:"사랑과 기쁨이 주도하는 주파수로 주변 사람들을 자연스럽게 채워 줍니다. 이 상태를 소중히 지키되, 고압적인 상황에서는 건강한 경계를 세우는 것도 잊지 마세요."},
+    sage:{name:"충전하는 현자", insight:"지금은 에너지를 모으는 시기입니다. 내면 자원이 잠시 낮지만 이는 결함이 아니라 시스템이 휴식과 회복을 요청하는 신호입니다. 리듬을 늦추고 충분한 수면과 작은 기쁨부터 차분히 채우십시오.",
+      actions:["취침을 30분 앞당겨 7일간 유지하기","매일 가장 소모가 컸던 사건 하나만 기록하기(평가 없이)","필수가 아닌 약속 하나를 보류해 회복 여유 확보하기"]},
+    walker:{name:"깨어나는 여행자", insight:"용기가 차오르며 불편한 감정 대부분을 마주할 수 있게 되었습니다. 다음 단계는 자기 비판 줄이기 — 감정에 휩쓸리지 않고 관찰할 때마다 에너지는 한 단계 상승합니다.",
+      actions:["하루 한 번 3분간 감정에 이름 붙이기","스트레스 사건 후 감정과 분리된 객관적 사실 3줄 쓰기","오래 미뤄둔 작은 일 하나를 이번 주에 끝내기"]},
+    creator:{name:"능동적 창조자", insight:"안정적인 추진력과 중립적 시각으로 압박을 전진의 연료로 전환하는 상태입니다. 이 주도성을 지지 관계로 확장하면 에너지 구조가 더 견고해집니다.",
+      actions:["이번 주 우선순위를 하나로 좁히고 병렬 소모 거절하기","지지 관계를 위한 대화 한 건을 능동적으로 잡기","고압 시간대 전 10분의 완충 구간 확보하기"]},
+    guardian:{name:"이성의 수호자", insight:"명료한 사고와 수용으로 대부분의 상황을 통제하는, 주변의 신뢰할 수 있는 닻입니다. 이성이 전권을 쥐는 경향에 유의하십시오. 감정의 흐름을 허용하는 것이 더 높은 주파수로 가는 경로입니다.",
+      actions:["분석도 계획도 없는 여백 시간을 매일 확보하기","대화에서 논리보다 감정에 먼저 반응하는 연습하기","오래 유지해 온 기준 하나를 점검하고 현재의 필요성 평가하기"]},
+    resonant:{name:"사랑의 공명자", insight:"사랑과 기쁨이 주도하는 주파수로 주변을 자연스럽게 채웁니다. 이 상태를 지키되, 고압 상황에서는 명확한 에너지 경계를 설정하십시오.",
+      actions:["소모가 큰 관계에 명확한 시간 경계 설정하기","나의 상태 관리법을 동료 한 명에게 공유하기","매주 혼자 충전하는 고정 구간 확보하기"]},
   },
   questions:[
     {t:"아침에 눈을 떴을 때 가장 먼저 드는 생각은?",o:["너무 피곤해, 일어나기 싫다","오늘 일정이 조금 걱정된다","차분하게, 내 페이스대로 시작한다","오늘이 기대된다, 가능성이 느껴진다"]},
@@ -454,6 +747,8 @@ const I18N = {
 /* ================= state ================= */
 let locale = detectLocale();
 let state = { screen:"landing", qIndex:0, answers:[] };
+let trendMode = "both";
+let payCur = "TWD";
 const $ = (id)=>document.getElementById(id);
 const T = ()=>I18N[locale];
 
@@ -470,24 +765,43 @@ function detectLocale(){
   return "en";
 }
 
-function levelOf(score){
-  for(const l of LEVELS){ if(score>=l.v) return l; }
-  return LEVELS[LEVELS.length-1];
-}
-function archetypeOf(score){
-  for(const a of ARCHETYPES){ if(score>=a.min) return a; }
-  return ARCHETYPES[ARCHETYPES.length-1];
-}
+function levelOf(score){ for(const l of LEVELS){ if(score>=l.v) return l; } return LEVELS[LEVELS.length-1]; }
+function archetypeOf(score){ for(const a of ARCHETYPES){ if(score>=a.min) return a; } return ARCHETYPES[ARCHETYPES.length-1]; }
 function avg(arr){ return Math.round(arr.reduce((s,x)=>s+x,0)/arr.length); }
 
-function loadHistory(){
-  try{ return JSON.parse(localStorage.getItem("hawkins_history")||"[]"); }catch(e){ return []; }
-}
+function loadHistory(){ try{ return JSON.parse(localStorage.getItem("hawkins_history")||"[]"); }catch(e){ return []; } }
 function saveHistory(a,b){
   const h = loadHistory();
-  h.push({t:Date.now(),a,b});
+  h.push({t:Date.now(),a,b,seed:localStorage.getItem("hawkins_seed")||null});
   while(h.length>24) h.shift();
   localStorage.setItem("hawkins_history",JSON.stringify(h));
+}
+
+/* ================= pro / seed (RBAC) ================= */
+function isPro(){ return localStorage.getItem("hawkins_pro")==="1"; }
+function unlockPro(code){
+  localStorage.setItem("hawkins_pro","1");
+  if(code) localStorage.setItem("hawkins_seed",code);
+}
+function tryCode(raw){
+  const code = (raw||"").trim().toUpperCase();
+  if(SEED_CODES.includes(code)){ unlockPro(code); return true; }
+  return false;
+}
+(function checkSeedParam(){
+  try{
+    const p = new URLSearchParams(location.search).get("seed");
+    if(p && tryCode(p)){
+      setTimeout(()=>toast(T().ui.seedOk),600);
+    }
+  }catch(e){}
+})();
+
+function toast(msg){
+  const el = $("toast");
+  el.textContent = msg;
+  el.classList.add("show");
+  setTimeout(()=>el.classList.remove("show"),3200);
 }
 
 /* ================= rendering ================= */
@@ -521,12 +835,12 @@ function viewLanding(){
     </div>
     <div class="domains">
       <div class="domain-chip">
-        <div class="d-icon">🌿</div>
+        <div class="d-mark a"></div>
         <div class="d-name">${u.domainA}</div>
         <div class="d-desc">${u.domainADesc}</div>
       </div>
       <div class="domain-chip">
-        <div class="d-icon">💼</div>
+        <div class="d-mark b"></div>
         <div class="d-name">${u.domainB}</div>
         <div class="d-desc">${u.domainBDesc}</div>
       </div>
@@ -556,77 +870,126 @@ function viewQuiz(){
   </div>`;
 }
 
-function viewResult(){
-  const u = T().ui;
+function currentResult(){
   const a = avg(state.answers.slice(0,DOMAIN_A_COUNT));
   const b = avg(state.answers.slice(DOMAIN_A_COUNT));
   const overall = Math.round((a+b)/2);
-  const arch = archetypeOf(overall);
-  const archT = T().archetypes[arch.k];
-  const la = T().levels[levelOf(a).k];
-  const lb = T().levels[levelOf(b).k];
-  const lo = T().levels[levelOf(overall).k];
-  const gap = Math.abs(a-b);
-  const gapBig = gap > 100;
+  return { a, b, overall, gap:Math.abs(a-b), arch:archetypeOf(overall) };
+}
+
+function viewResult(){
+  const u = T().ui;
+  const r = currentResult();
+  const archT = T().archetypes[r.arch.k];
+  const la = T().levels[levelOf(r.a).k];
+  const lb = T().levels[levelOf(r.b).k];
+  const lo = T().levels[levelOf(r.overall).k];
+  const gapBig = r.gap > 100;
   const history = loadHistory();
+  const pro = isPro();
+  const mailHref = `mailto:${CONSULT_MAIL}?subject=${encodeURIComponent(u.consultSubject)}`;
+
+  let trendSection;
+  if(!pro){
+    trendSection = `<div class="card locked">
+      <h3 style="justify-content:center">${u.trendTitle} <span class="tag tag-pro">PRO</span></h3>
+      <p>${u.paywallSub}</p>
+      <button class="btn" id="lockTrend">${u.paywallTitle}</button>
+    </div>`;
+  } else if(history.length<2){
+    trendSection = `<div class="card">
+      <h3>${u.trendTitle} <span class="tag tag-pro">PRO</span></h3>
+      <p>${u.trendLocked}</p>
+    </div>`;
+  } else {
+    trendSection = `<div class="card">
+      <h3>${u.trendTitle}
+        <div class="seg">
+          <button data-tm="both" class="${trendMode==='both'?'on':''}">${u.trendBoth}</button>
+          <button data-tm="a" class="${trendMode==='a'?'on':''}">${u.trendA}</button>
+          <button data-tm="b" class="${trendMode==='b'?'on':''}">${u.trendB}</button>
+        </div>
+      </h3>
+      <div id="trendBox">${trendSvg(history,trendMode,"dark")}</div>
+      <div class="legend"><span class="la">${u.trendA}</span><span class="lb">${u.trendB}</span></div>
+    </div>`;
+  }
+
+  const wdOpts = u.weekdays.map((w,i)=>`<option value="${i}" ${i===1?"selected":""}>${w}</option>`).join("");
 
   return `<div class="fade">
     <div class="r-head">
-      <div class="r-aura" style="background:radial-gradient(circle at 38% 32%, #FFFFFF 0%, ${arch.c2} 38%, ${arch.c1} 75%, ${arch.deep} 100%);box-shadow:0 0 60px ${arch.c1}88, var(--shadow-lg);"></div>
+      <div class="r-aura" style="background:radial-gradient(circle at 38% 32%, #FFFFFF 0%, ${r.arch.c2} 34%, ${r.arch.c1} 72%, ${r.arch.deep} 100%);box-shadow:0 0 70px ${r.arch.c1}55, 0 0 140px ${r.arch.c1}22;"></div>
       <div class="r-label">${u.resultLabel}</div>
-      <div class="r-archetype" style="color:${arch.deep}">${archT.name}</div>
-      <div class="r-levelname">${u.levelOf}：${lo} · ${overall}</div>
+      <div class="r-archetype">${archT.name}</div>
+      <div class="r-levelname">${u.levelOf} · ${lo} · ${r.overall}</div>
     </div>
     <div class="cards">
       <div class="scores">
         <div class="card s-a">
           <div class="s-title">${u.innerBase}<br>${u.innerBaseSub}</div>
-          <div class="s-value">${a}</div>
+          <div class="s-value">${r.a}</div>
           <div class="s-level">${la}</div>
         </div>
         <div class="card s-b">
           <div class="s-title">${u.stressFreq}<br>${u.stressFreqSub}</div>
-          <div class="s-value">${b}</div>
+          <div class="s-value">${r.b}</div>
           <div class="s-level">${lb}</div>
         </div>
       </div>
       <div class="card ${gapBig?"gap-warn":"gap-ok"}">
-        <h3>${u.gapTitle} · ${gap}</h3>
+        <h3>${u.gapTitle} · ${r.gap} <span class="tag ${gapBig?"tag-loss":"tag-ok"}">${gapBig?u.lossTag:u.stableTag}</span></h3>
         <p>${gapBig?u.gapWarn:u.gapOk}</p>
       </div>
       <div class="card">
         <h3>${u.insightTitle}</h3>
         <p>${archT.insight}</p>
       </div>
-      ${history.length>=2?`
-      <div class="card chart-wrap">
-        <h3>${u.trendTitle}</h3>
-        ${trendSvg(history)}
-        <div class="legend"><span class="la">${u.trendA}</span><span class="lb">${u.trendB}</span></div>
-      </div>`:""}
+      ${trendSection}
+      <div class="card">
+        <h3>${u.reminderTitle} <span class="tag tag-pro">PRO</span></h3>
+        <p>${u.reminderDesc}</p>
+        <div class="reminder-row">
+          <select id="remDay">${wdOpts}</select>
+          <input type="time" id="remTime" value="08:00">
+        </div>
+        <button class="btn btn-ghost" id="btnIcs">${u.addToCalendar}</button>
+      </div>
+      <div class="card consult">
+        <h3>${u.consultTitle}</h3>
+        <p style="margin-bottom:1.2rem">${u.consultDesc}</p>
+        <a class="btn" href="${mailHref}">${u.consultCta}</a>
+      </div>
     </div>
     <div class="r-actions">
       <button class="btn" id="btnCard">${u.share}</button>
+      <button class="btn btn-ghost" id="btnPdf">${u.exportPdf}</button>
       <button class="btn btn-ghost" id="btnRetake">${u.retake}</button>
     </div>
+    <button class="text-link" id="btnExport">${u.exportData}</button>
   </div>`;
 }
 
-function trendSvg(history){
+function trendSvg(history,mode,theme){
   const data = history.slice(-6);
   const W=400,H=180,P=28;
+  const dark = theme!=="print";
+  const cA = dark?"#B89947":"#8A6D2F";
+  const cB = dark?"#7A8B7A":"#4F5F4F";
+  const cGrid = dark?"rgba(255,255,255,.06)":"#E4DFD0";
+  const cLabel = dark?"#6B6B72":"#A39E8D";
   const ymin=0,ymax=600;
   const x=(i)=>P+(W-2*P)*(data.length===1?0.5:i/(data.length-1));
   const y=(v)=>H-P-(H-2*P)*((v-ymin)/(ymax-ymin));
   const line=(key)=>data.map((d,i)=>`${i===0?"M":"L"}${x(i).toFixed(1)},${y(d[key]).toFixed(1)}`).join(" ");
-  const dots=(key,color)=>data.map((d,i)=>`<circle cx="${x(i).toFixed(1)}" cy="${y(d[key]).toFixed(1)}" r="3.4" fill="${color}"/>`).join("");
-  const grid=[100,200,300,400,500].map(v=>`<line x1="${P}" y1="${y(v)}" x2="${W-P}" y2="${y(v)}" stroke="#F0F1F3" stroke-width="1"/><text x="${P-6}" y="${y(v)+3}" font-size="8.5" fill="#C5C9D1" text-anchor="end">${v}</text>`).join("");
-  const labels=data.map((d,i)=>{const dt=new Date(d.t);return `<text x="${x(i)}" y="${H-8}" font-size="8.5" fill="#9CA3AF" text-anchor="middle">${dt.getMonth()+1}/${dt.getDate()}</text>`;}).join("");
+  const dots=(key,color)=>data.map((d,i)=>`<circle cx="${x(i).toFixed(1)}" cy="${y(d[key]).toFixed(1)}" r="3.2" fill="${color}"/>`).join("");
+  const grid=[100,200,300,400,500].map(v=>`<line x1="${P}" y1="${y(v)}" x2="${W-P}" y2="${y(v)}" stroke="${cGrid}" stroke-width="1"/><text x="${P-6}" y="${y(v)+3}" font-size="8.5" fill="${cLabel}" text-anchor="end">${v}</text>`).join("");
+  const labels=data.map((d,i)=>{const dt=new Date(d.t);return `<text x="${x(i)}" y="${H-8}" font-size="8.5" fill="${cLabel}" text-anchor="middle">${dt.getMonth()+1}/${dt.getDate()}</text>`;}).join("");
+  const showA = mode!=="b", showB = mode!=="a";
   return `<svg viewBox="0 0 ${W} ${H}" style="width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
     ${grid}${labels}
-    <path d="${line("a")}" fill="none" stroke="#78866B" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
-    <path d="${line("b")}" fill="none" stroke="#7B86B8" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
-    ${dots("a","#78866B")}${dots("b","#7B86B8")}
+    ${showA?`<path d="${line("a")}" fill="none" stroke="${cA}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>${dots("a",cA)}`:""}
+    ${showB?`<path d="${line("b")}" fill="none" stroke="${cB}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>${dots("b",cB)}`:""}
   </svg>`;
 }
 
@@ -658,15 +1021,173 @@ function bindEvents(){
   if(retake) retake.onclick = ()=>{ state={screen:"landing",qIndex:0,answers:[]}; render(); window.scrollTo({top:0}); };
   const cardBtn = $("btnCard");
   if(cardBtn) cardBtn.onclick = openShareCard;
+  const pdfBtn = $("btnPdf");
+  if(pdfBtn) pdfBtn.onclick = ()=>{ requirePro(exportReport); };
+  const lockTrend = $("lockTrend");
+  if(lockTrend) lockTrend.onclick = openPaywall;
+  const icsBtn = $("btnIcs");
+  if(icsBtn) icsBtn.onclick = ()=>{ requirePro(downloadIcs); };
+  const expBtn = $("btnExport");
+  if(expBtn) expBtn.onclick = exportData;
+  document.querySelectorAll(".seg button").forEach(b=>{
+    b.onclick = ()=>{ trendMode = b.dataset.tm; const box=$("trendBox"); if(box) box.innerHTML = trendSvg(loadHistory(),trendMode,"dark");
+      document.querySelectorAll(".seg button").forEach(x=>x.classList.toggle("on",x===b)); };
+  });
 }
+
+function requirePro(fn){ if(isPro()) fn(); else openPaywall(); }
 
 $("lang").addEventListener("change",(e)=>{
   locale = e.target.value;
   localStorage.setItem("hawkins_lang",locale);
   render();
+  if($("paywall").classList.contains("open")) fillPaywall();
 });
 
-/* ================= share card (1080x1920 canvas) ================= */
+/* ================= paywall ================= */
+function openPaywall(){ fillPaywall(); $("paywall").classList.add("open"); }
+function fillPaywall(){
+  const u = T().ui;
+  $("pwTitle").textContent = u.paywallTitle;
+  $("pwSub").textContent = u.paywallSub;
+  $("pwFeats").innerHTML = u.pwFeatures.map(f=>`<li>${f}</li>`).join("");
+  $("pwPrice").innerHTML = `${PRICING[payCur].m} <span>/ ${u.perMonth}</span>`;
+  $("pwYear").textContent = `${PRICING[payCur].y} / ${u.perYear}`;
+  $("pwMethods").innerHTML = METHODS_BY_CUR[payCur].map(m=>
+    `<div class="pw-method"><span>${u.methods[m]}</span><em>${u.comingSoon}</em></div>`).join("");
+  $("pwNote").textContent = u.payBuilding;
+  $("seedInput").placeholder = u.seedPlaceholder;
+  $("btnSeed").textContent = u.unlock;
+  $("pwClose").textContent = u.laterBtn;
+  document.querySelectorAll("#curTabs button").forEach(b=>b.classList.toggle("on",b.dataset.cur===payCur));
+  $("seedErr").textContent = "";
+}
+document.querySelectorAll("#curTabs button").forEach(b=>{
+  b.addEventListener("click",()=>{ payCur = b.dataset.cur; fillPaywall(); });
+});
+$("btnSeed").addEventListener("click",()=>{
+  if(tryCode($("seedInput").value)){
+    $("paywall").classList.remove("open");
+    toast(T().ui.seedOk);
+    if(state.screen==="result") render();
+  } else {
+    $("seedErr").textContent = T().ui.seedInvalid;
+  }
+});
+$("pwClose").addEventListener("click",()=>$("paywall").classList.remove("open"));
+$("paywall").addEventListener("click",(e)=>{ if(e.target.id==="paywall") $("paywall").classList.remove("open"); });
+
+/* ================= ICS weekly anchor ================= */
+function downloadIcs(){
+  const u = T().ui;
+  const day = +($("remDay").value||1);
+  const time = ($("remTime").value||"08:00");
+  const [hh,mm] = time.split(":").map(Number);
+  const now = new Date();
+  const next = new Date(now);
+  next.setDate(now.getDate() + ((day - now.getDay() + 7) % 7 || 7));
+  next.setHours(hh,mm,0,0);
+  const p2 = (n)=>String(n).padStart(2,"0");
+  const dt = `${next.getFullYear()}${p2(next.getMonth()+1)}${p2(next.getDate())}T${p2(hh)}${p2(mm)}00`;
+  const byday = ["SU","MO","TU","WE","TH","FR","SA"][day];
+  const stamp = `${now.getFullYear()}${p2(now.getMonth()+1)}${p2(now.getDate())}T${p2(now.getHours())}${p2(now.getMinutes())}00`;
+  const ics = [
+    "BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//EnergyAwareness//Anchor//EN",
+    "BEGIN:VEVENT",
+    `UID:anchor-${day}-${time.replace(":","")}@energy-awareness`,
+    `DTSTAMP:${stamp}`,
+    `DTSTART:${dt}`,
+    `RRULE:FREQ=WEEKLY;BYDAY=${byday}`,
+    `SUMMARY:${u.reminderEvent}`,
+    `DESCRIPTION:${location.origin}${location.pathname}`,
+    "END:VEVENT","END:VCALENDAR"
+  ].join("\r\n");
+  const blob = new Blob([ics],{type:"text/calendar;charset=utf-8"});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "energy-anchor.ics";
+  document.body.appendChild(a); a.click(); a.remove();
+  toast(u.seedOk.split("。")[0] || "OK");
+}
+
+/* ================= data export ================= */
+function exportData(){
+  const payload = {
+    exported: new Date().toISOString(),
+    seed: localStorage.getItem("hawkins_seed")||null,
+    lang: locale,
+    history: loadHistory()
+  };
+  const blob = new Blob([JSON.stringify(payload,null,2)],{type:"application/json"});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "energy-data.json";
+  document.body.appendChild(a); a.click(); a.remove();
+}
+
+/* ================= A4 hypothesis report ================= */
+function exportReport(){
+  const u = T().ui;
+  const r = currentResult();
+  const archT = T().archetypes[r.arch.k];
+  const la = T().levels[levelOf(r.a).k];
+  const lb = T().levels[levelOf(r.b).k];
+  const lo = T().levels[levelOf(r.overall).k];
+  const gapBig = r.gap > 100;
+  const history = loadHistory();
+  const now = new Date();
+  const p2 = (n)=>String(n).padStart(2,"0");
+  const dateStr = `${now.getFullYear()}.${p2(now.getMonth()+1)}.${p2(now.getDate())}`;
+
+  $("reportRoot").innerHTML = `
+    <div class="rp-head">
+      <div>
+        <div class="rp-brand">${u.appTitle}</div>
+        <div class="rp-doc">${u.reportTitle}</div>
+      </div>
+      <div class="rp-date">${dateStr}${localStorage.getItem("hawkins_seed")?` · ${localStorage.getItem("hawkins_seed")}`:""}</div>
+    </div>
+    <div class="rp-sec">
+      <h2>01 · ${u.rSec1}</h2>
+      <div class="rp-grid">
+        <div class="rp-cell"><div class="l">${u.innerBase}</div><div class="v">${r.a}</div><div class="n">${la}</div></div>
+        <div class="rp-cell"><div class="l">${u.stressFreq}</div><div class="v">${r.b}</div><div class="n">${lb}</div></div>
+        <div class="rp-cell"><div class="l">${u.overallLabel}</div><div class="v">${r.overall}</div><div class="n">${lo} · ${archT.name}</div></div>
+      </div>
+    </div>
+    <div class="rp-sec">
+      <h2>02 · ${u.rSec2}</h2>
+      <span class="rp-tagline">${u.gapLabel} ${r.gap} · ${gapBig?u.lossTag:u.stableTag}</span>
+      <p>${gapBig?u.gapWarn:u.gapOk}</p>
+    </div>
+    <div class="rp-sec">
+      <h2>03 · ${u.rSec3}</h2>
+      <p>${archT.insight}</p>
+    </div>
+    ${history.length>=2?`<div class="rp-sec">
+      <h2>04 · ${u.rSec4}</h2>
+      <div style="max-width:120mm">${trendSvg(history,"both","print")}</div>
+    </div>`:""}
+    <div class="rp-sec">
+      <h2>${history.length>=2?"05":"04"} · ${u.rSec5}</h2>
+      <ol class="rp-actions">${archT.actions.map(x=>`<li>${x}</li>`).join("")}</ol>
+    </div>
+    <div class="rp-sec">
+      <h2>${history.length>=2?"06":"05"} · ${u.rSec6}</h2>
+      <div class="rp-notes"><div class="hint">${u.notesHint}</div></div>
+    </div>
+    <div class="rp-consult">
+      <div class="t">${u.consultTitle}</div>
+      <p>${u.consultDesc}</p>
+      <div class="mail">${CONSULT_MAIL}</div>
+    </div>
+    <div class="rp-foot">${u.reportFooter} · ${location.host||"energy-awareness"}</div>
+  `;
+  toast(u.printHint);
+  setTimeout(()=>window.print(),350);
+}
+
+/* ================= share card (1080x1920 canvas, dark) ================= */
 let lastCardDataUrl = null;
 
 function roundedRect(ctx,x,y,w,h,r){
@@ -681,91 +1202,91 @@ function roundedRect(ctx,x,y,w,h,r){
 
 function openShareCard(){
   const u = T().ui;
-  const a = avg(state.answers.slice(0,DOMAIN_A_COUNT));
-  const b = avg(state.answers.slice(DOMAIN_A_COUNT));
-  const overall = Math.round((a+b)/2);
-  const arch = archetypeOf(overall);
-  const archT = T().archetypes[arch.k];
-  const lo = T().levels[levelOf(overall).k];
-  const la = T().levels[levelOf(a).k];
-  const lb = T().levels[levelOf(b).k];
+  const r = currentResult();
+  const archT = T().archetypes[r.arch.k];
+  const lo = T().levels[levelOf(r.overall).k];
+  const la = T().levels[levelOf(r.a).k];
+  const lb = T().levels[levelOf(r.b).k];
 
   const W=1080,H=1920;
   const cv=document.createElement("canvas");
   cv.width=W; cv.height=H;
   const ctx=cv.getContext("2d");
-  const FONT='-apple-system,BlinkMacSystemFont,"PingFang TC","PingFang SC","Hiragino Sans","Yu Gothic","Microsoft JhengHei","Microsoft YaHei","Malgun Gothic",sans-serif';
+  const SANS='-apple-system,BlinkMacSystemFont,"PingFang TC","PingFang SC","Hiragino Sans","Yu Gothic","Microsoft JhengHei","Microsoft YaHei","Malgun Gothic",sans-serif';
+  const SERIF='Georgia,"Noto Serif TC","Songti TC","Songti SC","Yu Mincho",PMingLiU,SimSun,serif';
 
-  /* background gradient */
+  /* obsidian background */
   const g=ctx.createLinearGradient(0,0,0,H);
-  g.addColorStop(0,"#FDFDFC");
-  g.addColorStop(.45,arch.c2);
-  g.addColorStop(1,arch.c1);
+  g.addColorStop(0,"#0C0C0E");
+  g.addColorStop(.55,"#0A0A0B");
+  g.addColorStop(1,"#101012");
   ctx.fillStyle=g; ctx.fillRect(0,0,W,H);
 
-  /* soft aura circles */
-  const circle=(cx,cy,r,color,alpha)=>{
-    const rg=ctx.createRadialGradient(cx,cy,0,cx,cy,r);
+  /* aura glow circles */
+  const circle=(cx,cy,rad,color,alpha)=>{
+    const rg=ctx.createRadialGradient(cx,cy,0,cx,cy,rad);
     rg.addColorStop(0,color+Math.round(alpha*255).toString(16).padStart(2,"0"));
     rg.addColorStop(1,color+"00");
-    ctx.fillStyle=rg; ctx.beginPath(); ctx.arc(cx,cy,r,0,Math.PI*2); ctx.fill();
+    ctx.fillStyle=rg; ctx.beginPath(); ctx.arc(cx,cy,rad,0,Math.PI*2); ctx.fill();
   };
-  circle(W*0.82,H*0.12,330,"#FFFFFF",.85);
-  circle(W*0.15,H*0.34,260,arch.c1,.5);
-  circle(W*0.5,H*0.62,420,"#FFFFFF",.55);
+  circle(W*0.5,640,560,r.arch.c1,.22);
+  circle(W*0.85,H*0.1,300,"#B89947",.10);
+  circle(W*0.12,H*0.8,320,r.arch.c1,.10);
 
   /* header */
   ctx.textAlign="center";
-  ctx.fillStyle="#374151";
-  ctx.font=`300 44px ${FONT}`;
+  ctx.fillStyle="#E4E4E7";
+  ctx.font=`300 44px ${SANS}`;
   ctx.fillText(u.appTitle, W/2, 170);
-  ctx.fillStyle="#9CA3AF";
-  ctx.font=`300 30px ${FONT}`;
-  ctx.fillText(u.cardTag, W/2, 240);
+  ctx.fillStyle="#B89947";
+  ctx.font=`400 30px ${SANS}`;
+  ctx.fillText(u.cardTag, W/2, 242);
 
   /* main aura */
-  const auraY=640, auraR=270;
+  const auraY=640, auraR=265;
   const rg=ctx.createRadialGradient(W/2-auraR*0.25,auraY-auraR*0.3,auraR*0.1,W/2,auraY,auraR);
   rg.addColorStop(0,"#FFFFFF");
-  rg.addColorStop(.45,arch.c2);
-  rg.addColorStop(.8,arch.c1);
-  rg.addColorStop(1,arch.deep);
+  rg.addColorStop(.4,r.arch.c2);
+  rg.addColorStop(.78,r.arch.c1);
+  rg.addColorStop(1,r.arch.deep);
   ctx.save();
-  ctx.shadowColor=arch.deep+"66"; ctx.shadowBlur=90;
+  ctx.shadowColor=r.arch.c1+"AA"; ctx.shadowBlur=110;
   ctx.fillStyle=rg; ctx.beginPath(); ctx.arc(W/2,auraY,auraR,0,Math.PI*2); ctx.fill();
   ctx.restore();
 
   /* archetype name */
-  ctx.fillStyle="#374151";
-  ctx.font=`500 88px ${FONT}`;
-  ctx.fillText(archT.name, W/2, 1080);
-  ctx.fillStyle=arch.deep;
-  ctx.font=`400 40px ${FONT}`;
-  ctx.fillText(`${u.levelOf} · ${lo}`, W/2, 1160);
+  ctx.fillStyle="#F0EDE4";
+  ctx.font=`500 92px ${SERIF}`;
+  ctx.fillText(archT.name, W/2, 1085);
+  ctx.fillStyle="#B89947";
+  ctx.font=`400 40px ${SANS}`;
+  ctx.fillText(`${u.levelOf} · ${lo}`, W/2, 1165);
 
   /* two-domain panel */
   ctx.save();
-  ctx.fillStyle="rgba(255,255,255,.72)";
-  roundedRect(ctx,110,1250,W-220,300,46); ctx.fill();
-  ctx.fillStyle="#9CA3AF"; ctx.font=`300 32px ${FONT}`;
-  ctx.fillText(u.innerBase, W*0.31, 1350);
-  ctx.fillText(u.stressFreq, W*0.69, 1350);
-  ctx.fillStyle="#78866B"; ctx.font=`500 64px ${FONT}`;
-  ctx.fillText(la, W*0.31, 1450);
-  ctx.fillStyle="#7B86B8";
-  ctx.fillText(lb, W*0.69, 1450);
-  ctx.strokeStyle="rgba(156,163,175,.35)"; ctx.lineWidth=2;
-  ctx.beginPath(); ctx.moveTo(W/2,1300); ctx.lineTo(W/2,1500); ctx.stroke();
+  ctx.fillStyle="rgba(255,255,255,.05)";
+  roundedRect(ctx,110,1255,W-220,300,46); ctx.fill();
+  ctx.strokeStyle="rgba(255,255,255,.09)"; ctx.lineWidth=2;
+  roundedRect(ctx,110,1255,W-220,300,46); ctx.stroke();
+  ctx.fillStyle="#A1A1AA"; ctx.font=`300 32px ${SANS}`;
+  ctx.fillText(u.innerBase, W*0.31, 1355);
+  ctx.fillText(u.stressFreq, W*0.69, 1355);
+  ctx.fillStyle="#B89947"; ctx.font=`500 64px ${SERIF}`;
+  ctx.fillText(la, W*0.31, 1458);
+  ctx.fillStyle="#9DB39D";
+  ctx.fillText(lb, W*0.69, 1458);
+  ctx.strokeStyle="rgba(255,255,255,.12)";
+  ctx.beginPath(); ctx.moveTo(W/2,1305); ctx.lineTo(W/2,1505); ctx.stroke();
   ctx.restore();
 
   /* date + CTA */
   const now=new Date();
   const dateStr=`${now.getFullYear()}.${String(now.getMonth()+1).padStart(2,"0")}.${String(now.getDate()).padStart(2,"0")}`;
-  ctx.fillStyle="#6B7280"; ctx.font=`300 34px ${FONT}`;
+  ctx.fillStyle="#71717A"; ctx.font=`300 34px ${SANS}`;
   ctx.fillText(dateStr, W/2, 1660);
-  ctx.fillStyle="#374151"; ctx.font=`400 38px ${FONT}`;
-  ctx.fillText(u.cardCta, W/2, 1770);
-  ctx.fillStyle="#6B7280"; ctx.font=`300 30px ${FONT}`;
+  ctx.fillStyle="#E4E4E7"; ctx.font=`400 38px ${SANS}`;
+  ctx.fillText(u.cardCta, W/2, 1768);
+  ctx.fillStyle="#B89947"; ctx.font=`300 30px ${SANS}`;
   ctx.fillText(location.host ? location.host+location.pathname : "energy-awareness", W/2, 1830);
 
   lastCardDataUrl = cv.toDataURL("image/png");
