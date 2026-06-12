@@ -4,6 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#0A0A0B">
+<meta property="og:title" content="意識能量覺察 · Energy Awareness">
+<meta property="og:description" content="基於大衛・霍金斯意識能量層級的雙軌測定。定位內在基準，量化壓力耗損。">
+<meta property="og:type" content="website">
 <title>意識能量覺察 · Energy Awareness</title>
 <style>
   :root{
@@ -361,19 +364,21 @@
 
 <script>
 /* ================= constants ================= */
-const Q_VALUES = [
-  [50, 100, 250, 540],
-  [150, 100, 200, 350],
-  [30, 50, 350, 500],
-  [75, 125, 310, 500],
-  [100, 250, 310, 540],
-  [100, 150, 310, 400],
-  [75, 175, 400, 350],
-  [100, 175, 310, 500],
-  [50, 150, 400, 540],
-  [100, 50, 200, 310],
-];
+/* 30-question bank: 15 per domain; each test draws 5+5 at random */
+const BANK_V = {
+  a: [
+    [50,100,250,540],[150,100,200,350],[30,50,350,500],[75,125,310,500],[100,250,310,540],
+    [100,50,250,310],[30,100,350,500],[20,125,350,500],[100,150,400,250],[50,100,540,310],
+    [30,75,350,500],[100,150,400,500],[75,150,250,500],[100,125,250,500],[30,125,350,540]
+  ],
+  b: [
+    [100,150,310,400],[75,175,400,350],[100,175,310,500],[50,150,400,540],[100,50,200,310],
+    [100,150,400,350],[75,150,310,350],[100,150,200,310],[100,50,400,310],[50,75,310,540],
+    [100,150,250,350],[75,175,310,400],[20,175,400,500],[100,150,400,350],[100,175,200,540]
+  ]
+};
 const DOMAIN_A_COUNT = 5;
+const TOTAL_Q = 10;
 
 const LEVELS = [
   {v:540,k:"joy"},{v:500,k:"love"},{v:400,k:"reason"},{v:350,k:"acceptance"},
@@ -453,17 +458,39 @@ const I18N = {
     resonant:{name:"愛的共鳴者", insight:"您的頻率以愛與喜悅為主導，能自然滋養周圍的人。請持續守護此狀態，並在高壓情境中為自己設立清晰的能量邊界。",
       actions:["為高耗能關係設定明確的時間邊界","將您的狀態管理方法輸出給一位同事或夥伴","每週保留一次獨處充電的固定區間"]},
   },
-  questions:[
+  qa:[
     {t:"早晨醒來，你最常浮現的第一個念頭是？",o:["好累，真不想起床","有點擔心今天的安排","平靜醒來，按自己的步調開始","期待今天，感覺充滿可能"]},
     {t:"計畫被突然打亂時，你通常會？",o:["煩躁，忍不住想發脾氣","焦慮，反覆想著最壞的情況","鼓起勁面對，相信自己能處理","接受變化，重新安排就好"]},
     {t:"獨處的時候，你內心多半是？",o:["反覆想起讓自己後悔的事","有點空虛，提不起勁","安穩自在，享受自己的節奏","心懷感謝，覺得生活很美好"]},
     {t:"看到朋友獲得你也想要的成就時？",o:["覺得自己不如人，有點低落","表面祝福，心裡不是滋味","受到激勵，想跟著行動","真心替他高興"]},
     {t:"想到「未來」，你的整體感覺是？",o:["茫然，不太敢多想","沒什麼特別感覺，順其自然","有方向，正一步步前進","充滿信任，相信會越來越好"]},
+    {t:"滑手機看到負面新聞時，你通常？",o:["越看越焦慮，停不下來","覺得世界就是這樣，麻木了","看完就放下，回到自己的生活","想著自己能做點什麼微小的事"]},
+    {t:"夜深準備入睡時，腦中通常浮現？",o:["今天說錯的話、做錯的事","明天的待辦與不確定","平靜回顧，今天這樣就挺好","對今天的小事心存感謝"]},
+    {t:"看著鏡子裡的自己，你最常有的感覺是？",o:["不太想多看","先挑出不滿意的地方","接受現在的樣子","喜歡並欣賞現在的自己"]},
+    {t:"收到一筆意外的帳單或開銷時？",o:["整天心神不寧","氣自己或氣別人","調整預算，處理掉就好","錢再賺就有，不影響心情"]},
+    {t:"週末完全沒有安排時，你會？",o:["躺一整天，但休息完更空虛","焦慮自己是不是在浪費時間","隨心安排，享受自由","著手做想做很久的事"]},
+    {t:"回想過去的某段遺憾，你現在的感受是？",o:["仍然會痛，常常自責","浮現時帶著一陣悶悶的難過","已能平靜看待，那是養分","感謝那段經歷成就了現在的我"]},
+    {t:"身體出現小狀況（頭痛、失眠）時，你會？",o:["擔心是不是大病的前兆","煩躁，覺得身體拖累自己","觀察並調整作息","當作身體的提醒，善待自己"]},
+    {t:"朋友臨時取消和你的約，你會？",o:["懷疑自己是不是不重要","有點不爽，覺得不被尊重","沒關係，多出自己的時間","關心對方是不是發生了什麼事"]},
+    {t:"對於「金錢」，你最接近的心態是？",o:["總覺得不夠，常常擔心","要賺更多才有安全感","夠用就好，是工具不是目的","相信流動，樂於分享"]},
+    {t:"想到「自己的人生到目前為止」，你會？",o:["覺得辜負了很多期待","不上不下，有點不甘心","大致滿意，問心無愧","充滿感謝，每一步都有意義"]},
+  ],
+  qb:[
     {t:"主管臨時加派任務給你，你的第一反應是？",o:["不敢拒絕，硬吞下來","火氣上來，覺得被剝削","視為機會，主動接下並安排","冷靜評估手上工作，再協調優先順序"]},
     {t:"會議上你的意見被當眾否定，你會？",o:["沉默不語，事後一直耿耿於懷","立刻防衛反擊，捍衛自己的立場","聽完對方的理由，就事論事討論","感謝不同觀點，試著整合出更好的方案"]},
     {t:"面對職場中的競爭，你通常？",o:["提防同事，擔心被超越","一定要贏，輸了很沒面子","專注在自己的成長上","樂於合作，相信可以雙贏"]},
     {t:"壓力特別大的那幾週，你的狀態是？",o:["麻木硬撐，下班只想躺著","變得易怒，容易遷怒身邊的人","刻意安排休息，主動調節節奏","忙碌中仍能感受到成就與樂趣"]},
     {t:"明天要向高層做重要簡報，今晚的你？",o:["緊張到睡不好，反覆想像搞砸的畫面","心想「隨便，講完就好」","有點緊張，但相信自己準備得夠了","躍躍欲試，期待展現成果"]},
+    {t:"下班後仍收到工作訊息，你會？",o:["立刻緊張，怕漏接被罵","憤怒，覺得私人時間被侵犯","判斷緊急程度，再決定回不回","守住界線，非緊急明天處理"]},
+    {t:"同事把你的功勞歸到自己身上，你會？",o:["吞下去，但好幾天悶悶不樂","找機會反擊或討回來","適時讓主管知道實際分工","自我價值不受影響，繼續做好事情"]},
+    {t:"被指派完全沒做過的新任務時？",o:["怕搞砸，壓力大到想逃","抱怨為什麼不找別人","既然來了，邊做邊學","興奮，正好擴充能力版圖"]},
+    {t:"部門出現裁員或重組的傳聞時？",o:["整天打聽消息，無心工作","麻木，反正輪不到自己決定","更新履歷，為各種可能做準備","視為轉機，思考下一步佈局"]},
+    {t:"你對目前工作的整體感受是？",o:["撐著，為了薪水忍耐","常常委屈，覺得不被看見","穩定發揮，仍有成長空間","大致熱愛，常有成就感"]},
+    {t:"與難相處的客戶或窗口往來時？",o:["每次互動前都很焦慮","對方一刁難就火氣上來","公事公辦，不帶情緒","試著理解對方立場，找雙方都行的解法"]},
+    {t:"你的提案被擱置好幾週，你會？",o:["認定自己不被重視","不滿決策效率，私下抱怨","主動詢問卡點，調整後再提","理解優先序，時機到了再推進"]},
+    {t:"看到年資比你淺的人升遷比你快？",o:["懷疑自己是不是能力不足","不服氣，覺得不公平","分析對方做對了什麼，借鏡","真誠祝賀，專注自己的節奏"]},
+    {t:"重要專案進度嚴重落後時，你會？",o:["失眠，反覆想著最壞結果","怪罪隊友或資源不足","重排優先序，砍掉非必要項目","召集團隊坦誠溝通，一起趕上"]},
+    {t:"需要在會議中當眾發言時？",o:["心跳加速，能躲就躲","擔心說錯話損害形象","準備好就上，平常心","享受表達與交流的過程"]},
   ],
 },
 "zh-CN": {
@@ -522,17 +549,39 @@ const I18N = {
     resonant:{name:"爱的共鸣者", insight:"您的频率以爱与喜悦为主导，能自然滋养周围的人。请持续守护此状态，并在高压情境中为自己设立清晰的能量边界。",
       actions:["为高耗能关系设定明确的时间边界","将您的状态管理方法输出给一位同事或伙伴","每周保留一次独处充电的固定区间"]},
   },
-  questions:[
+  qa:[
     {t:"早晨醒来，你最常浮现的第一个念头是？",o:["好累，真不想起床","有点担心今天的安排","平静醒来，按自己的节奏开始","期待今天，感觉充满可能"]},
     {t:"计划被突然打乱时，你通常会？",o:["烦躁，忍不住想发脾气","焦虑，反复想着最坏的情况","鼓起劲面对，相信自己能处理","接受变化，重新安排就好"]},
     {t:"独处的时候，你内心多半是？",o:["反复想起让自己后悔的事","有点空虚，提不起劲","安稳自在，享受自己的节奏","心怀感谢，觉得生活很美好"]},
     {t:"看到朋友获得你也想要的成就时？",o:["觉得自己不如人，有点低落","表面祝福，心里不是滋味","受到激励，想跟着行动","真心替他高兴"]},
     {t:"想到「未来」，你的整体感觉是？",o:["茫然，不太敢多想","没什么特别感觉，顺其自然","有方向，正一步步前进","充满信任，相信会越来越好"]},
+    {t:"刷手机看到负面新闻时，你通常？",o:["越看越焦虑，停不下来","觉得世界就是这样，麻木了","看完就放下，回到自己的生活","想着自己能做点什么微小的事"]},
+    {t:"夜深准备入睡时，脑中通常浮现？",o:["今天说错的话、做错的事","明天的待办与不确定","平静回顾，今天这样就挺好","对今天的小事心存感谢"]},
+    {t:"看着镜子里的自己，你最常有的感觉是？",o:["不太想多看","先挑出不满意的地方","接受现在的样子","喜欢并欣赏现在的自己"]},
+    {t:"收到一笔意外的账单或开销时？",o:["整天心神不宁","气自己或气别人","调整预算，处理掉就好","钱再赚就有，不影响心情"]},
+    {t:"周末完全没有安排时，你会？",o:["躺一整天，但休息完更空虚","焦虑自己是不是在浪费时间","随心安排，享受自由","着手做想做很久的事"]},
+    {t:"回想过去的某段遗憾，你现在的感受是？",o:["仍然会痛，常常自责","浮现时带着一阵闷闷的难过","已能平静看待，那是养分","感谢那段经历成就了现在的我"]},
+    {t:"身体出现小状况（头痛、失眠）时，你会？",o:["担心是不是大病的前兆","烦躁，觉得身体拖累自己","观察并调整作息","当作身体的提醒，善待自己"]},
+    {t:"朋友临时取消和你的约，你会？",o:["怀疑自己是不是不重要","有点不爽，觉得不被尊重","没关系，多出自己的时间","关心对方是不是发生了什么事"]},
+    {t:"对于「金钱」，你最接近的心态是？",o:["总觉得不够，常常担心","要赚更多才有安全感","够用就好，是工具不是目的","相信流动，乐于分享"]},
+    {t:"想到「自己的人生到目前为止」，你会？",o:["觉得辜负了很多期待","不上不下，有点不甘心","大致满意，问心无愧","充满感谢，每一步都有意义"]},
+  ],
+  qb:[
     {t:"领导临时给你加派任务，你的第一反应是？",o:["不敢拒绝，硬吞下来","火气上来，觉得被压榨","视为机会，主动接下并安排","冷静评估手头工作，再协调优先级"]},
     {t:"会议上你的意见被当众否定，你会？",o:["沉默不语，事后一直耿耿于怀","立刻防卫反击，捍卫自己的立场","听完对方的理由，就事论事讨论","感谢不同观点，尝试整合出更好的方案"]},
     {t:"面对职场中的竞争，你通常？",o:["提防同事，担心被超越","一定要赢，输了很没面子","专注在自己的成长上","乐于合作，相信可以双赢"]},
     {t:"压力特别大的那几周，你的状态是？",o:["麻木硬撑，下班只想躺着","变得易怒，容易迁怒身边的人","刻意安排休息，主动调节节奏","忙碌中仍能感受到成就与乐趣"]},
     {t:"明天要向高层做重要汇报，今晚的你？",o:["紧张到睡不好，反复想象搞砸的画面","心想「随便，讲完就好」","有点紧张，但相信自己准备得够了","跃跃欲试，期待展现成果"]},
+    {t:"下班后仍收到工作消息，你会？",o:["立刻紧张，怕漏看被批评","愤怒，觉得私人时间被侵犯","判断紧急程度，再决定回不回","守住边界，非紧急明天处理"]},
+    {t:"同事把你的功劳归到自己身上，你会？",o:["吞下去，但好几天闷闷不乐","找机会反击或讨回来","适时让领导知道实际分工","自我价值不受影响，继续做好事情"]},
+    {t:"被指派完全没做过的新任务时？",o:["怕搞砸，压力大到想逃","抱怨为什么不找别人","既然来了，边做边学","兴奋，正好扩充能力版图"]},
+    {t:"部门出现裁员或重组的传闻时？",o:["整天打听消息，无心工作","麻木，反正轮不到自己决定","更新简历，为各种可能做准备","视为转机，思考下一步布局"]},
+    {t:"你对目前工作的整体感受是？",o:["撑着，为了工资忍耐","常常委屈，觉得不被看见","稳定发挥，仍有成长空间","大致热爱，常有成就感"]},
+    {t:"与难相处的客户或对接人往来时？",o:["每次沟通前都很焦虑","对方一刁难就火气上来","公事公办，不带情绪","试着理解对方立场，找双方都行的解法"]},
+    {t:"你的方案被搁置好几周，你会？",o:["认定自己不被重视","不满决策效率，私下抱怨","主动询问卡点，调整后再提","理解优先级，时机到了再推进"]},
+    {t:"看到资历比你浅的人晋升比你快？",o:["怀疑自己是不是能力不足","不服气，觉得不公平","分析对方做对了什么，借鉴","真诚祝贺，专注自己的节奏"]},
+    {t:"重要项目进度严重落后时，你会？",o:["失眠，反复想着最坏结果","怪罪队友或资源不足","重排优先级，砍掉非必要项","召集团队坦诚沟通，一起赶上"]},
+    {t:"需要在会议中当众发言时？",o:["心跳加速，能躲就躲","担心说错话损害形象","准备好就上，平常心","享受表达与交流的过程"]},
   ],
 },
 "en": {
@@ -591,17 +640,39 @@ const I18N = {
     resonant:{name:"The Resonant Heart", insight:"Love and joy lead your frequency, and you naturally nourish those around you. Guard this state, and set clear energy boundaries in high-pressure contexts.",
       actions:["Set explicit time boundaries for high-drain relationships","Teach your state-management method to one colleague or partner","Reserve one fixed solo-recharge interval each week"]},
   },
-  questions:[
+  qa:[
     {t:"What's usually your first thought when you wake up?",o:["So tired — I really don't want to get up","A little worried about today's schedule","I wake calmly and start at my own pace","Excited — today feels full of possibility"]},
     {t:"When plans suddenly fall apart, you usually…",o:["Get irritated and snap","Feel anxious, replaying worst-case scenarios","Brace yourself — you trust you can handle it","Accept the change and simply re-plan"]},
     {t:"When you're alone, your inner state is mostly…",o:["Replaying things I regret","A bit empty and unmotivated","Settled and at ease with my own rhythm","Grateful — life feels good"]},
     {t:"A friend achieves something you also want. You…",o:["Feel inferior and a little down","Congratulate them, but it stings inside","Feel inspired to take action too","Are genuinely happy for them"]},
     {t:"When you think about the future, you feel…",o:["Lost — I'd rather not think about it","Nothing special, I just go with the flow","Directed — I'm moving step by step","Trusting — things keep getting better"]},
+    {t:"Scrolling through negative news, you usually…",o:["Get more and more anxious — can't stop","Feel numb — the world is just like this","Read it, set it down, return to my life","Think of one small thing I could do"]},
+    {t:"Lying in bed before sleep, your mind drifts to…",o:["Things I said or did wrong today","Tomorrow's to-dos and uncertainties","A calm review — today was fine as it was","Gratitude for today's small moments"]},
+    {t:"Looking at yourself in the mirror, you mostly feel…",o:["I'd rather not look too long","I pick at the parts I dislike first","I accept how I look now","I like and appreciate who I see"]},
+    {t:"An unexpected bill or expense arrives. You…",o:["Feel uneasy the whole day","Get angry at yourself or others","Adjust the budget and just handle it","Money can be earned again — mood intact"]},
+    {t:"A weekend with no plans at all. You…",o:["Lie around all day but feel emptier after","Worry that I'm wasting time","Follow my mood and enjoy the freedom","Start something I've long wanted to do"]},
+    {t:"Recalling an old regret, you now feel…",o:["It still hurts — I often blame myself","A dull sadness whenever it surfaces","At peace — it became nourishment","Grateful — it shaped who I am"]},
+    {t:"A minor health issue appears (headache, poor sleep). You…",o:["Worry it signals something serious","Get annoyed my body is slowing me down","Observe it and adjust my routine","Take it as a reminder to be kind to myself"]},
+    {t:"A friend cancels your plans last minute. You…",o:["Wonder if I just don't matter to them","Feel disrespected and annoyed","No problem — extra time for myself","Check if something happened to them"]},
+    {t:"Your relationship with money is closest to…",o:["Never enough — I worry about it often","I need more to feel secure","Enough is enough — a tool, not a goal","I trust the flow and enjoy sharing"]},
+    {t:"Thinking about your life so far, you…",o:["Feel I've let many expectations down","Feel stuck in between, a bit resentful","Am mostly satisfied, with a clear conscience","Feel deep gratitude — every step had meaning"]},
+  ],
+  qb:[
     {t:"Your boss suddenly adds a task to your plate. First reaction?",o:["I don't dare refuse — I just swallow it","Anger rises — I feel exploited","I see a chance and take it on proactively","I calmly assess my workload, then negotiate priorities"]},
     {t:"Your idea gets shot down in a meeting. You…",o:["Go silent, but it keeps bothering me afterward","Get defensive and fight back immediately","Hear their reasons and discuss it on the merits","Appreciate the other view and try to merge a better plan"]},
     {t:"Facing competition at work, you usually…",o:["Stay guarded — afraid of being overtaken","Must win — losing feels humiliating","Focus on my own growth","Enjoy collaborating — win-win is possible"]},
     {t:"In your most stressful weeks, you are…",o:["Numb, just pushing through, collapsing after work","Irritable — I take it out on people around me","Deliberately scheduling rest to regulate my pace","Still finding achievement and joy in the busyness"]},
     {t:"Big presentation to executives tomorrow. Tonight you…",o:["Can't sleep — imagining it going wrong on repeat","Think “whatever, just get it over with”","Feel a bit nervous but trust your preparation","Feel eager — ready to show your work"]},
+    {t:"Work messages keep arriving after hours. You…",o:["Tense up — afraid of missing one and being blamed","Feel angry — my personal time is invaded","Judge the urgency, then decide whether to reply","Hold the boundary — non-urgent waits until tomorrow"]},
+    {t:"A colleague takes credit for your work. You…",o:["Swallow it, but stay gloomy for days","Look for a chance to strike back","Make sure the manager knows the actual split","My value isn't dented — I keep doing good work"]},
+    {t:"You're assigned a task you've never done before…",o:["Fear of failing makes me want to escape","Complain — why not someone else","It's here now — learn while doing","Excited — a chance to expand my range"]},
+    {t:"Rumors of layoffs or restructuring spread. You…",o:["Spend all day gathering gossip — can't work","Go numb — it's not my call anyway","Update my résumé and prepare for every case","See a turning point and plan my next move"]},
+    {t:"Your overall feeling about your current job is…",o:["Enduring it for the paycheck","Often wronged and unseen","Performing steadily with room to grow","Mostly loving it — frequent achievement"]},
+    {t:"Dealing with a difficult client or counterpart…",o:["I feel anxious before every interaction","One provocation and my temper rises","Strictly business — no emotions attached","I try their perspective and find a workable path"]},
+    {t:"Your proposal has been shelved for weeks. You…",o:["Conclude I'm just not valued","Resent the slow decisions — complain privately","Ask what's blocking it, adjust, resubmit","Understand the priorities — push when timing is right"]},
+    {t:"Someone junior gets promoted faster than you…",o:["Doubt my own competence","Feel it's unfair — hard to accept","Analyze what they did right and learn","Congratulate sincerely and keep my own pace"]},
+    {t:"A key project falls badly behind schedule. You…",o:["Lose sleep replaying the worst outcomes","Blame teammates or the lack of resources","Re-rank priorities and cut the non-essential","Gather the team, speak honestly, catch up together"]},
+    {t:"When you must speak up in a meeting…",o:["Heart races — I avoid it when possible","I worry a wrong word will hurt my image","Prepared, then calm — just do it","I enjoy expressing and exchanging ideas"]},
   ],
 },
 "ja": {
@@ -660,17 +731,39 @@ const I18N = {
     resonant:{name:"愛の共鳴者", insight:"愛と喜びが主導する周波数で、周囲を自然に潤しています。この状態を守りつつ、高圧な場面では明確なエネルギー境界を設定してください。",
       actions:["消耗の大きい関係に明確な時間境界を設定する","自分の状態管理法を同僚や仲間に1人共有する","週1回、独りで充電する固定区間を確保する"]},
   },
-  questions:[
+  qa:[
     {t:"朝目覚めたとき、最初に浮かぶ思いは？",o:["疲れた…起きたくない","今日の予定がちょっと不安","穏やかに、自分のペースで始める","今日が楽しみ。可能性を感じる"]},
     {t:"予定が突然崩れたとき、あなたは？",o:["イライラして、つい当たってしまう","不安で最悪のケースを何度も考える","気を奮い立たせる。対処できると信じている","変化を受け入れて、組み直せばいい"]},
     {t:"ひとりの時間、心の中はだいたい？",o:["後悔したことを何度も思い出す","少し空虚で、やる気が出ない","落ち着いて、自分のリズムを楽しめる","感謝の気持ち。人生は良いものだと感じる"]},
     {t:"友人が、自分も欲しかった成果を手にしたら？",o:["自分は劣っていると少し落ち込む","表では祝うが、心中は複雑","刺激を受けて、自分も動きたくなる","心から一緒に喜べる"]},
     {t:"「未来」を思うとき、全体的な感覚は？",o:["漠然と不安で、あまり考えたくない","特に何も感じない。流れに任せる","方向性があり、一歩ずつ進んでいる","信頼している。きっと良くなっていく"]},
+    {t:"ネガティブなニュースを見ているとき、あなたは？",o:["不安が募り、見るのを止められない","世界はこんなものだと、感覚が鈍くなる","読んだら手放し、自分の生活に戻る","自分にできる小さなことを考える"]},
+    {t:"眠る前、頭に浮かぶのはたいてい？",o:["今日の失言や失敗","明日の予定と不確実なこと","穏やかな振り返り。今日はこれで良かった","今日の小さなことへの感謝"]},
+    {t:"鏡の中の自分に、最もよく抱く感覚は？",o:["あまり長く見たくない","気に入らない部分を先に探してしまう","今の姿を受け入れている","今の自分が好きで、認めている"]},
+    {t:"予想外の出費や請求が来たら？",o:["一日中落ち着かない","自分や誰かに腹が立つ","予算を調整して処理すればいい","お金はまた稼げる。気分は変わらない"]},
+    {t:"何も予定のない週末は？",o:["一日中横になるが、休んでも虚しい","時間を無駄にしていないか不安になる","気の向くままに過ごし、自由を楽しむ","ずっとやりたかったことに取りかかる"]},
+    {t:"過去のある後悔を思い出すと、今は？",o:["まだ痛む。よく自分を責める","浮かぶたびに鈍い悲しみがある","穏やかに見られる。あれは糧になった","あの経験が今の自分を作ったと感謝している"]},
+    {t:"頭痛や不眠など、体の不調が出たら？",o:["大きな病気の前兆ではと心配になる","体が足を引っ張るとイライラする","観察して生活リズムを整える","体からの合図と受け取り、自分を労わる"]},
+    {t:"友人に直前で約束をキャンセルされたら？",o:["自分は大事にされていないのではと思う","軽く見られた気がして不快になる","気にしない。自分の時間が増えただけ","相手に何かあったのではと気遣う"]},
+    {t:"「お金」に対する心の構えは？",o:["いつも足りない気がして不安","もっと稼がないと安心できない","足るを知る。道具であって目的ではない","流れを信頼し、分かち合いを楽しむ"]},
+    {t:"これまでの人生を思うと？",o:["多くの期待を裏切ってきた気がする","中途半端で、少し悔しい","おおむね満足。恥じることはない","感謝でいっぱい。どの一歩にも意味があった"]},
+  ],
+  qb:[
     {t:"上司から突然タスクを追加されたら、最初の反応は？",o:["断れず、黙って飲み込む","怒りが湧く。搾取されている気がする","チャンスと捉え、主体的に引き受ける","冷静に業務量を見て、優先順位を調整する"]},
     {t:"会議で自分の意見を否定されたら？",o:["黙り込み、後々まで引きずる","すぐ防衛的に反論し、立場を守る","相手の理由を聞き、論点ベースで話し合う","別の視点に感謝し、より良い案に統合する"]},
     {t:"職場の競争に対して、あなたは普段？",o:["同僚を警戒し、追い抜かれることを恐れる","絶対に勝ちたい。負けると面子が立たない","自分の成長に集中する","協力を楽しむ。ウィンウィンを信じている"]},
     {t:"特にストレスの強い数週間、あなたの状態は？",o:["麻痺したまま耐え、帰宅後は寝るだけ","怒りっぽくなり、周囲に当たってしまう","意識的に休息を入れ、ペースを整える","忙しさの中にも達成感と楽しさがある"]},
     {t:"明日は経営層への重要なプレゼン。今夜のあなたは？",o:["失敗する場面を想像して眠れない","「まあ、終わればいい」と思う","少し緊張するが、準備を信じている","腕が鳴る。成果を見せるのが楽しみ"]},
+    {t:"退勤後も仕事の連絡が届いたら？",o:["見逃して叱られないかと緊張する","私的な時間を侵されたと怒りが湧く","緊急度を判断してから返信を決める","境界線を守る。急ぎでなければ明日対応"]},
+    {t:"同僚に手柄を横取りされたら？",o:["飲み込むが、数日間ふさぎ込む","反撃や取り返す機会をうかがう","実際の分担を上司に適切に伝える","自分の価値は揺らがない。良い仕事を続ける"]},
+    {t:"未経験の業務を任されたら？",o:["失敗が怖くて逃げたくなる","なぜ自分なのかと不満を言う","来たからには、やりながら学ぶ","能力の幅を広げる好機だと心が躍る"]},
+    {t:"リストラや再編の噂が流れたら？",o:["一日中情報集めをして仕事が手につかない","どうせ自分には決められないと無感覚になる","履歴書を更新し、あらゆる場合に備える","転機と捉え、次の一手を考える"]},
+    {t:"いまの仕事への全体的な感覚は？",o:["給料のために耐えている","報われず、見てもらえないと感じることが多い","安定して力を発揮でき、成長の余地もある","おおむね好きで、達成感をよく感じる"]},
+    {t:"気難しい顧客や担当者とのやり取りでは？",o:["毎回、前から不安になる","難癖をつけられるとすぐ頭に血が上る","事務的に淡々と、感情は挟まない","相手の立場を理解し、双方が通る道を探す"]},
+    {t:"自分の提案が数週間も保留されたら？",o:["自分は重視されていないと結論づける","決定の遅さに不満を抱き、陰で愚痴る","障害点を確認し、調整して再提案する","優先順位を理解し、時機を見て再度動かす"]},
+    {t:"年次の浅い人が自分より早く昇進したら？",o:["自分の能力不足ではと落ち込む","不公平だと納得できない","相手の成功要因を分析し、参考にする","心から祝い、自分のペースに集中する"]},
+    {t:"重要プロジェクトが大幅に遅延したら？",o:["最悪の結末を繰り返し想像して眠れない","メンバーや資源不足のせいにする","優先順位を組み直し、不要なものを削る","チームを集め、率直に話して共に挽回する"]},
+    {t:"会議で発言を求められたら？",o:["鼓動が速くなり、できれば避けたい","失言でイメージを損なわないか気になる","準備して臨めば、あとは平常心","表現と交流の過程そのものを楽しむ"]},
   ],
 },
 "ko": {
@@ -729,17 +822,39 @@ const I18N = {
     resonant:{name:"사랑의 공명자", insight:"사랑과 기쁨이 주도하는 주파수로 주변을 자연스럽게 채웁니다. 이 상태를 지키되, 고압 상황에서는 명확한 에너지 경계를 설정하십시오.",
       actions:["소모가 큰 관계에 명확한 시간 경계 설정하기","나의 상태 관리법을 동료 한 명에게 공유하기","매주 혼자 충전하는 고정 구간 확보하기"]},
   },
-  questions:[
+  qa:[
     {t:"아침에 눈을 떴을 때 가장 먼저 드는 생각은?",o:["너무 피곤해, 일어나기 싫다","오늘 일정이 조금 걱정된다","차분하게, 내 페이스대로 시작한다","오늘이 기대된다, 가능성이 느껴진다"]},
     {t:"계획이 갑자기 틀어지면 보통 어떤가요?",o:["짜증이 나서 화를 내게 된다","불안해서 최악의 상황을 반복해서 떠올린다","마음을 다잡는다, 해낼 수 있다고 믿는다","변화를 받아들이고 다시 계획하면 된다"]},
     {t:"혼자 있을 때 마음 상태는 대체로?",o:["후회되는 일을 자꾸 떠올린다","조금 공허하고 의욕이 없다","편안하게 나만의 리듬을 즐긴다","감사한 마음, 삶이 좋다고 느낀다"]},
     {t:"친구가 내가 원하던 성취를 이뤘을 때?",o:["내가 부족한 것 같아 조금 가라앉는다","겉으로는 축하하지만 속이 쓰리다","자극을 받아 나도 움직이고 싶어진다","진심으로 함께 기뻐한다"]},
     {t:"'미래'를 떠올리면 전반적인 느낌은?",o:["막막해서 깊이 생각하고 싶지 않다","별 느낌 없이 흘러가는 대로 둔다","방향이 있고 한 걸음씩 나아가고 있다","신뢰한다, 점점 좋아질 거라 믿는다"]},
+    {t:"부정적인 뉴스를 볼 때 보통 어떤가요?",o:["볼수록 불안해져서 멈출 수 없다","세상이 다 그렇지, 무감각해진다","보고 나서 내려놓고 내 삶으로 돌아온다","내가 할 수 있는 작은 일을 생각한다"]},
+    {t:"잠들기 전 머릿속에 주로 떠오르는 것은?",o:["오늘 잘못한 말과 행동","내일의 할 일과 불확실함","차분한 회고, 오늘은 이만하면 됐다","오늘의 작은 일들에 대한 감사"]},
+    {t:"거울 속 나를 볼 때 가장 자주 드는 느낌은?",o:["오래 보고 싶지 않다","마음에 안 드는 부분부터 찾게 된다","지금의 모습을 받아들인다","지금의 나를 좋아하고 인정한다"]},
+    {t:"예상치 못한 지출이나 청구서가 생기면?",o:["하루 종일 마음이 불안하다","나 자신이나 남에게 화가 난다","예산을 조정해서 처리하면 된다","돈은 다시 벌면 된다, 기분은 그대로"]},
+    {t:"아무 계획 없는 주말에는?",o:["하루 종일 누워 있지만 쉬어도 공허하다","시간을 낭비하는 건 아닌지 불안하다","마음 가는 대로 자유를 즐긴다","오래 미뤄둔 하고 싶던 일을 시작한다"]},
+    {t:"지난 후회를 떠올리면 지금의 느낌은?",o:["여전히 아프고 자주 자책한다","떠오를 때마다 묵직한 슬픔이 있다","담담하게 볼 수 있다, 자양분이 되었다","그 경험이 지금의 나를 만들었음에 감사한다"]},
+    {t:"두통·불면 같은 작은 이상이 생기면?",o:["큰 병의 전조가 아닐까 걱정된다","몸이 발목을 잡는 것 같아 짜증난다","관찰하면서 생활 리듬을 조정한다","몸의 신호로 받아들이고 나를 돌본다"]},
+    {t:"친구가 약속을 직전에 취소하면?",o:["내가 중요하지 않은 사람인가 싶다","존중받지 못한 것 같아 불쾌하다","괜찮다, 나만의 시간이 생겼다","무슨 일이 있는 건 아닌지 챙긴다"]},
+    {t:"'돈'에 대한 마음가짐은?",o:["늘 부족한 것 같아 자주 걱정한다","더 벌어야 안심이 된다","쓸 만큼이면 된다, 도구일 뿐 목적이 아니다","흐름을 신뢰하고 나누는 것을 즐긴다"]},
+    {t:"지금까지의 내 인생을 떠올리면?",o:["많은 기대를 저버린 것 같다","이도 저도 아닌 것 같아 조금 분하다","대체로 만족하고 부끄럽지 않다","감사로 가득하다, 모든 걸음에 의미가 있었다"]},
+  ],
+  qb:[
     {t:"상사가 갑자기 업무를 추가로 맡기면 첫 반응은?",o:["거절하지 못하고 그냥 삼킨다","화가 치민다, 착취당하는 기분이다","기회로 여기고 능동적으로 맡는다","업무량을 차분히 따져 우선순위를 조율한다"]},
     {t:"회의에서 내 의견이 공개적으로 부정당하면?",o:["침묵하지만 두고두고 마음에 남는다","즉시 방어하며 내 입장을 지킨다","상대의 이유를 듣고 사안 중심으로 논의한다","다른 관점에 감사하며 더 나은 안으로 통합한다"]},
     {t:"직장 내 경쟁 앞에서 보통 어떤가요?",o:["동료를 경계하고 추월당할까 불안하다","꼭 이겨야 한다, 지면 자존심이 상한다","나 자신의 성장에 집중한다","협력을 즐긴다, 윈윈을 믿는다"]},
     {t:"스트레스가 극심한 몇 주 동안 나의 상태는?",o:["무감각하게 버티고 퇴근 후엔 눕기만 한다","예민해져서 주변에 화풀이하게 된다","의식적으로 휴식을 넣어 페이스를 조절한다","바쁜 와중에도 성취감과 재미를 느낀다"]},
     {t:"내일 경영진 앞에서 중요한 발표가 있다면 오늘 밤은?",o:["망치는 장면이 떠올라 잠이 안 온다","'아무렴 어때, 끝나기만 하면 되지'라고 생각한다","조금 긴장되지만 준비를 믿는다","설렌다, 성과를 보여줄 생각에 기대된다"]},
+    {t:"퇴근 후에도 업무 메시지가 오면?",o:["놓치고 혼날까 봐 바로 긴장한다","사적인 시간을 침해당해 화가 난다","긴급한지 판단한 후 답장 여부를 정한다","경계를 지킨다, 급하지 않으면 내일 처리"]},
+    {t:"동료가 내 공을 가로채면?",o:["삼키지만 며칠간 우울하다","되갚을 기회를 노린다","실제 역할 분담을 상사가 알게 한다","내 가치는 흔들리지 않는다, 계속 잘한다"]},
+    {t:"한 번도 해본 적 없는 업무를 맡으면?",o:["망칠까 두려워 도망치고 싶다","왜 하필 나인지 불평한다","맡은 이상 하면서 배운다","역량을 넓힐 기회라 설렌다"]},
+    {t:"구조조정이나 감원 소문이 돌면?",o:["하루 종일 소문만 모으고 일이 손에 안 잡힌다","어차피 내가 정할 일이 아니라며 무감각해진다","이력서를 갱신하고 모든 경우에 대비한다","전환점으로 보고 다음 수를 구상한다"]},
+    {t:"현재 일에 대한 전반적인 느낌은?",o:["월급 때문에 버티고 있다","자주 억울하고 인정받지 못한다고 느낀다","안정적으로 역량을 내고 성장 여지도 있다","대체로 좋아하고 성취감을 자주 느낀다"]},
+    {t:"까다로운 고객이나 상대와 일할 때?",o:["매번 만나기 전부터 불안하다","트집을 잡히면 바로 화가 치민다","공과 사를 구분해 감정 없이 처리한다","상대의 입장을 이해하고 양쪽 다 통하는 해법을 찾는다"]},
+    {t:"내 제안이 몇 주째 보류되면?",o:["내가 중요하지 않다고 결론짓는다","느린 결정에 불만을 품고 뒤에서 불평한다","걸림돌을 묻고 보완해 다시 제안한다","우선순위를 이해하고 시기가 오면 다시 추진한다"]},
+    {t:"연차가 낮은 사람이 나보다 빨리 승진하면?",o:["내 능력이 부족한가 의심한다","불공평하다, 받아들이기 어렵다","그가 잘한 점을 분석해 배운다","진심으로 축하하고 내 페이스에 집중한다"]},
+    {t:"중요 프로젝트가 심각하게 지연되면?",o:["최악의 결과를 반복해 떠올리며 잠을 설친다","팀원이나 자원 부족을 탓한다","우선순위를 재정렬하고 불필요한 것을 잘라낸다","팀을 모아 솔직하게 소통하며 함께 만회한다"]},
+    {t:"회의에서 공개적으로 발언해야 할 때?",o:["심장이 빨리 뛰고 가능하면 피하고 싶다","말실수로 이미지가 깎일까 걱정된다","준비했으면 평정심으로 임한다","표현하고 교류하는 과정 자체를 즐긴다"]},
   ],
 },
 };
@@ -765,6 +880,35 @@ function detectLocale(){
   return "en";
 }
 
+function shuffle(arr){ const a=arr.slice(); for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); const t=a[i]; a[i]=a[j]; a[j]=t; } return a; }
+function drawSet(poolSize, avoid){
+  const pool = [];
+  for(let i=0;i<poolSize;i++) pool.push(i);
+  let cand = pool.filter(i=>!(avoid||[]).includes(i));
+  if(cand.length < DOMAIN_A_COUNT) cand = pool;
+  return shuffle(cand).slice(0, DOMAIN_A_COUNT);
+}
+function startQuiz(){
+  let last = {a:[],b:[]};
+  try{ last = JSON.parse(localStorage.getItem("hawkins_last_q")||'{"a":[],"b":[]}'); }catch(e){}
+  const quiz = {
+    a: drawSet(BANK_V.a.length, last.a),
+    b: drawSet(BANK_V.b.length, last.b),
+    perm: Array.from({length:TOTAL_Q},()=>shuffle([0,1,2,3]))
+  };
+  state = { screen:"quiz", qIndex:0, answers:[], quiz:quiz };
+  render();
+}
+function quizQuestion(i){
+  const isA = i < DOMAIN_A_COUNT;
+  const bankIdx = isA ? state.quiz.a[i] : state.quiz.b[i-DOMAIN_A_COUNT];
+  return {
+    isA: isA,
+    q: (isA ? T().qa : T().qb)[bankIdx],
+    v: (isA ? BANK_V.a : BANK_V.b)[bankIdx],
+    perm: state.quiz.perm[i]
+  };
+}
 function levelOf(score){ for(const l of LEVELS){ if(score>=l.v) return l; } return LEVELS[LEVELS.length-1]; }
 function archetypeOf(score){ for(const a of ARCHETYPES){ if(score>=a.min) return a; } return ARCHETYPES[ARCHETYPES.length-1]; }
 function avg(arr){ return Math.round(arr.reduce((s,x)=>s+x,0)/arr.length); }
@@ -853,18 +997,17 @@ function viewLanding(){
 function viewQuiz(){
   const u = T().ui;
   const i = state.qIndex;
-  const q = T().questions[i];
-  const isA = i < DOMAIN_A_COUNT;
-  const pct = Math.round((i)/Q_VALUES.length*100);
+  const qq = quizQuestion(i);
+  const pct = Math.round((i)/TOTAL_Q*100);
   return `<div class="fade" id="quizBox">
     <div class="q-top">
-      <span class="q-domain ${isA?"":"b"}">${isA?u.domainA:u.domainB}</span>
-      <span class="q-count">${u.qOf(i+1,Q_VALUES.length)}</span>
+      <span class="q-domain ${qq.isA?"":"b"}">${qq.isA?u.domainA:u.domainB}</span>
+      <span class="q-count">${u.qOf(i+1,TOTAL_Q)}</span>
     </div>
     <div class="progress"><div style="width:${pct}%"></div></div>
-    <div class="q-text">${q.t}</div>
+    <div class="q-text">${qq.q.t}</div>
     <div class="opts">
-      ${q.o.map((opt,oi)=>`<button class="opt" data-oi="${oi}">${opt}</button>`).join("")}
+      ${qq.perm.map(oi=>`<button class="opt" data-oi="${oi}">${qq.q.o[oi]}</button>`).join("")}
     </div>
     ${i>0?`<button class="q-back" id="btnBack">${u.back}</button>`:""}
   </div>`;
@@ -996,19 +1139,23 @@ function trendSvg(history,mode,theme){
 /* ================= events ================= */
 function bindEvents(){
   const start = $("btnStart");
-  if(start) start.onclick = ()=>{ state={screen:"quiz",qIndex:0,answers:[]}; render(); };
+  if(start) start.onclick = startQuiz;
   document.querySelectorAll(".opt").forEach(btn=>{
     btn.onclick = ()=>{
+      if(state.lock) return; /* ignore double-taps during the fade transition */
+      state.lock = true;
       const oi = +btn.dataset.oi;
-      state.answers[state.qIndex] = Q_VALUES[state.qIndex][oi];
+      state.answers[state.qIndex] = quizQuestion(state.qIndex).v[oi];
       const box = $("quizBox");
       if(box){ box.style.transition="opacity .25s ease-in-out"; box.style.opacity="0"; }
       setTimeout(()=>{
-        if(state.qIndex < Q_VALUES.length-1){ state.qIndex++; render(); }
+        state.lock = false;
+        if(state.qIndex < TOTAL_Q-1){ state.qIndex++; render(); }
         else{
           const a = avg(state.answers.slice(0,DOMAIN_A_COUNT));
           const b = avg(state.answers.slice(DOMAIN_A_COUNT));
           saveHistory(a,b);
+          localStorage.setItem("hawkins_last_q", JSON.stringify({a:state.quiz.a, b:state.quiz.b}));
           state.screen="result"; render();
           window.scrollTo({top:0});
         }
@@ -1016,7 +1163,7 @@ function bindEvents(){
     };
   });
   const back = $("btnBack");
-  if(back) back.onclick = ()=>{ if(state.qIndex>0){ state.qIndex--; render(); } };
+  if(back) back.onclick = ()=>{ if(!state.lock && state.qIndex>0){ state.qIndex--; render(); } };
   const retake = $("btnRetake");
   if(retake) retake.onclick = ()=>{ state={screen:"landing",qIndex:0,answers:[]}; render(); window.scrollTo({top:0}); };
   const cardBtn = $("btnCard");
