@@ -151,8 +151,12 @@
   .tag-loss{color:#D4A24E;border:1px solid rgba(212,162,78,.5);}
   .tag-ok{color:#9DB39D;border:1px solid rgba(122,139,122,.5);}
   .tag-pro{color:var(--primary);border:1px solid rgba(184,153,71,.5);}
+  .tag-mid{color:#C9B584;border:1px solid rgba(201,181,132,.5);}
+  .tag-rel{color:#C4836B;border:1px solid rgba(196,131,107,.5);}
   .gap-warn{border-left:2px solid var(--primary-dim);}
   .gap-ok{border-left:2px solid var(--jade);}
+  .gap-mid{border-left:2px solid #A89968;}
+  .rel-warn{border-left:2px solid #C4836B;}
   .seg{display:flex;gap:.4rem;margin-left:auto;}
   .seg button{
     background:none;border:1px solid var(--border-strong);color:var(--muted);cursor:pointer;
@@ -369,12 +373,18 @@ const BANK_V = {
   a: [
     [50,100,250,540],[150,100,200,350],[30,50,350,500],[75,125,310,500],[100,250,310,540],
     [100,50,250,310],[30,100,350,500],[20,125,350,500],[100,150,400,250],[50,100,540,310],
-    [30,75,350,500],[100,150,400,500],[75,150,250,500],[100,125,250,500],[30,125,350,540]
+    [30,75,350,500],[100,150,400,500],[75,150,250,500],[100,125,250,500],[30,125,350,540],
+    [150,100,310,350],[75,100,350,500],[100,175,400,540],[100,150,200,400],[20,100,350,310],
+    [30,50,400,350],[20,125,250,500],[100,50,250,540],[30,150,250,540],[100,75,250,540],
+    [75,50,350,500],[100,125,400,540],[150,75,350,500],[100,150,400,350],[75,125,310,540]
   ],
   b: [
     [100,150,310,400],[75,175,400,350],[100,175,310,500],[50,150,400,540],[100,50,200,310],
     [100,150,400,350],[75,150,310,350],[100,150,200,310],[100,50,400,310],[50,75,310,540],
-    [100,150,250,350],[75,175,310,400],[20,175,400,500],[100,150,400,350],[100,175,200,540]
+    [100,150,250,350],[75,175,310,400],[20,175,400,500],[100,150,400,350],[100,175,200,540],
+    [150,100,400,310],[100,150,250,400],[150,175,400,350],[50,150,200,310],[100,175,350,500],
+    [50,75,310,540],[100,175,200,400],[75,150,250,350],[50,150,310,400],[100,125,310,540],
+    [100,200,400,540],[50,150,400,310],[100,150,310,350],[20,175,400,310],[100,50,310,540]
   ]
 };
 const DOMAIN_A_COUNT = 5;
@@ -444,8 +454,32 @@ const I18N = {
     notesHint:"請以 Apple Pencil 或筆寫下您的反駁點與直覺感受，並攜帶本頁參加線上覆盤。",
     overallLabel:"綜合頻率", gapLabel:"落差值",
     reportFooter:"本報告由系統根據單次測定自動生成，屬初步假說而非醫療診斷。",
+    gapMid:"內外能量存在輕度落差。外部情境的消耗尚在可承受範圍，建議持續觀察後續趨勢。",
+    midTag:"輕度耗損",
+    relTag:"信度偏低",
+    relText:"本次答題模式波動較大，測定信度偏低。建議於心緒平穩時重新測定，以提高假說準確度。",
+    lowTitle:"能量斷層定位",
+    lowIn:(d,q,l)=>`本次最低頻率出現在${d}情境——「${q}」，對應層級為「${l}」。`,
+    resume:"繼續上次測定",
   },
   levels:{shame:"羞愧",guilt:"內疚",apathy:"冷漠",grief:"悲傷",fear:"恐懼",desire:"慾望",anger:"憤怒",pride:"驕傲",courage:"勇氣",neutrality:"中立",willingness:"主動",acceptance:"寬容",reason:"理智",love:"愛",joy:"喜悅"},
+  advice:{
+    shame:"羞愧傾向會讓人想隱藏自己。請記得：價值不需要表現完美才成立。",
+    guilt:"內疚適合用來修正行為，而非懲罰自己。完成一個小小的彌補行動，然後放手。",
+    apathy:"冷漠常是能量透支的保護殼。從一件五分鐘內能完成的小事開始重新啟動。",
+    grief:"悲傷需要的是流動而非壓抑。允許它存在，並讓信任的人知道你的狀態。",
+    fear:"恐懼放大的是想像而非事實。把擔憂寫下來，逐條標註發生機率，奪回掌控感。",
+    desire:"渴望本身是動力，執著才是消耗。確認哪些是真正想要，哪些只是比較而來。",
+    anger:"憤怒揭示了被侵犯的邊界。辨認出那條邊界，用清晰的表達取代爆發。",
+    pride:"驕傲守護自尊，也阻擋了回饋。練習說「這點我沒想到」，能量反而上升。",
+    courage:"勇氣已經啟動。維持小步前進的節奏，每一次行動都在加固這個層級。",
+    neutrality:"中立帶來穩定，也可能滑向疏離。為在乎的事保留主動投入的空間。",
+    willingness:"主動是成長最快的階段。注意配速，別讓熱情透支成倦怠。",
+    acceptance:"寬容讓你與現實合作。下一步是在接納中仍保有清晰的選擇權。",
+    reason:"理智是強大的工具，但別讓分析推遲了行動與感受。",
+    love:"愛的頻率自帶滋養。記得把這份溫柔也分給自己。",
+    joy:"喜悅是高頻的標誌。安排能持續觸發心流的活動，讓狀態自然延續。",
+  },
   archetypes:{
     sage:{name:"蓄力智者", insight:"您正處於能量蓄積期，內在資源暫時偏低。這並非缺陷，而是系統在請求休息與滋養。請放慢節奏，從充足睡眠與一件微小的愉悅開始，逐步回填能量。",
       actions:["將睡眠提前三十分鐘，連續執行七天","每日記錄一件耗能最高的事件，僅記錄，不評價","暫停一項非必要承諾，為系統保留恢復餘裕"]},
@@ -474,6 +508,21 @@ const I18N = {
     {t:"朋友臨時取消和你的約，你會？",o:["懷疑自己是不是不重要","有點不爽，覺得不被尊重","沒關係，多出自己的時間","關心對方是不是發生了什麼事"]},
     {t:"對於「金錢」，你最接近的心態是？",o:["總覺得不夠，常常擔心","要賺更多才有安全感","夠用就好，是工具不是目的","相信流動，樂於分享"]},
     {t:"想到「自己的人生到目前為止」，你會？",o:["覺得辜負了很多期待","不上不下，有點不甘心","大致滿意，問心無愧","充滿感謝，每一步都有意義"]},
+    {t:"被困在塞車或誤點的車陣中，你會？",o:["不停看時間，忍不住罵出聲","焦慮接下來的行程全毀了","聽音樂或播客，把時間用起來","難得的空檔，放空也不錯"]},
+    {t:"深夜一個人時，孤獨感來襲，你會？",o:["覺得沒有人真正在乎自己","趕快滑手機把它填滿","與孤獨共處，它會過去","享受獨處，跟自己對話"]},
+    {t:"別人對你說「你最近變了」，你的直覺是？",o:["緊張，是不是哪裡做得不好","有點防備，想反駁","好奇對方看到了什麼","開心，也許是成長的痕跡"]},
+    {t:"家人提出讓你為難的請求時？",o:["不敢拒絕，硬著頭皮答應","答應了卻心裡埋怨","誠實說明自己的難處","能力範圍內幫，界線之外溫和拒絕"]},
+    {t:"生活出現一段空白期（待業、休息），你會？",o:["自我價值感快速下滑","焦慮地比較同齡人的進度","把它當作難得的整理期","趁機探索想嘗試的方向"]},
+    {t:"答應自己的小目標（早睡、運動）沒做到時？",o:["又一次證明自己不行","找藉口，反正下週再說","分析卡住的原因，調整做法","接納偶爾的失誤，明天繼續"]},
+    {t:"社群上看到大家光鮮亮麗的生活，你會？",o:["覺得自己的人生很失敗","羨慕，也想要那樣的生活","知道那只是片段，不太影響我","為他們高興，也欣賞自己的日常"]},
+    {t:"收到久未聯絡朋友的訊息，你的第一反應？",o:["猜想他是不是有事相求","不太想回，懶得社交","自然地回覆，聊聊近況","驚喜，主動約見面"]},
+    {t:"做錯一個小決定（買錯東西、選錯餐廳）後？",o:["反覆責怪自己怎麼這麼笨","不爽很久，影響一整天心情","聳聳肩，小事而已","當成趣事，下次知道了"]},
+    {t:"你對「變老」的感覺是？",o:["恐懼，盡量不去想","遺憾，很多事來不及了","自然的過程，順其自然","期待，每個階段有不同風景"]},
+    {t:"一個人吃飯時，你通常？",o:["覺得有點可憐，急著滑手機","隨便吃吃，填飽就好","自在地享受食物","好好挑選想吃的，犒賞自己"]},
+    {t:"突然多出一筆意外之財（獎金、紅包），你會？",o:["擔心是不是哪裡算錯了","馬上想到還有更多想買的","按計畫存起來或投資","開心地分享，請身邊的人吃飯"]},
+    {t:"想起曾經傷害過你的人，你現在？",o:["仍然憤怒，無法原諒","盡量避免想起，會難受","已經放下，那是他的課題","感謝那段經歷讓我更懂自己"]},
+    {t:"半夜醒來睡不著時，你會？",o:["開始擔心明天精神不好","煩躁地一直翻身","起來喝口水，做幾次深呼吸","安靜地躺著，享受夜的寧靜"]},
+    {t:"整體而言，你覺得「快樂」對你來說？",o:["是別人的事，離我很遠","要先達成某些條件才有資格","是可以自己選擇的狀態","此刻就在，俯拾即是"]},
   ],
   qb:[
     {t:"主管臨時加派任務給你，你的第一反應是？",o:["不敢拒絕，硬吞下來","火氣上來，覺得被剝削","視為機會，主動接下並安排","冷靜評估手上工作，再協調優先順序"]},
@@ -491,6 +540,21 @@ const I18N = {
     {t:"看到年資比你淺的人升遷比你快？",o:["懷疑自己是不是能力不足","不服氣，覺得不公平","分析對方做對了什麼，借鏡","真誠祝賀，專注自己的節奏"]},
     {t:"重要專案進度嚴重落後時，你會？",o:["失眠，反覆想著最壞結果","怪罪隊友或資源不足","重排優先序，砍掉非必要項目","召集團隊坦誠溝通，一起趕上"]},
     {t:"需要在會議中當眾發言時？",o:["心跳加速，能躲就躲","擔心說錯話損害形象","準備好就上，平常心","享受表達與交流的過程"]},
+    {t:"接手前任留下的爛攤子時，你會？",o:["倒楣，為什麼是我","焦慮自己會不會背鍋","先盤點現況，列出處理順序","視為展現能力的舞台"]},
+    {t:"你的工作成果被拿去跟別人比較時？",o:["緊張，怕被比下去","不公平，條件根本不同","比較是別人的事，我看自己的進步","有比較才有參照，藉此校準自己"]},
+    {t:"團隊成員犯錯連累到你時？",o:["當面或私下發火","心累，覺得只有自己可靠","先解決問題，再覆盤避免重犯","理解誰都會犯錯，一起補救"]},
+    {t:"公司宣布的新政策對你不利時？",o:["私下抱怨，但什麼都不做","憤怒，覺得公司虧待員工","評估影響，必要時直接反映","在新規則裡找出自己的最佳解"]},
+    {t:"下屬或後輩表現超出你的預期時？",o:["有點威脅感，怕被取代","提醒他別太得意","給予肯定，放手讓他發揮","與有榮焉，刻意培養他"]},
+    {t:"連續加班一整週後的週五晚上，你會？",o:["累癱，什麼都不想動","委屈，人生只剩工作","好好犒賞自己，補償回來","雖累但充實，安排放鬆收尾"]},
+    {t:"必須向客戶或主管承認錯誤時？",o:["拖到不能再拖才說","先想好怎麼分攤責任","即時坦承，附上補救方案","坦然面對，錯誤是改進的資訊"]},
+    {t:"同事在背後議論你，你知道後？",o:["難過好幾天，懷疑自己","想辦法反擊或對質","清者自清，不浪費能量","有則改之，無則加勉"]},
+    {t:"開不完的會議佔滿你的行事曆時？",o:["麻木地參加，反正就這樣","暗自煩躁，覺得時間被謀殺","主動詢問哪些可以用文件代替","重新安排，保護自己的深度工作時段"]},
+    {t:"你的職涯目前最接近哪個狀態？",o:["困住了，但不敢動","騎驢找馬，心不在焉","穩定累積，朝目標前進","做著喜歡的事，發光發熱"]},
+    {t:"面試或重要談判前一小時，你通常？",o:["緊張到反胃","給自己打氣，告訴自己可以","最後檢視重點，然後放鬆","期待過招，享受臨場感"]},
+    {t:"公司空降新主管，打亂原本的升遷期待？",o:["心灰意冷，不想努力了","憤憤不平，四處訴苦","觀察新格局，重新定位自己","主動建立關係，創造新機會"]},
+    {t:"遠端或跨部門協作，對方已讀不回時？",o:["焦慮是不是得罪了對方","火大，覺得不被尊重","換個管道再跟進一次","理解大家都忙，設個提醒就好"]},
+    {t:"年度考核拿到比預期低的評價時？",o:["整個人被否定的感覺","不服，主管根本不懂我的貢獻","約主管詳談，弄清標準與差距","收下回饋，把它變成明年的槓桿"]},
+    {t:"如果明天可以不用工作，你的第一感覺是？",o:["失去重心，不知道要幹嘛","終於解脫了","開心，但我仍會選擇做點什麼","工作或不工作，我都能活出意義"]},
   ],
 },
 "zh-CN": {
@@ -535,8 +599,32 @@ const I18N = {
     notesHint:"请以 Apple Pencil 或笔写下您的反驳点与直觉感受，并携带本页参加在线复盘。",
     overallLabel:"综合频率", gapLabel:"落差值",
     reportFooter:"本报告由系统根据单次测定自动生成，属初步假说而非医疗诊断。",
+    gapMid:"内外能量存在轻度落差。外部情境的消耗尚在可承受范围，建议持续观察后续趋势。",
+    midTag:"轻度耗损",
+    relTag:"信度偏低",
+    relText:"本次答题模式波动较大，测定信度偏低。建议在心绪平稳时重新测定，以提高假说准确度。",
+    lowTitle:"能量断层定位",
+    lowIn:(d,q,l)=>`本次最低频率出现在${d}情境——「${q}」，对应层级为「${l}」。`,
+    resume:"继续上次测定",
   },
   levels:{shame:"羞愧",guilt:"内疚",apathy:"冷漠",grief:"悲伤",fear:"恐惧",desire:"欲望",anger:"愤怒",pride:"骄傲",courage:"勇气",neutrality:"中立",willingness:"主动",acceptance:"宽容",reason:"理智",love:"爱",joy:"喜悦"},
+  advice:{
+    shame:"羞愧倾向会让人想隐藏自己。请记得：价值不需要表现完美才成立。",
+    guilt:"内疚适合用来修正行为，而非惩罚自己。完成一个小小的弥补行动，然后放手。",
+    apathy:"冷漠常是能量透支的保护壳。从一件五分钟内能完成的小事开始重新启动。",
+    grief:"悲伤需要的是流动而非压抑。允许它存在，并让信任的人知道你的状态。",
+    fear:"恐惧放大的是想象而非事实。把担忧写下来，逐条标注发生概率，夺回掌控感。",
+    desire:"渴望本身是动力，执着才是消耗。确认哪些是真正想要，哪些只是比较而来。",
+    anger:"愤怒揭示了被侵犯的边界。辨认出那条边界，用清晰的表达取代爆发。",
+    pride:"骄傲守护自尊，也阻挡了反馈。练习说「这点我没想到」，能量反而上升。",
+    courage:"勇气已经启动。维持小步前进的节奏，每一次行动都在加固这个层级。",
+    neutrality:"中立带来稳定，也可能滑向疏离。为在乎的事保留主动投入的空间。",
+    willingness:"主动是成长最快的阶段。注意配速，别让热情透支成倦怠。",
+    acceptance:"宽容让你与现实合作。下一步是在接纳中仍保有清晰的选择权。",
+    reason:"理智是强大的工具，但别让分析推迟了行动与感受。",
+    love:"爱的频率自带滋养。记得把这份温柔也分给自己。",
+    joy:"喜悦是高频的标志。安排能持续触发心流的活动，让状态自然延续。",
+  },
   archetypes:{
     sage:{name:"蓄力智者", insight:"您正处于能量蓄积期，内在资源暂时偏低。这并非缺陷，而是系统在请求休息与滋养。请放慢节奏，从充足睡眠与一件微小的愉悦开始，逐步回填能量。",
       actions:["将睡眠提前三十分钟，连续执行七天","每日记录一件耗能最高的事件，仅记录，不评价","暂停一项非必要承诺，为系统保留恢复余裕"]},
@@ -565,6 +653,21 @@ const I18N = {
     {t:"朋友临时取消和你的约，你会？",o:["怀疑自己是不是不重要","有点不爽，觉得不被尊重","没关系，多出自己的时间","关心对方是不是发生了什么事"]},
     {t:"对于「金钱」，你最接近的心态是？",o:["总觉得不够，常常担心","要赚更多才有安全感","够用就好，是工具不是目的","相信流动，乐于分享"]},
     {t:"想到「自己的人生到目前为止」，你会？",o:["觉得辜负了很多期待","不上不下，有点不甘心","大致满意，问心无愧","充满感谢，每一步都有意义"]},
+    {t:"被堵在路上或车次延误时，你会？",o:["不停看时间，忍不住骂出声","焦虑接下来的安排全被打乱","听音乐或播客，把时间利用起来","难得的空档，放空一下也不错"]},
+    {t:"深夜一个人时，孤独感来袭，你会？",o:["觉得没有人真正在乎自己","赶快刷手机把它填满","与孤独共处，它会过去","享受独处，跟自己对话"]},
+    {t:"别人对你说「你最近变了」，你的直觉是？",o:["紧张，是不是哪里做得不好","有点防备，想反驳","好奇对方看到了什么","开心，也许是成长的痕迹"]},
+    {t:"家人提出让你为难的请求时？",o:["不敢拒绝，硬着头皮答应","答应了却心里埋怨","诚实说明自己的难处","能力范围内帮，界线之外温和拒绝"]},
+    {t:"生活出现一段空白期（待业、休整），你会？",o:["自我价值感快速下滑","焦虑地比较同龄人的进度","把它当作难得的整理期","趁机探索想尝试的方向"]},
+    {t:"答应自己的小目标（早睡、运动）没做到时？",o:["又一次证明自己不行","找借口，反正下周再说","分析卡住的原因，调整做法","接纳偶尔的失误，明天继续"]},
+    {t:"社交平台上看到大家光鲜亮丽的生活，你会？",o:["觉得自己的人生很失败","羡慕，也想要那样的生活","知道那只是片段，不太影响我","为他们高兴，也欣赏自己的日常"]},
+    {t:"收到久未联系朋友的消息，你的第一反应？",o:["猜想他是不是有事相求","不太想回，懒得社交","自然地回复，聊聊近况","惊喜，主动约见面"]},
+    {t:"做错一个小决定（买错东西、选错餐厅）后？",o:["反复责怪自己怎么这么笨","不爽很久，影响一整天心情","耸耸肩，小事而已","当成趣事，下次知道了"]},
+    {t:"你对「变老」的感觉是？",o:["恐惧，尽量不去想","遗憾，很多事来不及了","自然的过程，顺其自然","期待，每个阶段有不同风景"]},
+    {t:"一个人吃饭时，你通常？",o:["觉得有点可怜，急着刷手机","随便吃吃，填饱就好","自在地享受食物","好好挑选想吃的，犒赏自己"]},
+    {t:"突然多出一笔意外之财（奖金、红包），你会？",o:["担心是不是哪里算错了","马上想到还有更多想买的","按计划存起来或投资","开心地分享，请身边的人吃饭"]},
+    {t:"想起曾经伤害过你的人，你现在？",o:["仍然愤怒，无法原谅","尽量避免想起，会难受","已经放下，那是他的课题","感谢那段经历让我更懂自己"]},
+    {t:"半夜醒来睡不着时，你会？",o:["开始担心明天精神不好","烦躁地一直翻身","起来喝口水，做几次深呼吸","安静地躺着，享受夜的宁静"]},
+    {t:"总体而言，你觉得「快乐」对你来说？",o:["是别人的事，离我很远","要先达成某些条件才有资格","是可以自己选择的状态","此刻就在，俯拾即是"]},
   ],
   qb:[
     {t:"领导临时给你加派任务，你的第一反应是？",o:["不敢拒绝，硬吞下来","火气上来，觉得被压榨","视为机会，主动接下并安排","冷静评估手头工作，再协调优先级"]},
@@ -582,6 +685,21 @@ const I18N = {
     {t:"看到资历比你浅的人晋升比你快？",o:["怀疑自己是不是能力不足","不服气，觉得不公平","分析对方做对了什么，借鉴","真诚祝贺，专注自己的节奏"]},
     {t:"重要项目进度严重落后时，你会？",o:["失眠，反复想着最坏结果","怪罪队友或资源不足","重排优先级，砍掉非必要项","召集团队坦诚沟通，一起赶上"]},
     {t:"需要在会议中当众发言时？",o:["心跳加速，能躲就躲","担心说错话损害形象","准备好就上，平常心","享受表达与交流的过程"]},
+    {t:"接手前任留下的烂摊子时，你会？",o:["倒霉，为什么是我","焦虑自己会不会背锅","先盘点现状，列出处理顺序","视为展现能力的舞台"]},
+    {t:"你的工作成果被拿去跟别人比较时？",o:["紧张，怕被比下去","不公平，条件根本不同","比较是别人的事，我看自己的进步","有比较才有参照，借此校准自己"]},
+    {t:"团队成员犯错连累到你时？",o:["当面或私下发火","心累，觉得只有自己可靠","先解决问题，再复盘避免重犯","理解谁都会犯错，一起补救"]},
+    {t:"公司宣布的新政策对你不利时？",o:["私下抱怨，但什么都不做","愤怒，觉得公司亏待员工","评估影响，必要时直接反映","在新规则里找出自己的最优解"]},
+    {t:"下属或后辈表现超出你的预期时？",o:["有点威胁感，怕被取代","提醒他别太得意","给予肯定，放手让他发挥","与有荣焉，刻意培养他"]},
+    {t:"连续加班一整周后的周五晚上，你会？",o:["累瘫，什么都不想动","委屈，人生只剩工作","好好犒赏自己，补偿回来","虽累但充实，安排放松收尾"]},
+    {t:"必须向客户或领导承认错误时？",o:["拖到不能再拖才说","先想好怎么分摊责任","及时坦承，附上补救方案","坦然面对，错误是改进的信息"]},
+    {t:"同事在背后议论你，你知道后？",o:["难过好几天，怀疑自己","想办法反击或对质","清者自清，不浪费能量","有则改之，无则加勉"]},
+    {t:"开不完的会议占满你的日程时？",o:["麻木地参加，反正就这样","暗自烦躁，觉得时间被谋杀","主动询问哪些可以用文档代替","重新安排，保护自己的深度工作时段"]},
+    {t:"你的职业生涯目前最接近哪个状态？",o:["困住了，但不敢动","骑驴找马，心不在焉","稳定积累，朝目标前进","做着喜欢的事，发光发热"]},
+    {t:"面试或重要谈判前一小时，你通常？",o:["紧张到反胃","给自己打气，告诉自己可以","最后检视重点，然后放松","期待过招，享受临场感"]},
+    {t:"公司空降新领导，打乱原本的晋升预期？",o:["心灰意冷，不想努力了","愤愤不平，四处诉苦","观察新格局，重新定位自己","主动建立关系，创造新机会"]},
+    {t:"远程或跨部门协作，对方已读不回时？",o:["焦虑是不是得罪了对方","火大，觉得不被尊重","换个渠道再跟进一次","理解大家都忙，设个提醒就好"]},
+    {t:"年度考核拿到比预期低的评价时？",o:["整个人被否定的感觉","不服，领导根本不懂我的贡献","约领导详谈，弄清标准与差距","收下反馈，把它变成明年的杠杆"]},
+    {t:"如果明天可以不用工作，你的第一感觉是？",o:["失去重心，不知道要干嘛","终于解脱了","开心，但我仍会选择做点什么","工作或不工作，我都能活出意义"]},
   ],
 },
 "en": {
@@ -626,8 +744,32 @@ const I18N = {
     notesHint:"Write down your counterpoints and intuitions with Apple Pencil or pen, and bring this page to the online review.",
     overallLabel:"Composite", gapLabel:"Gap",
     reportFooter:"This report is auto-generated from a single measurement. It is a preliminary hypothesis, not a medical diagnosis.",
+    gapMid:"A mild gap exists between inner and outer energy. The external drain remains within tolerance — keep observing the trend.",
+    midTag:"Mild Depletion",
+    relTag:"Low Reliability",
+    relText:"Your response pattern shows high volatility this time, lowering measurement reliability. Re-measure in a calmer state for a more accurate hypothesis.",
+    lowTitle:"Energy Fault Location",
+    lowIn:(d,q,l)=>`Your lowest frequency this time appeared in the ${d} scenario — “${q}” — at the level of ${l}.`,
+    resume:"Resume Last Measurement",
   },
   levels:{shame:"Shame",guilt:"Guilt",apathy:"Apathy",grief:"Grief",fear:"Fear",desire:"Desire",anger:"Anger",pride:"Pride",courage:"Courage",neutrality:"Neutrality",willingness:"Willingness",acceptance:"Acceptance",reason:"Reason",love:"Love",joy:"Joy"},
+  advice:{
+    shame:"Shame urges you to hide. Remember: your worth does not depend on flawless performance.",
+    guilt:"Guilt is for correcting behavior, not punishing yourself. Make one small act of repair, then let go.",
+    apathy:"Apathy is often a shell protecting a drained system. Restart with one task that takes under five minutes.",
+    grief:"Grief needs flow, not suppression. Let it exist, and let someone you trust know where you are.",
+    fear:"Fear magnifies imagination, not facts. Write each worry down and rate its real probability to reclaim control.",
+    desire:"Wanting is fuel; clinging is drain. Sort what you truly want from what comparison planted in you.",
+    anger:"Anger reveals a violated boundary. Name that boundary and replace eruption with clear expression.",
+    pride:"Pride guards self-esteem but blocks feedback. Practice saying “I hadn't thought of that” — energy rises.",
+    courage:"Courage is already engaged. Keep the cadence of small steps; each action reinforces this level.",
+    neutrality:"Neutrality brings stability but can drift into detachment. Reserve active engagement for what matters.",
+    willingness:"Willingness is the fastest growth phase. Watch your pacing so enthusiasm doesn't burn into fatigue.",
+    acceptance:"Acceptance lets you work with reality. Next: keep a clear sense of choice within that acceptance.",
+    reason:"Reason is a powerful tool — just don't let analysis postpone action and feeling.",
+    love:"The frequency of love nourishes by itself. Remember to direct some of that tenderness toward yourself.",
+    joy:"Joy marks a high frequency. Schedule what reliably triggers flow, and the state will sustain itself.",
+  },
   archetypes:{
     sage:{name:"The Gathering Sage", insight:"You are in an energy-gathering season; inner resources are temporarily low. This is not a flaw — the system is requesting rest and nourishment. Slow the rhythm, begin with sufficient sleep and one small pleasure, and refill steadily.",
       actions:["Move bedtime thirty minutes earlier for seven consecutive days","Log the single most draining event each day — record only, no judgment","Pause one non-essential commitment to preserve recovery margin"]},
@@ -656,6 +798,21 @@ const I18N = {
     {t:"A friend cancels your plans last minute. You…",o:["Wonder if I just don't matter to them","Feel disrespected and annoyed","No problem — extra time for myself","Check if something happened to them"]},
     {t:"Your relationship with money is closest to…",o:["Never enough — I worry about it often","I need more to feel secure","Enough is enough — a tool, not a goal","I trust the flow and enjoy sharing"]},
     {t:"Thinking about your life so far, you…",o:["Feel I've let many expectations down","Feel stuck in between, a bit resentful","Am mostly satisfied, with a clear conscience","Feel deep gratitude — every step had meaning"]},
+    {t:"Stuck in traffic or a delayed train, you…",o:["Keep checking the time, cursing under my breath","Panic that the whole day's plan is ruined","Put on music or a podcast — use the time","A rare pause — drifting is fine too"]},
+    {t:"Late at night, loneliness hits. You…",o:["Feel nobody truly cares about me","Grab my phone to fill the silence","Sit with it — it will pass","Enjoy the solitude and talk with myself"]},
+    {t:"Someone says “you've changed lately.” Your gut response…",o:["Nervous — did I do something wrong","A bit defensive — I want to argue","Curious what they actually noticed","Pleased — maybe it's a sign of growth"]},
+    {t:"A family member makes a difficult request. You…",o:["Don't dare refuse — I grit my teeth and agree","Agree, but resent it inside","Honestly explain my constraints","Help within my limits, gently decline beyond them"]},
+    {t:"Life enters a blank stretch (between jobs, resting). You…",o:["My sense of worth drops fast","Anxiously compare my progress with peers","Treat it as a rare season to reset","Use it to explore directions I'm curious about"]},
+    {t:"You miss a small promise to yourself (sleep early, exercise)…",o:["More proof that I can't do it","Make excuses — next week, whatever","Analyze what blocked me and adjust","Accept the slip and continue tomorrow"]},
+    {t:"Seeing everyone's polished life on social media, you…",o:["Feel my life is a failure","Envy it — I want that life too","Know it's just fragments — barely affects me","Feel glad for them and appreciate my own days"]},
+    {t:"A long-lost friend messages you. First reaction…",o:["Suspect they need something from me","Don't really feel like replying","Reply naturally and catch up","Delighted — I suggest meeting up"]},
+    {t:"After a small wrong decision (wrong purchase, bad restaurant)…",o:["Scold myself for being so stupid","Stay annoyed — it ruins the day","Shrug — minor stuff","Laugh it off — now I know"]},
+    {t:"How do you feel about growing old?",o:["Afraid — I avoid thinking about it","Regretful — too much left undone","A natural process — let it come","Looking forward — each stage has its scenery"]},
+    {t:"Eating alone, you usually…",o:["Feel a bit pathetic — quickly scroll my phone","Eat whatever, just to be full","Enjoy the food at ease","Pick something I love — a small treat"]},
+    {t:"An unexpected windfall arrives (bonus, gift). You…",o:["Worry someone made a mistake","Immediately think of more things to buy","Save or invest it as planned","Celebrate by sharing — treat people around me"]},
+    {t:"Thinking of someone who once hurt you, now you…",o:["Still angry — I can't forgive","Avoid the memory — it stings","Have let go — that's their lesson","Feel grateful — it taught me who I am"]},
+    {t:"Waking in the middle of the night unable to sleep, you…",o:["Start worrying about tomorrow's energy","Toss and turn in frustration","Get up, sip water, breathe deeply","Lie quietly and enjoy the stillness"]},
+    {t:"Overall, “happiness” to you is…",o:["Other people's business — far from me","Something I must qualify for first","A state I can choose","Right here, right now — everywhere"]},
   ],
   qb:[
     {t:"Your boss suddenly adds a task to your plate. First reaction?",o:["I don't dare refuse — I just swallow it","Anger rises — I feel exploited","I see a chance and take it on proactively","I calmly assess my workload, then negotiate priorities"]},
@@ -673,6 +830,21 @@ const I18N = {
     {t:"Someone junior gets promoted faster than you…",o:["Doubt my own competence","Feel it's unfair — hard to accept","Analyze what they did right and learn","Congratulate sincerely and keep my own pace"]},
     {t:"A key project falls badly behind schedule. You…",o:["Lose sleep replaying the worst outcomes","Blame teammates or the lack of resources","Re-rank priorities and cut the non-essential","Gather the team, speak honestly, catch up together"]},
     {t:"When you must speak up in a meeting…",o:["Heart races — I avoid it when possible","I worry a wrong word will hurt my image","Prepared, then calm — just do it","I enjoy expressing and exchanging ideas"]},
+    {t:"Inheriting a predecessor's mess, you…",o:["Just my luck — why me","Worry I'll take the blame","Audit the situation, list the order of repair","See a stage to show what I can do"]},
+    {t:"Your results get compared with someone else's…",o:["Nervous about being outshone","Unfair — the conditions differ completely","Comparison is their business; I track my own progress","References help — I use them to calibrate"]},
+    {t:"A teammate's mistake drags you down. You…",o:["Blow up at them, openly or privately","Feel weary — only I am reliable","Fix the problem first, then debrief to prevent repeats","Everyone errs — we repair it together"]},
+    {t:"A new company policy works against you…",o:["Complain privately, do nothing","Feel furious — the company shortchanges us","Assess the impact and push back when needed","Find my best position within the new rules"]},
+    {t:"A junior performs beyond your expectations…",o:["Slightly threatened — could I be replaced","Remind them not to get cocky","Affirm them and give room to run","Proud — I deliberately mentor them"]},
+    {t:"Friday night after a week of overtime, you…",o:["Collapse — can't move","Feel wronged — life is only work now","Reward myself properly to recover","Tired but fulfilled — a relaxing close"]},
+    {t:"You must admit a mistake to a client or boss…",o:["Delay until I can't anymore","First plan how to spread the blame","Own it promptly, with a remedy attached","Face it calmly — errors are information"]},
+    {t:"You learn colleagues gossip about you…",o:["Hurt for days, doubting myself","Plot a comeback or confrontation","Truth defends itself — no energy wasted","Take what's useful, discard the rest"]},
+    {t:"Endless meetings swallow your calendar…",o:["Attend numbly — it is what it is","Quietly seethe — my time is being murdered","Ask which ones a document could replace","Restructure to protect deep-work blocks"]},
+    {t:"Your career right now is closest to…",o:["Stuck, but afraid to move","Half-hearted, scanning for exits","Steadily building toward a goal","Doing what I love, and it shows"]},
+    {t:"One hour before an interview or key negotiation…",o:["Nauseous with nerves","Psyching myself up — I can do this","Final check of key points, then relax","Eager for the exchange — I enjoy the arena"]},
+    {t:"A parachuted-in boss upends your promotion path…",o:["Disheartened — why bother trying","Indignant — I vent everywhere","Study the new landscape and reposition","Build the relationship — create new openings"]},
+    {t:"Your cross-team counterpart leaves you on read…",o:["Anxious — did I offend them","Furious — this is disrespect","Follow up once through another channel","Everyone's busy — set a reminder and move on"]},
+    {t:"Your annual review comes in below expectations…",o:["It feels like a rejection of who I am","Unconvinced — my manager doesn't see my work","Book a talk to clarify criteria and gaps","Absorb it — leverage for next year"]},
+    {t:"If tomorrow you never had to work again…",o:["Lost — I wouldn't know what to do","Finally, freedom","Happy — but I'd still choose to do something","Working or not, I can live with meaning"]},
   ],
 },
 "ja": {
@@ -717,8 +889,32 @@ const I18N = {
     notesHint:"Apple Pencilやペンで反証点と直感を書き留め、このページを持ってオンラインレビューにご参加ください。",
     overallLabel:"総合周波数", gapLabel:"差分",
     reportFooter:"本レポートは単回測定から自動生成された初期仮説であり、医学的診断ではありません。",
+    gapMid:"内外のエネルギーに軽度の差があります。外部からの消耗は許容範囲内です。今後の推移を観察してください。",
+    midTag:"軽度の消耗",
+    relTag:"信頼度低め",
+    relText:"今回の回答パターンは変動が大きく、測定の信頼度が低めです。心が落ち着いた状態での再測定を推奨します。",
+    lowTitle:"エネルギー断層の定位",
+    lowIn:(d,q,l)=>`今回最も低い周波数は、${d}の場面「${q}」で現れました。対応するレベルは「${l}」です。`,
+    resume:"前回の測定を再開",
   },
   levels:{shame:"恥",guilt:"罪悪感",apathy:"無気力",grief:"悲しみ",fear:"恐れ",desire:"欲望",anger:"怒り",pride:"プライド",courage:"勇気",neutrality:"中立",willingness:"意欲",acceptance:"受容",reason:"理性",love:"愛",joy:"喜び"},
+  advice:{
+    shame:"恥は自分を隠したくさせます。価値は完璧な振る舞いに依存しないことを思い出してください。",
+    guilt:"罪悪感は行動修正のためにあり、自罰のためではありません。小さな埋め合わせを一つ行い、手放しましょう。",
+    apathy:"無気力は消耗したシステムを守る殻であることが多いものです。5分で終わる小さな一事から再起動を。",
+    grief:"悲しみに必要なのは抑圧ではなく流れです。存在を許し、信頼できる人に状態を伝えてください。",
+    fear:"恐れは事実ではなく想像を拡大します。心配事を書き出し、実際の確率を付して主導権を取り戻しましょう。",
+    desire:"欲望は燃料ですが、執着は消耗です。本当に望むものと、比較が植え付けたものを仕分けてください。",
+    anger:"怒りは侵害された境界線を示します。その境界を特定し、爆発ではなく明確な表現に置き換えましょう。",
+    pride:"プライドは自尊心を守る一方、フィードバックを遮断します。「それは考えていなかった」と言う練習を。",
+    courage:"勇気はすでに起動しています。小さな歩みのリズムを保てば、行動のたびにこの段階が強化されます。",
+    neutrality:"中立は安定をもたらしますが、距離感に流れることもあります。大切な事には能動的な関与を残してください。",
+    willingness:"意欲は最も成長が速い段階です。熱意が疲労に変わらないよう、ペース配分に注意を。",
+    acceptance:"受容は現実との協働を可能にします。次は、受け入れの中でも選択権を明確に保つことです。",
+    reason:"理性は強力な道具です。ただし分析が行動と感情を先送りにしないように。",
+    love:"愛の周波数はそれ自体が滋養です。その優しさを自分にも向けてください。",
+    joy:"喜びは高い周波数の証です。フローを誘発する活動を予定に組み込み、状態を自然に持続させましょう。",
+  },
   archetypes:{
     sage:{name:"蓄えの賢者", insight:"いまはエネルギーを蓄える季節です。内なる資源がやや低めですが、それは欠陥ではなく、システムが休息と滋養を要求しているサインです。リズムを緩め、十分な睡眠と小さな楽しみから着実に充填してください。",
       actions:["就寝を30分早め、7日間継続する","毎日最も消耗した出来事を1件記録する（評価はしない）","必須でない約束を1つ保留し、回復の余白を確保する"]},
@@ -747,6 +943,21 @@ const I18N = {
     {t:"友人に直前で約束をキャンセルされたら？",o:["自分は大事にされていないのではと思う","軽く見られた気がして不快になる","気にしない。自分の時間が増えただけ","相手に何かあったのではと気遣う"]},
     {t:"「お金」に対する心の構えは？",o:["いつも足りない気がして不安","もっと稼がないと安心できない","足るを知る。道具であって目的ではない","流れを信頼し、分かち合いを楽しむ"]},
     {t:"これまでの人生を思うと？",o:["多くの期待を裏切ってきた気がする","中途半端で、少し悔しい","おおむね満足。恥じることはない","感謝でいっぱい。どの一歩にも意味があった"]},
+    {t:"渋滞や電車の遅延に巻き込まれたら？",o:["時計ばかり見て、つい悪態をつく","この後の予定が全部崩れると焦る","音楽やポッドキャストで時間を活用する","めったにない空白。ぼんやりするのも悪くない"]},
+    {t:"深夜、孤独感に襲われたら？",o:["誰も本当には気にかけてくれないと感じる","すぐスマホで空白を埋める","孤独と共にいる。やがて過ぎていく","独りの時間を楽しみ、自分と対話する"]},
+    {t:"「最近変わったね」と言われたら、直感的に？",o:["どこか悪かったかと緊張する","少し身構えて、反論したくなる","相手に何が見えたのか気になる","嬉しい。成長の跡かもしれない"]},
+    {t:"家族から困る頼みごとをされたら？",o:["断れず、無理して引き受ける","引き受けるが、内心では恨む","自分の事情を正直に説明する","できる範囲で助け、それ以上は穏やかに断る"]},
+    {t:"人生に空白期間（求職中・休養）ができたら？",o:["自己価値の感覚が急速に下がる","同年代の進み具合と比べて焦る","めったにない整理の季節と捉える","試したかった方向を探索する機会にする"]},
+    {t:"自分との小さな約束（早寝・運動）を破ったら？",o:["やはり自分はダメだという証拠","言い訳して、来週でいいやと思う","つまずいた原因を分析し、やり方を変える","たまの失敗は受け入れ、明日また続ける"]},
+    {t:"SNSで皆の華やかな生活を見ると？",o:["自分の人生は失敗だと感じる","羨ましい。ああいう生活がしたい","切り取りだと知っている。あまり影響されない","彼らを喜び、自分の日常も愛おしむ"]},
+    {t:"久しく連絡のなかった友人からメッセージが来たら？",o:["何か頼みごとではと勘ぐる","あまり返したくない。社交が面倒","自然に返信して近況を語り合う","嬉しい驚き。自分から会う約束をする"]},
+    {t:"小さな選択ミス（買い物・店選び）をしたら？",o:["なんて馬鹿なんだと責め続ける","長くムカムカして一日に響く","肩をすくめる。小さなこと","笑い話にする。次は分かったから"]},
+    {t:"「歳を重ねること」への感覚は？",o:["怖い。なるべく考えない","悔しい。間に合わないことが多すぎる","自然な過程。流れに任せる","楽しみ。各段階に違う景色がある"]},
+    {t:"ひとりで食事をするとき、たいてい？",o:["少し惨めで、急いでスマホを見る","適当に済ませる。腹が満ちればいい","自分のペースで食事を楽しむ","食べたいものを選んで自分をねぎらう"]},
+    {t:"思いがけない臨時収入（賞与など）があったら？",o:["何かの間違いではと心配になる","すぐ、もっと買いたいものが浮かぶ","計画どおり貯蓄か投資に回す","嬉しくて周りにご馳走する"]},
+    {t:"かつて自分を傷つけた人を思い出すと、今は？",o:["まだ怒りが消えず、許せない","思い出すと辛いので避けている","もう手放した。あれは相手の課題","あの経験が自分を深めたと感謝している"]},
+    {t:"夜中に目が覚めて眠れないとき？",o:["明日に響くのではと心配になる","苛立って寝返りを繰り返す","起きて水を飲み、深呼吸する","静かに横になり、夜の静寂を味わう"]},
+    {t:"総じて、あなたにとって「幸福」とは？",o:["他人事。自分からは遠い","条件を満たして初めて資格があるもの","自分で選べる状態","今ここにある。至るところに"]},
   ],
   qb:[
     {t:"上司から突然タスクを追加されたら、最初の反応は？",o:["断れず、黙って飲み込む","怒りが湧く。搾取されている気がする","チャンスと捉え、主体的に引き受ける","冷静に業務量を見て、優先順位を調整する"]},
@@ -764,6 +975,21 @@ const I18N = {
     {t:"年次の浅い人が自分より早く昇進したら？",o:["自分の能力不足ではと落ち込む","不公平だと納得できない","相手の成功要因を分析し、参考にする","心から祝い、自分のペースに集中する"]},
     {t:"重要プロジェクトが大幅に遅延したら？",o:["最悪の結末を繰り返し想像して眠れない","メンバーや資源不足のせいにする","優先順位を組み直し、不要なものを削る","チームを集め、率直に話して共に挽回する"]},
     {t:"会議で発言を求められたら？",o:["鼓動が速くなり、できれば避けたい","失言でイメージを損なわないか気になる","準備して臨めば、あとは平常心","表現と交流の過程そのものを楽しむ"]},
+    {t:"前任者の残した混乱を引き継いだら？",o:["ついていない。なぜ自分が","責任を被るのではと不安になる","まず現状を棚卸しし、処理の順序を決める","力を示す舞台と捉える"]},
+    {t:"自分の成果が誰かと比較されたら？",o:["見劣りしないか緊張する","不公平だ。条件がそもそも違う","比較は他人の仕事。自分の進歩を見る","参照があってこそ自分を校正できる"]},
+    {t:"メンバーのミスに巻き込まれたら？",o:["本人に、直接か陰で怒りをぶつける","疲れる。結局頼れるのは自分だけ","まず問題を解決し、再発防止を振り返る","誰でも間違える。共に挽回する"]},
+    {t:"会社の新方針が自分に不利だったら？",o:["陰で愚痴るが、何もしない","従業員を軽視していると怒る","影響を評価し、必要なら直接伝える","新ルールの中で最適解を探す"]},
+    {t:"部下や後輩が予想を超える成果を出したら？",o:["少し脅威。取って代わられるかも","調子に乗るなと釘を刺す","認めて、存分にやらせる","誇らしい。意識的に育てる"]},
+    {t:"残業続きの一週間を終えた金曜の夜は？",o:["疲れ果てて何もしたくない","切ない。人生が仕事だけになっている","しっかり自分をねぎらって取り戻す","疲れたが充実。緩めて締めくくる"]},
+    {t:"顧客や上司に誤りを認める必要があるとき？",o:["限界まで先延ばしにする","まず責任の分散を考える","すぐ認め、補修案を添える","落ち着いて向き合う。誤りは改善の情報"]},
+    {t:"同僚が陰で自分を話題にしていると知ったら？",o:["数日落ち込み、自分を疑う","反撃や対峙の方法を考える","身の潔白は自ずと明らか。力を割かない","役立つ指摘は受け取り、あとは流す"]},
+    {t:"終わらない会議が予定を埋め尽くしたら？",o:["麻痺したまま出席する。どうせ変わらない","時間が殺されると内心苛立つ","文書で代替できる会議を確認する","組み直して深い仕事の時間を守る"]},
+    {t:"いまのキャリアは、どの状態に最も近い？",o:["行き詰まっているが、動くのが怖い","心ここにあらずで、次を探している","目標へ向けて着実に積み上げている","好きなことをして、輝いている"]},
+    {t:"面接や重要な交渉の1時間前は？",o:["緊張で吐き気がする","自分ならできると鼓舞する","要点を最終確認して、あとは緩める","やり取りが楽しみ。場の感覚を味わう"]},
+    {t:"外部から上司が来て、昇進の見込みが崩れたら？",o:["やる気を失う。頑張っても無駄","憤りを抱え、あちこちで愚痴る","新しい構図を観察し、自分を再定位する","自分から関係を築き、新しい機会を作る"]},
+    {t:"他部門の相手に既読スルーされたら？",o:["気に障ったのではと不安になる","軽んじられたと腹が立つ","別の経路でもう一度フォローする","皆忙しい。リマインダーを設定して先へ"]},
+    {t:"年次評価が予想より低かったら？",o:["人格まで否定された気がする","納得できない。上司は貢献を見ていない","面談を設け、基準と差分を明確にする","フィードバックを受け取り、来年の梃子にする"]},
+    {t:"もし明日から働かなくてよいとしたら、最初の感覚は？",o:["軸を失い、何をすべきか分からない","やっと解放される","嬉しい。それでも何かをすることを選ぶ","働いても働かなくても、意味を生きられる"]},
   ],
 },
 "ko": {
@@ -808,8 +1034,32 @@ const I18N = {
     notesHint:"Apple Pencil이나 펜으로 반박 지점과 직관을 적고, 이 페이지를 가지고 온라인 리뷰에 참여하십시오.",
     overallLabel:"종합 주파수", gapLabel:"격차",
     reportFooter:"본 리포트는 단일 측정에서 자동 생성된 초기 가설이며 의학적 진단이 아닙니다.",
+    gapMid:"내외부 에너지에 가벼운 격차가 있습니다. 외부 소모는 아직 감당 범위 안에 있으니 추이를 계속 관찰하십시오.",
+    midTag:"경미한 소모",
+    relTag:"신뢰도 낮음",
+    relText:"이번 응답 패턴의 변동이 커서 측정 신뢰도가 낮습니다. 차분한 상태에서 다시 측정하면 가설의 정확도가 높아집니다.",
+    lowTitle:"에너지 단층 위치",
+    lowIn:(d,q,l)=>`이번 측정에서 가장 낮은 주파수는 ${d} 상황 — "${q}" — 에서 나타났으며, 해당 수준은 '${l}'입니다.`,
+    resume:"지난 측정 이어하기",
   },
   levels:{shame:"수치심",guilt:"죄책감",apathy:"무기력",grief:"슬픔",fear:"두려움",desire:"욕망",anger:"분노",pride:"자존심",courage:"용기",neutrality:"중립",willingness:"자발성",acceptance:"수용",reason:"이성",love:"사랑",joy:"기쁨"},
+  advice:{
+    shame:"수치심은 자신을 숨기게 만듭니다. 가치는 완벽한 수행에 달려 있지 않음을 기억하십시오.",
+    guilt:"죄책감은 행동을 수정하기 위한 것이지 자신을 벌하기 위한 것이 아닙니다. 작은 보완 행동 하나를 하고 놓아주십시오.",
+    apathy:"무기력은 소진된 시스템을 보호하는 껍질인 경우가 많습니다. 5분 안에 끝나는 작은 일부터 재시동하십시오.",
+    grief:"슬픔에 필요한 것은 억압이 아니라 흐름입니다. 존재를 허용하고 신뢰하는 사람에게 상태를 알리십시오.",
+    fear:"두려움은 사실이 아니라 상상을 확대합니다. 걱정을 적고 실제 확률을 매겨 주도권을 되찾으십시오.",
+    desire:"원함은 연료이지만 집착은 소모입니다. 진짜 원하는 것과 비교가 심어 놓은 것을 구분하십시오.",
+    anger:"분노는 침해된 경계를 드러냅니다. 그 경계를 명확히 하고 폭발 대신 분명한 표현으로 바꾸십시오.",
+    pride:"자존심은 자아를 지키지만 피드백을 차단합니다. '그건 미처 생각 못 했네요'라고 말하는 연습을 해 보십시오.",
+    courage:"용기는 이미 가동 중입니다. 작은 걸음의 리듬을 유지하면 행동할 때마다 이 단계가 단단해집니다.",
+    neutrality:"중립은 안정을 주지만 거리감으로 흐를 수 있습니다. 소중한 일에는 능동적인 참여를 남겨 두십시오.",
+    willingness:"자발성은 성장이 가장 빠른 단계입니다. 열정이 피로로 타 버리지 않도록 페이스를 조절하십시오.",
+    acceptance:"수용은 현실과 협력하게 합니다. 다음 단계는 수용 속에서도 선택권을 분명히 유지하는 것입니다.",
+    reason:"이성은 강력한 도구입니다. 다만 분석이 행동과 감정을 미루게 하지 마십시오.",
+    love:"사랑의 주파수는 그 자체로 자양분입니다. 그 다정함을 자신에게도 나누어 주십시오.",
+    joy:"기쁨은 높은 주파수의 표지입니다. 몰입을 일으키는 활동을 정기적으로 배치해 상태를 이어 가십시오.",
+  },
   archetypes:{
     sage:{name:"충전하는 현자", insight:"지금은 에너지를 모으는 시기입니다. 내면 자원이 잠시 낮지만 이는 결함이 아니라 시스템이 휴식과 회복을 요청하는 신호입니다. 리듬을 늦추고 충분한 수면과 작은 기쁨부터 차분히 채우십시오.",
       actions:["취침을 30분 앞당겨 7일간 유지하기","매일 가장 소모가 컸던 사건 하나만 기록하기(평가 없이)","필수가 아닌 약속 하나를 보류해 회복 여유 확보하기"]},
@@ -838,6 +1088,21 @@ const I18N = {
     {t:"친구가 약속을 직전에 취소하면?",o:["내가 중요하지 않은 사람인가 싶다","존중받지 못한 것 같아 불쾌하다","괜찮다, 나만의 시간이 생겼다","무슨 일이 있는 건 아닌지 챙긴다"]},
     {t:"'돈'에 대한 마음가짐은?",o:["늘 부족한 것 같아 자주 걱정한다","더 벌어야 안심이 된다","쓸 만큼이면 된다, 도구일 뿐 목적이 아니다","흐름을 신뢰하고 나누는 것을 즐긴다"]},
     {t:"지금까지의 내 인생을 떠올리면?",o:["많은 기대를 저버린 것 같다","이도 저도 아닌 것 같아 조금 분하다","대체로 만족하고 부끄럽지 않다","감사로 가득하다, 모든 걸음에 의미가 있었다"]},
+    {t:"길이 막히거나 차편이 지연되면?",o:["시계만 보며 짜증과 욕이 나온다","이후 일정이 모두 틀어질까 초조하다","음악이나 팟캐스트로 시간을 활용한다","모처럼의 공백, 멍하니 있는 것도 좋다"]},
+    {t:"깊은 밤 혼자 외로움이 밀려오면?",o:["아무도 나를 진심으로 아끼지 않는 것 같다","얼른 휴대폰으로 공허함을 채운다","외로움과 함께 머문다, 지나갈 것이다","혼자만의 시간을 즐기며 나와 대화한다"]},
+    {t:"누군가 '너 요즘 변했다'라고 하면 직감적으로?",o:["뭘 잘못했나 긴장된다","방어적이 되어 반박하고 싶다","상대가 무엇을 봤는지 궁금하다","기쁘다, 성장의 흔적일지도"]},
+    {t:"가족이 곤란한 부탁을 하면?",o:["거절하지 못하고 억지로 승낙한다","승낙하고서 속으로 원망한다","내 사정을 솔직하게 설명한다","가능한 범위는 돕고 그 이상은 부드럽게 거절한다"]},
+    {t:"삶에 공백기(구직·휴식)가 생기면?",o:["자존감이 빠르게 떨어진다","또래의 진도와 비교하며 초조해한다","모처럼의 정리 기간으로 삼는다","해 보고 싶던 방향을 탐색할 기회로 쓴다"]},
+    {t:"스스로와 한 작은 약속(일찍 자기, 운동)을 못 지키면?",o:["역시 난 안 된다는 증거","핑계를 대고 다음 주로 미룬다","막힌 원인을 분석하고 방법을 바꾼다","가끔의 실수는 받아들이고 내일 계속한다"]},
+    {t:"SNS 속 화려한 일상들을 보면?",o:["내 인생은 실패한 것 같다","부럽다, 나도 저렇게 살고 싶다","단편일 뿐임을 안다, 별 영향 없다","그들을 축하하고 내 일상도 아낀다"]},
+    {t:"오랜만에 연락 온 친구의 메시지에 첫 반응은?",o:["부탁할 일이 있는 건 아닌지 의심한다","딱히 답하고 싶지 않다, 귀찮다","자연스럽게 답하며 근황을 나눈다","반갑다, 먼저 만나자고 한다"]},
+    {t:"사소한 결정을 잘못한 뒤(잘못 산 물건, 별로인 식당)?",o:["왜 이리 바보 같은지 자책을 반복한다","한참 언짢아서 하루를 망친다","어깨를 으쓱, 별일 아니다","재미있는 일화로 삼는다, 다음엔 알겠지"]},
+    {t:"'나이 듦'에 대한 느낌은?",o:["두렵다, 되도록 생각하지 않는다","아쉽다, 못 해 본 게 너무 많다","자연스러운 과정, 흐름에 맡긴다","기대된다, 단계마다 다른 풍경이 있다"]},
+    {t:"혼자 밥 먹을 때 보통?",o:["좀 처량해서 급히 휴대폰을 본다","대충 때운다, 배만 부르면 된다","편안하게 음식을 즐긴다","먹고 싶은 걸 골라 나에게 대접한다"]},
+    {t:"뜻밖의 돈(보너스, 용돈)이 생기면?",o:["뭔가 잘못 계산된 건 아닌지 걱정한다","사고 싶은 게 더 많이 떠오른다","계획대로 저축하거나 투자한다","기쁘게 나누고 주변에 한턱낸다"]},
+    {t:"나에게 상처 준 사람을 떠올리면 지금은?",o:["여전히 화가 나고 용서가 안 된다","떠오르면 괴로워 피하려 한다","이미 내려놓았다, 그건 그 사람의 숙제","그 경험이 나를 더 알게 해 줘 감사하다"]},
+    {t:"한밤중에 깨어 잠이 안 오면?",o:["내일 컨디션 걱정부터 시작된다","짜증내며 계속 뒤척인다","일어나 물 한 모금 마시고 심호흡한다","조용히 누워 밤의 고요를 즐긴다"]},
+    {t:"전반적으로 '행복'은 당신에게?",o:["남의 일이다, 나와는 멀다","조건을 이뤄야 자격이 생기는 것","스스로 선택할 수 있는 상태","지금 여기에 있다, 도처에 있다"]},
   ],
   qb:[
     {t:"상사가 갑자기 업무를 추가로 맡기면 첫 반응은?",o:["거절하지 못하고 그냥 삼킨다","화가 치민다, 착취당하는 기분이다","기회로 여기고 능동적으로 맡는다","업무량을 차분히 따져 우선순위를 조율한다"]},
@@ -855,6 +1120,21 @@ const I18N = {
     {t:"연차가 낮은 사람이 나보다 빨리 승진하면?",o:["내 능력이 부족한가 의심한다","불공평하다, 받아들이기 어렵다","그가 잘한 점을 분석해 배운다","진심으로 축하하고 내 페이스에 집중한다"]},
     {t:"중요 프로젝트가 심각하게 지연되면?",o:["최악의 결과를 반복해 떠올리며 잠을 설친다","팀원이나 자원 부족을 탓한다","우선순위를 재정렬하고 불필요한 것을 잘라낸다","팀을 모아 솔직하게 소통하며 함께 만회한다"]},
     {t:"회의에서 공개적으로 발언해야 할 때?",o:["심장이 빨리 뛰고 가능하면 피하고 싶다","말실수로 이미지가 깎일까 걱정된다","준비했으면 평정심으로 임한다","표현하고 교류하는 과정 자체를 즐긴다"]},
+    {t:"전임자가 남긴 엉망인 업무를 인수하면?",o:["재수 없다, 왜 하필 나인가","내가 뒤집어쓸까 불안하다","현황부터 파악하고 처리 순서를 정한다","능력을 보여줄 무대로 삼는다"]},
+    {t:"내 성과가 다른 사람과 비교당하면?",o:["밀릴까 봐 긴장된다","불공평하다, 조건 자체가 다르다","비교는 남의 일, 나는 내 성장을 본다","비교가 있어야 기준도 있다, 스스로를 보정한다"]},
+    {t:"팀원의 실수에 내가 연루되면?",o:["대놓고든 뒤에서든 화를 낸다","지친다, 결국 믿을 건 나뿐이다","문제부터 해결하고 재발 방지를 복기한다","누구나 실수한다, 함께 수습한다"]},
+    {t:"회사의 새 정책이 나에게 불리하면?",o:["뒤에서 불평만 하고 아무것도 안 한다","회사가 직원을 홀대한다며 분노한다","영향을 평가하고 필요하면 직접 의견을 낸다","새 규칙 안에서 나의 최적해를 찾는다"]},
+    {t:"부하나 후배가 기대 이상으로 잘하면?",o:["위협감이 든다, 대체될까 봐","너무 우쭐대지 말라고 일러둔다","인정해 주고 마음껏 하게 둔다","자랑스럽다, 의식적으로 키워 준다"]},
+    {t:"야근으로 가득한 한 주를 보낸 금요일 밤은?",o:["뻗는다, 아무것도 하기 싫다","서럽다, 인생에 일만 남았다","제대로 보상하며 회복한다","피곤하지만 충실하다, 느슨하게 마무리한다"]},
+    {t:"고객이나 상사에게 잘못을 인정해야 할 때?",o:["더는 미룰 수 없을 때까지 미룬다","먼저 책임을 어떻게 나눌지 궁리한다","즉시 인정하고 보완책을 함께 낸다","담담하게 마주한다, 오류는 개선의 정보다"]},
+    {t:"동료들이 뒤에서 내 얘기를 한다는 걸 알면?",o:["며칠을 괴로워하며 나를 의심한다","반격이나 대질 방법을 궁리한다","결백은 스스로 드러난다, 에너지를 안 쓴다","고칠 건 고치고 나머지는 흘려보낸다"]},
+    {t:"끝없는 회의가 일정을 가득 채우면?",o:["무감각하게 참석한다, 어차피 그런 것","시간이 살해당한다며 속으로 끓는다","문서로 대체 가능한 회의를 먼저 물어본다","일정을 재배치해 몰입 시간을 지킨다"]},
+    {t:"현재 커리어는 어느 상태에 가장 가까운가?",o:["갇혀 있지만 움직이기 두렵다","마음은 떠났고 다른 곳을 기웃거린다","목표를 향해 안정적으로 쌓아 가고 있다","좋아하는 일을 하며 빛나고 있다"]},
+    {t:"면접이나 중요한 협상 한 시간 전에는?",o:["긴장으로 속이 울렁거린다","할 수 있다고 스스로를 북돋는다","핵심만 최종 점검하고 긴장을 푼다","겨루는 게 기대된다, 현장감을 즐긴다"]},
+    {t:"낙하산 상사가 와서 승진 기대가 깨지면?",o:["의욕을 잃는다, 노력해 봐야 소용없다","분해서 여기저기 하소연한다","새 판도를 관찰하고 나를 재정위한다","먼저 관계를 쌓아 새 기회를 만든다"]},
+    {t:"협업 상대가 메시지를 읽고도 답이 없으면?",o:["내가 뭘 잘못했나 불안하다","무시당했다는 생각에 화가 난다","다른 채널로 한 번 더 팔로업한다","다들 바쁘지, 리마인더를 걸어 두면 된다"]},
+    {t:"연간 평가가 예상보다 낮게 나오면?",o:["존재 자체가 부정당한 느낌이다","납득 못 한다, 상사는 내 기여를 모른다","면담을 잡아 기준과 격차를 명확히 한다","피드백을 수용해 내년의 지렛대로 만든다"]},
+    {t:"내일부터 일하지 않아도 된다면 첫 느낌은?",o:["중심을 잃고 뭘 해야 할지 모르겠다","드디어 해방이다","기쁘다, 그래도 무언가는 하기로 택할 것이다","일하든 안 하든 의미 있게 살 수 있다"]},
   ],
 },
 };
@@ -888,6 +1168,19 @@ function drawSet(poolSize, avoid){
   if(cand.length < DOMAIN_A_COUNT) cand = pool;
   return shuffle(cand).slice(0, DOMAIN_A_COUNT);
 }
+function saveProgress(){
+  if(state.screen!=="quiz") return;
+  localStorage.setItem("hawkins_progress", JSON.stringify({quiz:state.quiz, qIndex:state.qIndex, answers:state.answers, ts:Date.now()}));
+}
+function loadProgress(){
+  try{
+    const p = JSON.parse(localStorage.getItem("hawkins_progress")||"null");
+    if(p && p.quiz && p.quiz.a && p.quiz.perm && Date.now()-p.ts < 864e5
+       && p.quiz.a.every(i=>i<BANK_V.a.length) && p.quiz.b.every(i=>i<BANK_V.b.length)) return p;
+  }catch(e){}
+  return null;
+}
+function clearProgress(){ localStorage.removeItem("hawkins_progress"); }
 function startQuiz(){
   let last = {a:[],b:[]};
   try{ last = JSON.parse(localStorage.getItem("hawkins_last_q")||'{"a":[],"b":[]}'); }catch(e){}
@@ -897,6 +1190,7 @@ function startQuiz(){
     perm: Array.from({length:TOTAL_Q},()=>shuffle([0,1,2,3]))
   };
   state = { screen:"quiz", qIndex:0, answers:[], quiz:quiz };
+  saveProgress();
   render();
 }
 function quizQuestion(i){
@@ -971,6 +1265,7 @@ function render(){
 
 function viewLanding(){
   const u = T().ui;
+  const prog = loadProgress();
   return `<div class="fade">
     <div class="hero">
       <div class="aura"></div>
@@ -990,6 +1285,7 @@ function viewLanding(){
       </div>
     </div>
     <button class="btn" id="btnStart">${u.start}</button>
+    ${prog?`<button class="btn btn-ghost" id="btnResume" style="margin-top:.9rem">${u.resume} (${Math.min(prog.qIndex+1,TOTAL_Q)}/${TOTAL_Q})</button>`:""}
     <p class="meta-note">${u.duration}<br>${u.privacy}</p>
   </div>`;
 }
@@ -1013,11 +1309,23 @@ function viewQuiz(){
   </div>`;
 }
 
+function sd(arr){
+  const m = arr.reduce((s,x)=>s+x,0)/arr.length;
+  return Math.sqrt(arr.reduce((s,x)=>s+(x-m)*(x-m),0)/arr.length);
+}
 function currentResult(){
-  const a = avg(state.answers.slice(0,DOMAIN_A_COUNT));
-  const b = avg(state.answers.slice(DOMAIN_A_COUNT));
-  const overall = Math.round((a+b)/2);
-  return { a, b, overall, gap:Math.abs(a-b), arch:archetypeOf(overall) };
+  const ansA = state.answers.slice(0,DOMAIN_A_COUNT);
+  const ansB = state.answers.slice(DOMAIN_A_COUNT);
+  const a = avg(ansA), b = avg(ansB);
+  /* stress-domain weighted: behavior under pressure reveals the true level */
+  const overall = Math.round(a*0.4 + b*0.6);
+  /* high volatility within a domain marks an unreliable measurement */
+  const unreliable = sd(ansA) >= 190 || sd(ansB) >= 190;
+  let li = 0;
+  state.answers.forEach((v,i)=>{ if(v < state.answers[li]) li = i; });
+  const lowIsA = li < DOMAIN_A_COUNT;
+  return { a, b, overall, gap:Math.abs(a-b), arch:archetypeOf(overall), unreliable,
+    low:{ isA:lowIsA, bank:(lowIsA ? state.quiz.a[li] : state.quiz.b[li-DOMAIN_A_COUNT]), value:state.answers[li] } };
 }
 
 function viewResult(){
@@ -1027,7 +1335,13 @@ function viewResult(){
   const la = T().levels[levelOf(r.a).k];
   const lb = T().levels[levelOf(r.b).k];
   const lo = T().levels[levelOf(r.overall).k];
-  const gapBig = r.gap > 100;
+  const tier = r.gap > 100 ? 2 : (r.gap > 50 ? 1 : 0);
+  const gapTexts = [u.gapOk, u.gapMid, u.gapWarn];
+  const gapTags = [u.stableTag, u.midTag, u.lossTag];
+  const gapTagCls = ["tag-ok","tag-mid","tag-loss"];
+  const gapBorder = ["gap-ok","gap-mid","gap-warn"];
+  const lowQ = (r.low.isA ? T().qa : T().qb)[r.low.bank].t;
+  const lowLv = levelOf(r.low.value).k;
   const history = loadHistory();
   const pro = isPro();
   const mailHref = `mailto:${CONSULT_MAIL}?subject=${encodeURIComponent(u.consultSubject)}`;
@@ -1080,13 +1394,21 @@ function viewResult(){
           <div class="s-level">${lb}</div>
         </div>
       </div>
-      <div class="card ${gapBig?"gap-warn":"gap-ok"}">
-        <h3>${u.gapTitle} · ${r.gap} <span class="tag ${gapBig?"tag-loss":"tag-ok"}">${gapBig?u.lossTag:u.stableTag}</span></h3>
-        <p>${gapBig?u.gapWarn:u.gapOk}</p>
+      <div class="card ${gapBorder[tier]}">
+        <h3>${u.gapTitle} · ${r.gap} <span class="tag ${gapTagCls[tier]}">${gapTags[tier]}</span></h3>
+        <p>${gapTexts[tier]}</p>
       </div>
+      ${r.unreliable?`<div class="card rel-warn">
+        <h3>${u.relTag} <span class="tag tag-rel">σ</span></h3>
+        <p>${u.relText}</p>
+      </div>`:""}
       <div class="card">
         <h3>${u.insightTitle}</h3>
         <p>${archT.insight}</p>
+      </div>
+      <div class="card">
+        <h3>${u.lowTitle}</h3>
+        <p>${u.lowIn(r.low.isA?u.domainA:u.domainB, lowQ, T().levels[lowLv])} ${T().advice[lowLv]}</p>
       </div>
       ${trendSection}
       <div class="card">
@@ -1140,6 +1462,12 @@ function trendSvg(history,mode,theme){
 function bindEvents(){
   const start = $("btnStart");
   if(start) start.onclick = startQuiz;
+  const resumeBtn = $("btnResume");
+  if(resumeBtn) resumeBtn.onclick = ()=>{
+    const p = loadProgress();
+    if(p){ state = { screen:"quiz", qIndex:p.qIndex, answers:p.answers, quiz:p.quiz }; render(); }
+    else render();
+  };
   document.querySelectorAll(".opt").forEach(btn=>{
     btn.onclick = ()=>{
       if(state.lock) return; /* ignore double-taps during the fade transition */
@@ -1150,12 +1478,13 @@ function bindEvents(){
       if(box){ box.style.transition="opacity .25s ease-in-out"; box.style.opacity="0"; }
       setTimeout(()=>{
         state.lock = false;
-        if(state.qIndex < TOTAL_Q-1){ state.qIndex++; render(); }
+        if(state.qIndex < TOTAL_Q-1){ state.qIndex++; saveProgress(); render(); }
         else{
           const a = avg(state.answers.slice(0,DOMAIN_A_COUNT));
           const b = avg(state.answers.slice(DOMAIN_A_COUNT));
           saveHistory(a,b);
           localStorage.setItem("hawkins_last_q", JSON.stringify({a:state.quiz.a, b:state.quiz.b}));
+          clearProgress();
           state.screen="result"; render();
           window.scrollTo({top:0});
         }
@@ -1163,7 +1492,7 @@ function bindEvents(){
     };
   });
   const back = $("btnBack");
-  if(back) back.onclick = ()=>{ if(!state.lock && state.qIndex>0){ state.qIndex--; render(); } };
+  if(back) back.onclick = ()=>{ if(!state.lock && state.qIndex>0){ state.qIndex--; saveProgress(); render(); } };
   const retake = $("btnRetake");
   if(retake) retake.onclick = ()=>{ state={screen:"landing",qIndex:0,answers:[]}; render(); window.scrollTo({top:0}); };
   const cardBtn = $("btnCard");
@@ -1280,7 +1609,11 @@ function exportReport(){
   const la = T().levels[levelOf(r.a).k];
   const lb = T().levels[levelOf(r.b).k];
   const lo = T().levels[levelOf(r.overall).k];
-  const gapBig = r.gap > 100;
+  const tier = r.gap > 100 ? 2 : (r.gap > 50 ? 1 : 0);
+  const gapTexts = [u.gapOk, u.gapMid, u.gapWarn];
+  const gapTags = [u.stableTag, u.midTag, u.lossTag];
+  const lowQ = (r.low.isA ? T().qa : T().qb)[r.low.bank].t;
+  const lowLv = levelOf(r.low.value).k;
   const history = loadHistory();
   const now = new Date();
   const p2 = (n)=>String(n).padStart(2,"0");
@@ -1304,12 +1637,14 @@ function exportReport(){
     </div>
     <div class="rp-sec">
       <h2>02 · ${u.rSec2}</h2>
-      <span class="rp-tagline">${u.gapLabel} ${r.gap} · ${gapBig?u.lossTag:u.stableTag}</span>
-      <p>${gapBig?u.gapWarn:u.gapOk}</p>
+      <span class="rp-tagline">${u.gapLabel} ${r.gap} · ${gapTags[tier]}</span>
+      <p>${gapTexts[tier]}</p>
+      ${r.unreliable?`<p style="font-size:8.5pt;color:#A39E8D;font-style:italic;margin-top:1.5mm">${u.relTag} · ${u.relText}</p>`:""}
     </div>
     <div class="rp-sec">
       <h2>03 · ${u.rSec3}</h2>
       <p>${archT.insight}</p>
+      <p style="margin-top:2mm">${u.lowIn(r.low.isA?u.domainA:u.domainB, lowQ, T().levels[lowLv])} ${T().advice[lowLv]}</p>
     </div>
     ${history.length>=2?`<div class="rp-sec">
       <h2>04 · ${u.rSec4}</h2>
