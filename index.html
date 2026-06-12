@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#FAFAFA">
+<title>意識能量覺察 · Energy Awareness</title>
+<style>
+  :root{
+    --bg:#FAFAFA;
+    --surface:#FFFFFF;
+    --primary:#78866B;
+    --primary-soft:#EEF1EA;
+    --secondary:#E5E7EB;
+    --text:#374151;
+    --muted:#9CA3AF;
+    --accent-blue:#7B86B8;
+    --shadow:0 8px 30px rgba(0,0,0,0.04);
+    --shadow-lg:0 12px 40px rgba(0,0,0,0.07);
+    --radius:1.5rem;
+    --ease:all .5s ease-in-out;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  html{font-size:16px;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,"PingFang TC","PingFang SC","Hiragino Sans","Yu Gothic","Microsoft JhengHei","Microsoft YaHei","Malgun Gothic","Noto Sans TC","Noto Sans SC","Segoe UI",Roboto,sans-serif;
+    font-weight:300;
+    line-height:1.8;
+    min-height:100vh;
+    -webkit-font-smoothing:antialiased;
+  }
+  #wrap{max-width:30rem;margin:0 auto;padding:1.5rem 1.5rem 4rem;}
+  header{
+    display:flex;justify-content:space-between;align-items:center;
+    padding:.75rem 0 2.5rem;
+  }
+  .logo{display:flex;align-items:center;gap:.6rem;font-weight:400;letter-spacing:.05em;color:var(--text);}
+  .logo-dot{
+    width:.9rem;height:.9rem;border-radius:50%;
+    background:radial-gradient(circle at 35% 35%, #B9C4AC, var(--primary));
+    box-shadow:0 0 12px rgba(120,134,107,.45);
+  }
+  select#lang{
+    appearance:none;-webkit-appearance:none;
+    border:none;outline:none;cursor:pointer;
+    background:var(--surface);color:var(--muted);
+    font-family:inherit;font-size:.8rem;font-weight:300;
+    padding:.45rem 1.9rem .45rem 1rem;border-radius:9999px;
+    box-shadow:var(--shadow);
+    background-image:url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%239CA3AF' stroke-width='1.4' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat:no-repeat;background-position:right .8rem center;
+    transition:var(--ease);
+  }
+  .fade{animation:fadeIn .5s ease-in-out;}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:none;}}
+  @keyframes breathe{0%,100%{transform:scale(1);opacity:.85;}50%{transform:scale(1.06);opacity:1;}}
+
+  /* ---------- landing ---------- */
+  .hero{text-align:center;padding:1.5rem 0 0;}
+  .aura{
+    width:8.5rem;height:8.5rem;margin:0 auto 2.5rem;border-radius:50%;
+    background:radial-gradient(circle at 38% 32%, #FFFFFF 0%, #DCE8D5 35%, #B9C4AC 70%, #78866B 100%);
+    box-shadow:0 0 60px rgba(120,134,107,.35), var(--shadow-lg);
+    animation:breathe 6s ease-in-out infinite;
+  }
+  h1{font-size:1.7rem;font-weight:500;letter-spacing:.08em;margin-bottom:1rem;}
+  .subtitle{color:var(--muted);font-size:.92rem;font-weight:300;margin-bottom:3rem;padding:0 .5rem;}
+  .domains{display:flex;gap:1rem;margin-bottom:3rem;}
+  .domain-chip{
+    flex:1;background:var(--surface);border-radius:var(--radius);
+    padding:1.6rem 1rem;box-shadow:var(--shadow);transition:var(--ease);
+  }
+  .domain-chip .d-icon{font-size:1.5rem;margin-bottom:.6rem;}
+  .domain-chip .d-name{font-weight:500;font-size:.95rem;margin-bottom:.25rem;}
+  .domain-chip .d-desc{color:var(--muted);font-size:.78rem;}
+  .btn{
+    display:block;width:100%;border:none;cursor:pointer;
+    font-family:inherit;font-size:1rem;font-weight:400;letter-spacing:.12em;
+    padding:1.15rem;border-radius:9999px;
+    background:var(--primary);color:#fff;
+    box-shadow:0 10px 28px rgba(120,134,107,.35);
+    transition:var(--ease);
+  }
+  .btn:hover{filter:brightness(1.06);transform:translateY(-2px);}
+  .btn:active{transform:translateY(0);}
+  .btn-ghost{
+    background:var(--surface);color:var(--text);
+    box-shadow:var(--shadow);font-weight:300;
+  }
+  .meta-note{color:var(--muted);font-size:.78rem;text-align:center;margin-top:1.5rem;}
+
+  /* ---------- quiz ---------- */
+  .q-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.2rem;}
+  .q-domain{
+    font-size:.75rem;letter-spacing:.1em;color:var(--primary);
+    background:var(--primary-soft);padding:.35rem 1rem;border-radius:9999px;font-weight:400;
+  }
+  .q-domain.b{color:var(--accent-blue);background:#EDEFF7;}
+  .q-count{color:var(--muted);font-size:.8rem;}
+  .progress{height:.3rem;background:var(--secondary);border-radius:9999px;overflow:hidden;margin-bottom:2.8rem;}
+  .progress > div{height:100%;background:var(--primary);border-radius:9999px;transition:width .5s ease-in-out;}
+  .q-text{font-size:1.22rem;font-weight:400;line-height:1.7;margin-bottom:2.2rem;min-height:4.2rem;}
+  .opts{display:flex;flex-direction:column;gap:1rem;}
+  .opt{
+    background:var(--surface);border:none;cursor:pointer;text-align:left;
+    font-family:inherit;font-size:.95rem;font-weight:300;color:var(--text);line-height:1.7;
+    padding:1.2rem 1.4rem;border-radius:1.25rem;
+    box-shadow:var(--shadow);transition:var(--ease);
+  }
+  .opt:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg);background:var(--primary-soft);}
+  .q-back{
+    margin-top:2.2rem;background:none;border:none;cursor:pointer;
+    color:var(--muted);font-family:inherit;font-size:.85rem;font-weight:300;
+    transition:var(--ease);
+  }
+  .q-back:hover{color:var(--text);}
+
+  /* ---------- result ---------- */
+  .r-head{text-align:center;margin-bottom:2.5rem;}
+  .r-aura{
+    width:9.5rem;height:9.5rem;margin:0 auto 1.8rem;border-radius:50%;
+    box-shadow:var(--shadow-lg);animation:breathe 6s ease-in-out infinite;
+  }
+  .r-label{color:var(--muted);font-size:.8rem;letter-spacing:.18em;margin-bottom:.5rem;}
+  .r-archetype{font-size:1.55rem;font-weight:500;letter-spacing:.06em;margin-bottom:.4rem;}
+  .r-levelname{color:var(--muted);font-size:.9rem;}
+  .cards{display:flex;flex-direction:column;gap:1.25rem;margin-bottom:1.25rem;}
+  .card{
+    background:var(--surface);border-radius:var(--radius);
+    padding:1.8rem;box-shadow:var(--shadow);
+  }
+  .scores{display:flex;gap:1.25rem;}
+  .scores .card{flex:1;text-align:center;padding:1.6rem .8rem;}
+  .s-title{color:var(--muted);font-size:.76rem;margin-bottom:.6rem;letter-spacing:.04em;}
+  .s-value{font-size:2rem;font-weight:500;line-height:1.2;}
+  .s-level{font-size:.85rem;margin-top:.35rem;font-weight:400;}
+  .s-a .s-value,.s-a .s-level{color:var(--primary);}
+  .s-b .s-value,.s-b .s-level{color:var(--accent-blue);}
+  .card h3{font-size:.95rem;font-weight:500;margin-bottom:.8rem;letter-spacing:.04em;}
+  .card p{font-size:.88rem;color:var(--text);font-weight:300;}
+  .gap-warn{border-left:3px solid #C9A86A;}
+  .gap-ok{border-left:3px solid var(--primary);}
+  .chart-wrap{overflow:hidden;}
+  .legend{display:flex;gap:1.4rem;margin-top:.8rem;font-size:.75rem;color:var(--muted);}
+  .legend span::before{content:"";display:inline-block;width:.85rem;height:.2rem;border-radius:2px;margin-right:.4rem;vertical-align:middle;}
+  .legend .la::before{background:var(--primary);}
+  .legend .lb::before{background:var(--accent-blue);}
+  .r-actions{display:flex;flex-direction:column;gap:1rem;margin-top:2.2rem;}
+
+  /* ---------- share modal ---------- */
+  #modal{
+    position:fixed;inset:0;display:none;z-index:50;
+    background:rgba(55,65,81,.45);backdrop-filter:blur(6px);
+    align-items:center;justify-content:center;padding:1.5rem;
+  }
+  #modal.open{display:flex;}
+  .modal-box{
+    background:var(--surface);border-radius:var(--radius);
+    padding:1.5rem;max-width:21rem;width:100%;
+    box-shadow:var(--shadow-lg);text-align:center;
+    max-height:92vh;overflow-y:auto;
+  }
+  .modal-box img{width:100%;border-radius:1rem;box-shadow:var(--shadow);}
+  .modal-hint{color:var(--muted);font-size:.8rem;margin:.9rem 0 1.1rem;}
+  .modal-actions{display:flex;gap:.8rem;}
+  .modal-actions .btn{padding:.85rem;font-size:.88rem;}
+  footer{
+    text-align:center;color:var(--muted);font-size:.72rem;font-weight:300;
+    margin-top:3.5rem;letter-spacing:.05em;
+  }
+</style>
+</head>
+<body>
+<div id="wrap">
+  <header>
+    <div class="logo"><div class="logo-dot"></div><span id="logoText"></span></div>
+    <select id="lang">
+      <option value="zh-TW">繁體中文</option>
+      <option value="zh-CN">简体中文</option>
+      <option value="en">English</option>
+      <option value="ja">日本語</option>
+      <option value="ko">한국어</option>
+    </select>
+  </header>
+  <main id="main"></main>
+  <footer id="foot"></footer>
+</div>
+
+<div id="modal">
+  <div class="modal-box">
+    <img id="cardImg" alt="energy card">
+    <div class="modal-hint" id="modalHint"></div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" id="btnClose"></button>
+      <button class="btn" id="btnShare"></button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ================= energy values per option (shared across locales) ================= */
+const Q_VALUES = [
+  /* Domain A 日常情緒 */
+  [50, 100, 250, 540],
+  [150, 100, 200, 350],
+  [30, 50, 350, 500],
+  [75, 125, 310, 500],
+  [100, 250, 310, 540],
+  /* Domain B 職場壓力 */
+  [100, 150, 310, 400],
+  [75, 175, 400, 350],
+  [100, 175, 310, 500],
+  [50, 150, 400, 540],
+  [100, 50, 200, 310],
+];
+const DOMAIN_A_COUNT = 5;
+
+const LEVELS = [
+  {v:540,k:"joy"},{v:500,k:"love"},{v:400,k:"reason"},{v:350,k:"acceptance"},
+  {v:310,k:"willingness"},{v:250,k:"neutrality"},{v:200,k:"courage"},
+  {v:175,k:"pride"},{v:150,k:"anger"},{v:125,k:"desire"},{v:100,k:"fear"},
+  {v:75,k:"grief"},{v:50,k:"apathy"},{v:30,k:"guilt"},{v:20,k:"shame"}
+];
+
+const ARCHETYPES = [
+  {min:450,k:"resonant", c1:"#E8C5BC", c2:"#F6E7E0", deep:"#B07D72"},
+  {min:350,k:"guardian", c1:"#9AA3CC", c2:"#DFE3F2", deep:"#5A6499"},
+  {min:250,k:"creator",  c1:"#9DB18C", c2:"#E2EAD8", deep:"#5F6E51"},
+  {min:150,k:"walker",   c1:"#D3C29B", c2:"#F2EAD7", deep:"#9A8757"},
+  {min:0,  k:"sage",     c1:"#B5CDB3", c2:"#E6F0E4", deep:"#6F8A6D"},
+];
+
+/* ================= i18n ================= */
+const I18N = {
+"zh-TW": {
+  ui: {
+    appTitle:"意識能量覺察", logo:"意識能量覺察",
+    subtitle:"基於大衛・霍金斯意識能量層級理論的雙軌覺察測驗，看見你的內在基準與壓力頻率",
+    domainA:"日常情緒", domainADesc:"內在基準頻率",
+    domainB:"職場壓力", domainBDesc:"壓力情境頻率",
+    start:"開始測驗", duration:"約 3 分鐘 · 10 題", privacy:"測驗結果僅儲存於你的裝置",
+    back:"← 上一題", qOf:(n,t)=>`${n} / ${t}`,
+    resultLabel:"你的能量原型", levelOf:"主要頻率",
+    innerBase:"內在基準", innerBaseSub:"日常情緒",
+    stressFreq:"壓力頻率", stressFreqSub:"職場人際",
+    gapTitle:"內外能量落差",
+    gapWarn:"您的內外能量落差較大，表明特定高壓情境正在過度消耗您的內在基準能量，建議優化外部應變機制，並為自己安排恢復的空間。",
+    gapOk:"你的內外能量相對一致，內在基準能穩定支撐外部高壓情境，請繼續保持目前的節奏。",
+    insightTitle:"本次洞察",
+    trendTitle:"能量趨勢", trendA:"日常情緒", trendB:"職場壓力",
+    share:"生成能量卡片", retake:"重新測驗",
+    modalHint:"長按圖片即可儲存，分享到限時動態或群組",
+    closeBtn:"關閉", shareBtn:"分享 / 儲存",
+    cardTag:"我的能量原型", cardCta:"測測你現在的能量頻率",
+    foot:"靈感源自 David R. Hawkins《Power vs. Force》· 本測驗僅供自我覺察參考",
+  },
+  levels:{shame:"羞愧",guilt:"內疚",apathy:"冷漠",grief:"悲傷",fear:"恐懼",desire:"慾望",anger:"憤怒",pride:"驕傲",courage:"勇氣",neutrality:"中立",willingness:"主動",acceptance:"寬容",reason:"理智",love:"愛",joy:"喜悅"},
+  archetypes:{
+    sage:{name:"蓄力智者", insight:"你正處於能量蓄積期，內在資源暫時偏低。這不是缺陷，而是身心在提醒你需要休息與滋養。請放慢腳步，從充足睡眠與一件小小的愉悅開始，溫柔地為自己補充能量。"},
+    walker:{name:"覺醒行者", insight:"你的勇氣正在升起，已經能直面許多不舒服的情緒。接下來的關鍵是減少自我批判：每當你察覺情緒而不被捲入，能量就再上一階。"},
+    creator:{name:"主動創建者", insight:"你擁有穩定的行動力與中性視角，能把壓力轉化為前進的燃料。試著把這份主動延伸到人際支持系統，你的能量會更有韌性。"},
+    guardian:{name:"理智守護者", insight:"你以清晰的思考與包容駕馭大多數情境，是他人眼中可靠的定錨。留意別讓理性過度接管——允許情感流動，會帶你走向更高的頻率。"},
+    resonant:{name:"愛的共鳴者", insight:"你的頻率以愛與喜悅為主導，能自然滋養身邊的人。請持續守護這份狀態，並留意在高壓情境中為自己設立健康界線。"},
+  },
+  questions:[
+    {t:"早晨醒來，你最常浮現的第一個念頭是？",o:["好累，真不想起床","有點擔心今天的安排","平靜醒來，按自己的步調開始","期待今天，感覺充滿可能"]},
+    {t:"計畫被突然打亂時，你通常會？",o:["煩躁，忍不住想發脾氣","焦慮，反覆想著最壞的情況","鼓起勁面對，相信自己能處理","接受變化，重新安排就好"]},
+    {t:"獨處的時候，你內心多半是？",o:["反覆想起讓自己後悔的事","有點空虛，提不起勁","安穩自在，享受自己的節奏","心懷感謝，覺得生活很美好"]},
+    {t:"看到朋友獲得你也想要的成就時？",o:["覺得自己不如人，有點低落","表面祝福，心裡不是滋味","受到激勵，想跟著行動","真心替他高興"]},
+    {t:"想到「未來」，你的整體感覺是？",o:["茫然，不太敢多想","沒什麼特別感覺，順其自然","有方向，正一步步前進","充滿信任，相信會越來越好"]},
+    {t:"主管臨時加派任務給你，你的第一反應是？",o:["不敢拒絕，硬吞下來","火氣上來，覺得被剝削","視為機會，主動接下並安排","冷靜評估手上工作，再協調優先順序"]},
+    {t:"會議上你的意見被當眾否定，你會？",o:["沉默不語，事後一直耿耿於懷","立刻防衛反擊，捍衛自己的立場","聽完對方的理由，就事論事討論","感謝不同觀點，試著整合出更好的方案"]},
+    {t:"面對職場中的競爭，你通常？",o:["提防同事，擔心被超越","一定要贏，輸了很沒面子","專注在自己的成長上","樂於合作，相信可以雙贏"]},
+    {t:"壓力特別大的那幾週，你的狀態是？",o:["麻木硬撐，下班只想躺著","變得易怒，容易遷怒身邊的人","刻意安排休息，主動調節節奏","忙碌中仍能感受到成就與樂趣"]},
+    {t:"明天要向高層做重要簡報，今晚的你？",o:["緊張到睡不好，反覆想像搞砸的畫面","心想「隨便啦，講完就好」","有點緊張，但相信自己準備得夠了","躍躍欲試，期待展現成果"]},
+  ],
+},
+"zh-CN": {
+  ui: {
+    appTitle:"意识能量觉察", logo:"意识能量觉察",
+    subtitle:"基于大卫·霍金斯意识能量层级理论的双轨觉察测验，看见你的内在基准与压力频率",
+    domainA:"日常情绪", domainADesc:"内在基准频率",
+    domainB:"职场压力", domainBDesc:"压力情境频率",
+    start:"开始测验", duration:"约 3 分钟 · 10 题", privacy:"测验结果仅保存在你的设备上",
+    back:"← 上一题", qOf:(n,t)=>`${n} / ${t}`,
+    resultLabel:"你的能量原型", levelOf:"主要频率",
+    innerBase:"内在基准", innerBaseSub:"日常情绪",
+    stressFreq:"压力频率", stressFreqSub:"职场人际",
+    gapTitle:"内外能量落差",
+    gapWarn:"您的内外能量落差较大，表明特定高压情境正在过度消耗您的内在基准能量，建议优化外部应变机制，并为自己安排恢复的空间。",
+    gapOk:"你的内外能量相对一致，内在基准能稳定支撑外部高压情境，请继续保持当前的节奏。",
+    insightTitle:"本次洞察",
+    trendTitle:"能量趋势", trendA:"日常情绪", trendB:"职场压力",
+    share:"生成能量卡片", retake:"重新测验",
+    modalHint:"长按图片即可保存，分享到朋友圈或群聊",
+    closeBtn:"关闭", shareBtn:"分享 / 保存",
+    cardTag:"我的能量原型", cardCta:"测测你现在的能量频率",
+    foot:"灵感源自 David R. Hawkins《Power vs. Force》· 本测验仅供自我觉察参考",
+  },
+  levels:{shame:"羞愧",guilt:"内疚",apathy:"冷漠",grief:"悲伤",fear:"恐惧",desire:"欲望",anger:"愤怒",pride:"骄傲",courage:"勇气",neutrality:"中立",willingness:"主动",acceptance:"宽容",reason:"理智",love:"爱",joy:"喜悦"},
+  archetypes:{
+    sage:{name:"蓄力智者", insight:"你正处于能量蓄积期，内在资源暂时偏低。这不是缺陷，而是身心在提醒你需要休息与滋养。请放慢脚步，从充足睡眠与一件小小的愉悦开始，温柔地为自己补充能量。"},
+    walker:{name:"觉醒行者", insight:"你的勇气正在升起，已经能直面许多不舒服的情绪。接下来的关键是减少自我批判：每当你觉察情绪而不被卷入，能量就再上一阶。"},
+    creator:{name:"主动创建者", insight:"你拥有稳定的行动力与中性视角，能把压力转化为前进的燃料。试着把这份主动延伸到人际支持系统，你的能量会更有韧性。"},
+    guardian:{name:"理智守护者", insight:"你以清晰的思考与包容驾驭大多数情境，是他人眼中可靠的定锚。留意别让理性过度接管——允许情感流动，会带你走向更高的频率。"},
+    resonant:{name:"爱的共鸣者", insight:"你的频率以爱与喜悦为主导，能自然滋养身边的人。请持续守护这份状态，并留意在高压情境中为自己设立健康边界。"},
+  },
+  questions:[
+    {t:"早晨醒来，你最常浮现的第一个念头是？",o:["好累，真不想起床","有点担心今天的安排","平静醒来，按自己的节奏开始","期待今天，感觉充满可能"]},
+    {t:"计划被突然打乱时，你通常会？",o:["烦躁，忍不住想发脾气","焦虑，反复想着最坏的情况","鼓起劲面对，相信自己能处理","接受变化，重新安排就好"]},
+    {t:"独处的时候，你内心多半是？",o:["反复想起让自己后悔的事","有点空虚，提不起劲","安稳自在，享受自己的节奏","心怀感谢，觉得生活很美好"]},
+    {t:"看到朋友获得你也想要的成就时？",o:["觉得自己不如人，有点低落","表面祝福，心里不是滋味","受到激励，想跟着行动","真心替他高兴"]},
+    {t:"想到「未来」，你的整体感觉是？",o:["茫然，不太敢多想","没什么特别感觉，顺其自然","有方向，正一步步前进","充满信任，相信会越来越好"]},
+    {t:"领导临时给你加派任务，你的第一反应是？",o:["不敢拒绝，硬吞下来","火气上来，觉得被压榨","视为机会，主动接下并安排","冷静评估手头工作，再协调优先级"]},
+    {t:"会议上你的意见被当众否定，你会？",o:["沉默不语，事后一直耿耿于怀","立刻防卫反击，捍卫自己的立场","听完对方的理由，就事论事讨论","感谢不同观点，尝试整合出更好的方案"]},
+    {t:"面对职场中的竞争，你通常？",o:["提防同事，担心被超越","一定要赢，输了很没面子","专注在自己的成长上","乐于合作，相信可以双赢"]},
+    {t:"压力特别大的那几周，你的状态是？",o:["麻木硬撑，下班只想躺着","变得易怒，容易迁怒身边的人","刻意安排休息，主动调节节奏","忙碌中仍能感受到成就与乐趣"]},
+    {t:"明天要向高层做重要汇报，今晚的你？",o:["紧张到睡不好，反复想象搞砸的画面","心想「随便吧，讲完就好」","有点紧张，但相信自己准备得够了","跃跃欲试，期待展现成果"]},
+  ],
+},
+"en": {
+  ui: {
+    appTitle:"Energy Awareness", logo:"Energy Awareness",
+    subtitle:"A dual-track self-awareness test based on Dr. David Hawkins' Map of Consciousness — see your inner baseline and stress frequency",
+    domainA:"Daily Emotions", domainADesc:"Inner baseline",
+    domainB:"Work Stress", domainBDesc:"Under-pressure frequency",
+    start:"Begin", duration:"About 3 minutes · 10 questions", privacy:"Results are stored only on your device",
+    back:"← Previous", qOf:(n,t)=>`${n} / ${t}`,
+    resultLabel:"Your Energy Archetype", levelOf:"Dominant frequency",
+    innerBase:"Inner Baseline", innerBaseSub:"Daily emotions",
+    stressFreq:"Stress Frequency", stressFreqSub:"Work & relationships",
+    gapTitle:"Inner–Outer Energy Gap",
+    gapWarn:"There is a significant gap between your inner and outer energy. High-pressure situations are draining your inner baseline — consider strengthening your coping strategies and scheduling real recovery time.",
+    gapOk:"Your inner and outer energy are well aligned. Your baseline is steadily supporting you through pressure — keep this rhythm going.",
+    insightTitle:"Insight",
+    trendTitle:"Energy Trend", trendA:"Daily", trendB:"Work",
+    share:"Create Energy Card", retake:"Retake Test",
+    modalHint:"Press and hold the image to save, then share it to your story",
+    closeBtn:"Close", shareBtn:"Share / Save",
+    cardTag:"MY ENERGY ARCHETYPE", cardCta:"Discover your energy frequency",
+    foot:"Inspired by David R. Hawkins, “Power vs. Force” · For self-reflection only",
+  },
+  levels:{shame:"Shame",guilt:"Guilt",apathy:"Apathy",grief:"Grief",fear:"Fear",desire:"Desire",anger:"Anger",pride:"Pride",courage:"Courage",neutrality:"Neutrality",willingness:"Willingness",acceptance:"Acceptance",reason:"Reason",love:"Love",joy:"Joy"},
+  archetypes:{
+    sage:{name:"The Gathering Sage", insight:"You are in an energy-gathering season — inner resources feel low right now. That's not a flaw; it's your mind and body asking for rest. Slow down, start with good sleep and one small joy, and refill gently."},
+    walker:{name:"The Awakening Walker", insight:"Courage is rising in you — you can already face uncomfortable feelings. The next step is less self-judgment: every time you notice an emotion without being swept away, your energy climbs another level."},
+    creator:{name:"The Active Creator", insight:"You carry steady drive and a balanced perspective, turning pressure into fuel. Extend that initiative into your support network and your energy will grow even more resilient."},
+    guardian:{name:"The Rational Guardian", insight:"You navigate most situations with clarity and acceptance — a reliable anchor for others. Just don't let reason take over completely; letting feelings flow opens the path to even higher states."},
+    resonant:{name:"The Resonant Heart", insight:"Love and joy lead your frequency, and you naturally nourish people around you. Protect this state — and remember to keep healthy boundaries in high-pressure situations."},
+  },
+  questions:[
+    {t:"What's usually your first thought when you wake up?",o:["So tired — I really don't want to get up","A little worried about today's schedule","I wake calmly and start at my own pace","Excited — today feels full of possibility"]},
+    {t:"When plans suddenly fall apart, you usually…",o:["Get irritated and snap","Feel anxious, replaying worst-case scenarios","Brace yourself — you trust you can handle it","Accept the change and simply re-plan"]},
+    {t:"When you're alone, your inner state is mostly…",o:["Replaying things I regret","A bit empty and unmotivated","Settled and at ease with my own rhythm","Grateful — life feels good"]},
+    {t:"A friend achieves something you also want. You…",o:["Feel inferior and a little down","Congratulate them, but it stings inside","Feel inspired to take action too","Are genuinely happy for them"]},
+    {t:"When you think about the future, you feel…",o:["Lost — I'd rather not think about it","Nothing special, I just go with the flow","Directed — I'm moving step by step","Trusting — things keep getting better"]},
+    {t:"Your boss suddenly adds a task to your plate. First reaction?",o:["I don't dare refuse — I just swallow it","Anger rises — I feel exploited","I see a chance and take it on proactively","I calmly assess my workload, then negotiate priorities"]},
+    {t:"Your idea gets shot down in a meeting. You…",o:["Go silent, but it keeps bothering me afterward","Get defensive and fight back immediately","Hear their reasons and discuss it on the merits","Appreciate the other view and try to merge a better plan"]},
+    {t:"Facing competition at work, you usually…",o:["Stay guarded — afraid of being overtaken","Must win — losing feels humiliating","Focus on my own growth","Enjoy collaborating — win-win is possible"]},
+    {t:"In your most stressful weeks, you are…",o:["Numb, just pushing through, collapsing after work","Irritable — I take it out on people around me","Deliberately scheduling rest to regulate my pace","Still finding achievement and joy in the busyness"]},
+    {t:"Big presentation to executives tomorrow. Tonight you…",o:["Can't sleep — imagining it going wrong on repeat","Think “whatever, just get it over with”","Feel a bit nervous but trust your preparation","Feel eager — ready to show your work"]},
+  ],
+},
+"ja": {
+  ui: {
+    appTitle:"エネルギー・アウェアネス", logo:"エネルギー覚察",
+    subtitle:"デヴィッド・R・ホーキンズ博士の意識のマップに基づく2軸セルフチェック。内なる基準と、ストレス下の周波数を見つめる",
+    domainA:"日常の感情", domainADesc:"内なる基準周波数",
+    domainB:"職場のストレス", domainBDesc:"プレッシャー下の周波数",
+    start:"はじめる", duration:"約3分・全10問", privacy:"結果はあなたの端末にのみ保存されます",
+    back:"← 前の質問", qOf:(n,t)=>`${n} / ${t}`,
+    resultLabel:"あなたのエネルギー・アーキタイプ", levelOf:"主な周波数",
+    innerBase:"内なる基準", innerBaseSub:"日常の感情",
+    stressFreq:"ストレス周波数", stressFreqSub:"職場・人間関係",
+    gapTitle:"内外エネルギーのギャップ",
+    gapWarn:"内と外のエネルギー差が大きめです。高圧な状況が内なる基準エネルギーを消耗させています。対処の仕組みを見直し、回復の時間を意識的に確保しましょう。",
+    gapOk:"内と外のエネルギーはよく調和しています。内なる基準がプレッシャーをしっかり支えています。このリズムを大切に。",
+    insightTitle:"今回の気づき",
+    trendTitle:"エネルギーの推移", trendA:"日常", trendB:"職場",
+    share:"エネルギーカードを作る", retake:"もう一度測る",
+    modalHint:"画像を長押しで保存し、ストーリーズなどでシェアできます",
+    closeBtn:"閉じる", shareBtn:"共有 / 保存",
+    cardTag:"私のエネルギー・アーキタイプ", cardCta:"あなたの周波数を測ってみる",
+    foot:"David R. Hawkins『パワーか、フォースか』に着想 · セルフリフレクション用",
+  },
+  levels:{shame:"恥",guilt:"罪悪感",apathy:"無気力",grief:"悲しみ",fear:"恐れ",desire:"欲望",anger:"怒り",pride:"プライド",courage:"勇気",neutrality:"中立",willingness:"意欲",acceptance:"受容",reason:"理性",love:"愛",joy:"喜び"},
+  archetypes:{
+    sage:{name:"蓄えの賢者", insight:"いまはエネルギーを蓄える季節。内なる資源が少し低めですが、それは欠点ではなく、心身が休息を求めているサインです。十分な睡眠と小さな楽しみから、やさしく充電を。"},
+    walker:{name:"目覚めの旅人", insight:"勇気が立ち上がりつつあり、不快な感情にも向き合えるようになっています。次の鍵は自己批判を減らすこと。感情に呑まれず気づけるたび、エネルギーは一段上がります。"},
+    creator:{name:"主体的な創造者", insight:"安定した行動力と中立的な視点で、プレッシャーを前進の燃料に変えられる人です。その主体性を人とのつながりにも広げると、エネルギーはさらにしなやかになります。"},
+    guardian:{name:"理性の守護者", insight:"明晰な思考と受容で多くの場面を乗りこなす、周囲にとって頼れる存在です。ただし理性に任せすぎず、感情の流れも許すことで、より高い周波数へ進めます。"},
+    resonant:{name:"愛の共鳴者", insight:"愛と喜びが主導する周波数で、周囲を自然に潤しています。この状態を大切に守りつつ、高圧な場面では健全な境界線を意識しましょう。"},
+  },
+  questions:[
+    {t:"朝目覚めたとき、最初に浮かぶ思いは？",o:["疲れた…起きたくない","今日の予定がちょっと不安","穏やかに、自分のペースで始める","今日が楽しみ。可能性を感じる"]},
+    {t:"予定が突然崩れたとき、あなたは？",o:["イライラして、つい当たってしまう","不安で最悪のケースを何度も考える","気を奮い立たせる。対処できると信じている","変化を受け入れて、組み直せばいい"]},
+    {t:"ひとりの時間、心の中はだいたい？",o:["後悔したことを何度も思い出す","少し空虚で、やる気が出ない","落ち着いて、自分のリズムを楽しめる","感謝の気持ち。人生は良いものだと感じる"]},
+    {t:"友人が、自分も欲しかった成果を手にしたら？",o:["自分は劣っていると少し落ち込む","表では祝うが、心中は複雑","刺激を受けて、自分も動きたくなる","心から一緒に喜べる"]},
+    {t:"「未来」を思うとき、全体的な感覚は？",o:["漠然と不安で、あまり考えたくない","特に何も感じない。流れに任せる","方向性があり、一歩ずつ進んでいる","信頼している。きっと良くなっていく"]},
+    {t:"上司から突然タスクを追加されたら、最初の反応は？",o:["断れず、黙って飲み込む","怒りが湧く。搾取されている気がする","チャンスと捉え、主体的に引き受ける","冷静に業務量を見て、優先順位を調整する"]},
+    {t:"会議で自分の意見を否定されたら？",o:["黙り込み、後々まで引きずる","すぐ防衛的に反論し、立場を守る","相手の理由を聞き、論点ベースで話し合う","別の視点に感謝し、より良い案に統合する"]},
+    {t:"職場の競争に対して、あなたは普段？",o:["同僚を警戒し、追い抜かれることを恐れる","絶対に勝ちたい。負けると面子が立たない","自分の成長に集中する","協力を楽しむ。ウィンウィンを信じている"]},
+    {t:"特にストレスの強い数週間、あなたの状態は？",o:["麻痺したまま耐え、帰宅後は寝るだけ","怒りっぽくなり、周囲に当たってしまう","意識的に休息を入れ、ペースを整える","忙しさの中にも達成感と楽しさがある"]},
+    {t:"明日は経営層への重要なプレゼン。今夜のあなたは？",o:["失敗する場面を想像して眠れない","「まあ、終わればいいや」と思う","少し緊張するが、準備を信じている","腕が鳴る。成果を見せるのが楽しみ"]},
+  ],
+},
+"ko": {
+  ui: {
+    appTitle:"에너지 어웨어니스", logo:"에너지 자각",
+    subtitle:"데이비드 호킨스 박사의 의식 지도에 기반한 2축 자기 인식 테스트 — 내면의 기준과 스트레스 주파수를 확인하세요",
+    domainA:"일상 감정", domainADesc:"내면 기준 주파수",
+    domainB:"직장 스트레스", domainBDesc:"압박 상황 주파수",
+    start:"시작하기", duration:"약 3분 · 10문항", privacy:"결과는 내 기기에만 저장됩니다",
+    back:"← 이전 문항", qOf:(n,t)=>`${n} / ${t}`,
+    resultLabel:"나의 에너지 아키타입", levelOf:"주요 주파수",
+    innerBase:"내면 기준", innerBaseSub:"일상 감정",
+    stressFreq:"스트레스 주파수", stressFreqSub:"직장·인간관계",
+    gapTitle:"내·외부 에너지 격차",
+    gapWarn:"내면과 외부 에너지의 격차가 큰 편입니다. 고압적인 상황이 내면의 기준 에너지를 과도하게 소모하고 있어요. 대응 방식을 점검하고 회복 시간을 의식적으로 확보하세요.",
+    gapOk:"내면과 외부 에너지가 잘 정렬되어 있습니다. 내면의 기준이 압박 상황을 안정적으로 지탱하고 있어요. 지금의 리듬을 유지하세요.",
+    insightTitle:"이번 인사이트",
+    trendTitle:"에너지 추이", trendA:"일상", trendB:"직장",
+    share:"에너지 카드 만들기", retake:"다시 테스트",
+    modalHint:"이미지를 길게 눌러 저장한 뒤 스토리에 공유해 보세요",
+    closeBtn:"닫기", shareBtn:"공유 / 저장",
+    cardTag:"나의 에너지 아키타입", cardCta:"지금 나의 에너지 주파수 측정하기",
+    foot:"David R. Hawkins 『의식 혁명』에서 영감 · 자기 성찰용 테스트입니다",
+  },
+  levels:{shame:"수치심",guilt:"죄책감",apathy:"무기력",grief:"슬픔",fear:"두려움",desire:"욕망",anger:"분노",pride:"자존심",courage:"용기",neutrality:"중립",willingness:"자발성",acceptance:"수용",reason:"이성",love:"사랑",joy:"기쁨"},
+  archetypes:{
+    sage:{name:"충전하는 현자", insight:"지금은 에너지를 모으는 시기입니다. 내면의 자원이 잠시 낮아져 있지만, 이는 결함이 아니라 몸과 마음이 휴식을 요청하는 신호예요. 충분한 수면과 작은 기쁨부터, 부드럽게 충전하세요."},
+    walker:{name:"깨어나는 여행자", insight:"용기가 차오르고 있어 불편한 감정도 마주할 수 있게 되었어요. 다음 단계는 자기 비판 줄이기 — 감정에 휩쓸리지 않고 알아차릴 때마다 에너지는 한 단계 올라갑니다."},
+    creator:{name:"능동적 창조자", insight:"안정적인 추진력과 중립적인 시각으로 압박을 전진의 연료로 바꾸는 사람입니다. 그 주도성을 주변의 지지 관계로도 넓히면 에너지가 더 단단해집니다."},
+    guardian:{name:"이성의 수호자", insight:"명료한 사고와 수용으로 대부분의 상황을 다루는, 주변에 든든한 닻 같은 존재입니다. 다만 이성에만 기대지 말고 감정의 흐름도 허용하면 더 높은 주파수로 나아갈 수 있어요."},
+    resonant:{name:"사랑의 공명자", insight:"사랑과 기쁨이 주도하는 주파수로 주변 사람들을 자연스럽게 채워 줍니다. 이 상태를 소중히 지키되, 고압적인 상황에서는 건강한 경계를 세우는 것도 잊지 마세요."},
+  },
+  questions:[
+    {t:"아침에 눈을 떴을 때 가장 먼저 드는 생각은?",o:["너무 피곤해, 일어나기 싫다","오늘 일정이 조금 걱정된다","차분하게, 내 페이스대로 시작한다","오늘이 기대된다, 가능성이 느껴진다"]},
+    {t:"계획이 갑자기 틀어지면 보통 어떤가요?",o:["짜증이 나서 화를 내게 된다","불안해서 최악의 상황을 반복해서 떠올린다","마음을 다잡는다, 해낼 수 있다고 믿는다","변화를 받아들이고 다시 계획하면 된다"]},
+    {t:"혼자 있을 때 마음 상태는 대체로?",o:["후회되는 일을 자꾸 떠올린다","조금 공허하고 의욕이 없다","편안하게 나만의 리듬을 즐긴다","감사한 마음, 삶이 좋다고 느낀다"]},
+    {t:"친구가 내가 원하던 성취를 이뤘을 때?",o:["내가 부족한 것 같아 조금 가라앉는다","겉으로는 축하하지만 속이 쓰리다","자극을 받아 나도 움직이고 싶어진다","진심으로 함께 기뻐한다"]},
+    {t:"'미래'를 떠올리면 전반적인 느낌은?",o:["막막해서 깊이 생각하고 싶지 않다","별 느낌 없이 흘러가는 대로 둔다","방향이 있고 한 걸음씩 나아가고 있다","신뢰한다, 점점 좋아질 거라 믿는다"]},
+    {t:"상사가 갑자기 업무를 추가로 맡기면 첫 반응은?",o:["거절하지 못하고 그냥 삼킨다","화가 치민다, 착취당하는 기분이다","기회로 여기고 능동적으로 맡는다","업무량을 차분히 따져 우선순위를 조율한다"]},
+    {t:"회의에서 내 의견이 공개적으로 부정당하면?",o:["침묵하지만 두고두고 마음에 남는다","즉시 방어하며 내 입장을 지킨다","상대의 이유를 듣고 사안 중심으로 논의한다","다른 관점에 감사하며 더 나은 안으로 통합한다"]},
+    {t:"직장 내 경쟁 앞에서 보통 어떤가요?",o:["동료를 경계하고 추월당할까 불안하다","꼭 이겨야 한다, 지면 자존심이 상한다","나 자신의 성장에 집중한다","협력을 즐긴다, 윈윈을 믿는다"]},
+    {t:"스트레스가 극심한 몇 주 동안 나의 상태는?",o:["무감각하게 버티고 퇴근 후엔 눕기만 한다","예민해져서 주변에 화풀이하게 된다","의식적으로 휴식을 넣어 페이스를 조절한다","바쁜 와중에도 성취감과 재미를 느낀다"]},
+    {t:"내일 경영진 앞에서 중요한 발표가 있다면 오늘 밤은?",o:["망치는 장면이 떠올라 잠이 안 온다","'아무렴 어때, 끝나기만 하면 되지'라고 생각한다","조금 긴장되지만 준비를 믿는다","설렌다, 성과를 보여줄 생각에 기대된다"]},
+  ],
+},
+};
+
+/* ================= state ================= */
+let locale = detectLocale();
+let state = { screen:"landing", qIndex:0, answers:[] };
+const $ = (id)=>document.getElementById(id);
+const T = ()=>I18N[locale];
+
+function detectLocale(){
+  const saved = localStorage.getItem("hawkins_lang");
+  if(saved && I18N[saved]) return saved;
+  const nav = (navigator.language||"en").toLowerCase();
+  if(nav.startsWith("zh")){
+    if(nav.includes("tw")||nav.includes("hant")||nav.includes("hk")||nav.includes("mo")) return "zh-TW";
+    return "zh-CN";
+  }
+  if(nav.startsWith("ja")) return "ja";
+  if(nav.startsWith("ko")) return "ko";
+  return "en";
+}
+
+function levelOf(score){
+  for(const l of LEVELS){ if(score>=l.v) return l; }
+  return LEVELS[LEVELS.length-1];
+}
+function archetypeOf(score){
+  for(const a of ARCHETYPES){ if(score>=a.min) return a; }
+  return ARCHETYPES[ARCHETYPES.length-1];
+}
+function avg(arr){ return Math.round(arr.reduce((s,x)=>s+x,0)/arr.length); }
+
+function loadHistory(){
+  try{ return JSON.parse(localStorage.getItem("hawkins_history")||"[]"); }catch(e){ return []; }
+}
+function saveHistory(a,b){
+  const h = loadHistory();
+  h.push({t:Date.now(),a,b});
+  while(h.length>24) h.shift();
+  localStorage.setItem("hawkins_history",JSON.stringify(h));
+}
+
+/* ================= rendering ================= */
+function setChrome(){
+  document.documentElement.lang = locale;
+  document.title = T().ui.appTitle + " · Energy Awareness";
+  $("logoText").textContent = T().ui.logo;
+  $("foot").textContent = T().ui.foot;
+  $("lang").value = locale;
+  $("btnClose").textContent = T().ui.closeBtn;
+  $("btnShare").textContent = T().ui.shareBtn;
+  $("modalHint").textContent = T().ui.modalHint;
+}
+
+function render(){
+  setChrome();
+  const m = $("main");
+  if(state.screen==="landing") m.innerHTML = viewLanding();
+  else if(state.screen==="quiz") m.innerHTML = viewQuiz();
+  else m.innerHTML = viewResult();
+  bindEvents();
+}
+
+function viewLanding(){
+  const u = T().ui;
+  return `<div class="fade">
+    <div class="hero">
+      <div class="aura"></div>
+      <h1>${u.appTitle}</h1>
+      <p class="subtitle">${u.subtitle}</p>
+    </div>
+    <div class="domains">
+      <div class="domain-chip">
+        <div class="d-icon">🌿</div>
+        <div class="d-name">${u.domainA}</div>
+        <div class="d-desc">${u.domainADesc}</div>
+      </div>
+      <div class="domain-chip">
+        <div class="d-icon">💼</div>
+        <div class="d-name">${u.domainB}</div>
+        <div class="d-desc">${u.domainBDesc}</div>
+      </div>
+    </div>
+    <button class="btn" id="btnStart">${u.start}</button>
+    <p class="meta-note">${u.duration}<br>${u.privacy}</p>
+  </div>`;
+}
+
+function viewQuiz(){
+  const u = T().ui;
+  const i = state.qIndex;
+  const q = T().questions[i];
+  const isA = i < DOMAIN_A_COUNT;
+  const pct = Math.round((i)/Q_VALUES.length*100);
+  return `<div class="fade" id="quizBox">
+    <div class="q-top">
+      <span class="q-domain ${isA?"":"b"}">${isA?u.domainA:u.domainB}</span>
+      <span class="q-count">${u.qOf(i+1,Q_VALUES.length)}</span>
+    </div>
+    <div class="progress"><div style="width:${pct}%"></div></div>
+    <div class="q-text">${q.t}</div>
+    <div class="opts">
+      ${q.o.map((opt,oi)=>`<button class="opt" data-oi="${oi}">${opt}</button>`).join("")}
+    </div>
+    ${i>0?`<button class="q-back" id="btnBack">${u.back}</button>`:""}
+  </div>`;
+}
+
+function viewResult(){
+  const u = T().ui;
+  const a = avg(state.answers.slice(0,DOMAIN_A_COUNT));
+  const b = avg(state.answers.slice(DOMAIN_A_COUNT));
+  const overall = Math.round((a+b)/2);
+  const arch = archetypeOf(overall);
+  const archT = T().archetypes[arch.k];
+  const la = T().levels[levelOf(a).k];
+  const lb = T().levels[levelOf(b).k];
+  const lo = T().levels[levelOf(overall).k];
+  const gap = Math.abs(a-b);
+  const gapBig = gap > 100;
+  const history = loadHistory();
+
+  return `<div class="fade">
+    <div class="r-head">
+      <div class="r-aura" style="background:radial-gradient(circle at 38% 32%, #FFFFFF 0%, ${arch.c2} 38%, ${arch.c1} 75%, ${arch.deep} 100%);box-shadow:0 0 60px ${arch.c1}88, var(--shadow-lg);"></div>
+      <div class="r-label">${u.resultLabel}</div>
+      <div class="r-archetype" style="color:${arch.deep}">${archT.name}</div>
+      <div class="r-levelname">${u.levelOf}：${lo} · ${overall}</div>
+    </div>
+    <div class="cards">
+      <div class="scores">
+        <div class="card s-a">
+          <div class="s-title">${u.innerBase}<br>${u.innerBaseSub}</div>
+          <div class="s-value">${a}</div>
+          <div class="s-level">${la}</div>
+        </div>
+        <div class="card s-b">
+          <div class="s-title">${u.stressFreq}<br>${u.stressFreqSub}</div>
+          <div class="s-value">${b}</div>
+          <div class="s-level">${lb}</div>
+        </div>
+      </div>
+      <div class="card ${gapBig?"gap-warn":"gap-ok"}">
+        <h3>${u.gapTitle} · ${gap}</h3>
+        <p>${gapBig?u.gapWarn:u.gapOk}</p>
+      </div>
+      <div class="card">
+        <h3>${u.insightTitle}</h3>
+        <p>${archT.insight}</p>
+      </div>
+      ${history.length>=2?`
+      <div class="card chart-wrap">
+        <h3>${u.trendTitle}</h3>
+        ${trendSvg(history)}
+        <div class="legend"><span class="la">${u.trendA}</span><span class="lb">${u.trendB}</span></div>
+      </div>`:""}
+    </div>
+    <div class="r-actions">
+      <button class="btn" id="btnCard">${u.share}</button>
+      <button class="btn btn-ghost" id="btnRetake">${u.retake}</button>
+    </div>
+  </div>`;
+}
+
+function trendSvg(history){
+  const data = history.slice(-6);
+  const W=400,H=180,P=28;
+  const ymin=0,ymax=600;
+  const x=(i)=>P+(W-2*P)*(data.length===1?0.5:i/(data.length-1));
+  const y=(v)=>H-P-(H-2*P)*((v-ymin)/(ymax-ymin));
+  const line=(key)=>data.map((d,i)=>`${i===0?"M":"L"}${x(i).toFixed(1)},${y(d[key]).toFixed(1)}`).join(" ");
+  const dots=(key,color)=>data.map((d,i)=>`<circle cx="${x(i).toFixed(1)}" cy="${y(d[key]).toFixed(1)}" r="3.4" fill="${color}"/>`).join("");
+  const grid=[100,200,300,400,500].map(v=>`<line x1="${P}" y1="${y(v)}" x2="${W-P}" y2="${y(v)}" stroke="#F0F1F3" stroke-width="1"/><text x="${P-6}" y="${y(v)+3}" font-size="8.5" fill="#C5C9D1" text-anchor="end">${v}</text>`).join("");
+  const labels=data.map((d,i)=>{const dt=new Date(d.t);return `<text x="${x(i)}" y="${H-8}" font-size="8.5" fill="#9CA3AF" text-anchor="middle">${dt.getMonth()+1}/${dt.getDate()}</text>`;}).join("");
+  return `<svg viewBox="0 0 ${W} ${H}" style="width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
+    ${grid}${labels}
+    <path d="${line("a")}" fill="none" stroke="#78866B" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="${line("b")}" fill="none" stroke="#7B86B8" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+    ${dots("a","#78866B")}${dots("b","#7B86B8")}
+  </svg>`;
+}
+
+/* ================= events ================= */
+function bindEvents(){
+  const start = $("btnStart");
+  if(start) start.onclick = ()=>{ state={screen:"quiz",qIndex:0,answers:[]}; render(); };
+  document.querySelectorAll(".opt").forEach(btn=>{
+    btn.onclick = ()=>{
+      const oi = +btn.dataset.oi;
+      state.answers[state.qIndex] = Q_VALUES[state.qIndex][oi];
+      const box = $("quizBox");
+      if(box){ box.style.transition="opacity .25s ease-in-out"; box.style.opacity="0"; }
+      setTimeout(()=>{
+        if(state.qIndex < Q_VALUES.length-1){ state.qIndex++; render(); }
+        else{
+          const a = avg(state.answers.slice(0,DOMAIN_A_COUNT));
+          const b = avg(state.answers.slice(DOMAIN_A_COUNT));
+          saveHistory(a,b);
+          state.screen="result"; render();
+          window.scrollTo({top:0});
+        }
+      },250);
+    };
+  });
+  const back = $("btnBack");
+  if(back) back.onclick = ()=>{ if(state.qIndex>0){ state.qIndex--; render(); } };
+  const retake = $("btnRetake");
+  if(retake) retake.onclick = ()=>{ state={screen:"landing",qIndex:0,answers:[]}; render(); window.scrollTo({top:0}); };
+  const cardBtn = $("btnCard");
+  if(cardBtn) cardBtn.onclick = openShareCard;
+}
+
+$("lang").addEventListener("change",(e)=>{
+  locale = e.target.value;
+  localStorage.setItem("hawkins_lang",locale);
+  render();
+});
+
+/* ================= share card (1080x1920 canvas) ================= */
+let lastCardDataUrl = null;
+
+function roundedRect(ctx,x,y,w,h,r){
+  ctx.beginPath();
+  ctx.moveTo(x+r,y);
+  ctx.arcTo(x+w,y,x+w,y+h,r);
+  ctx.arcTo(x+w,y+h,x,y+h,r);
+  ctx.arcTo(x,y+h,x,y,r);
+  ctx.arcTo(x,y,x+w,y,r);
+  ctx.closePath();
+}
+
+function openShareCard(){
+  const u = T().ui;
+  const a = avg(state.answers.slice(0,DOMAIN_A_COUNT));
+  const b = avg(state.answers.slice(DOMAIN_A_COUNT));
+  const overall = Math.round((a+b)/2);
+  const arch = archetypeOf(overall);
+  const archT = T().archetypes[arch.k];
+  const lo = T().levels[levelOf(overall).k];
+  const la = T().levels[levelOf(a).k];
+  const lb = T().levels[levelOf(b).k];
+
+  const W=1080,H=1920;
+  const cv=document.createElement("canvas");
+  cv.width=W; cv.height=H;
+  const ctx=cv.getContext("2d");
+  const FONT='-apple-system,BlinkMacSystemFont,"PingFang TC","PingFang SC","Hiragino Sans","Yu Gothic","Microsoft JhengHei","Microsoft YaHei","Malgun Gothic",sans-serif';
+
+  /* background gradient */
+  const g=ctx.createLinearGradient(0,0,0,H);
+  g.addColorStop(0,"#FDFDFC");
+  g.addColorStop(.45,arch.c2);
+  g.addColorStop(1,arch.c1);
+  ctx.fillStyle=g; ctx.fillRect(0,0,W,H);
+
+  /* soft aura circles */
+  const circle=(cx,cy,r,color,alpha)=>{
+    const rg=ctx.createRadialGradient(cx,cy,0,cx,cy,r);
+    rg.addColorStop(0,color+Math.round(alpha*255).toString(16).padStart(2,"0"));
+    rg.addColorStop(1,color+"00");
+    ctx.fillStyle=rg; ctx.beginPath(); ctx.arc(cx,cy,r,0,Math.PI*2); ctx.fill();
+  };
+  circle(W*0.82,H*0.12,330,"#FFFFFF",.85);
+  circle(W*0.15,H*0.34,260,arch.c1,.5);
+  circle(W*0.5,H*0.62,420,"#FFFFFF",.55);
+
+  /* header */
+  ctx.textAlign="center";
+  ctx.fillStyle="#374151";
+  ctx.font=`300 44px ${FONT}`;
+  ctx.fillText(u.appTitle, W/2, 170);
+  ctx.fillStyle="#9CA3AF";
+  ctx.font=`300 30px ${FONT}`;
+  ctx.fillText(u.cardTag, W/2, 240);
+
+  /* main aura */
+  const auraY=640, auraR=270;
+  const rg=ctx.createRadialGradient(W/2-auraR*0.25,auraY-auraR*0.3,auraR*0.1,W/2,auraY,auraR);
+  rg.addColorStop(0,"#FFFFFF");
+  rg.addColorStop(.45,arch.c2);
+  rg.addColorStop(.8,arch.c1);
+  rg.addColorStop(1,arch.deep);
+  ctx.save();
+  ctx.shadowColor=arch.deep+"66"; ctx.shadowBlur=90;
+  ctx.fillStyle=rg; ctx.beginPath(); ctx.arc(W/2,auraY,auraR,0,Math.PI*2); ctx.fill();
+  ctx.restore();
+
+  /* archetype name */
+  ctx.fillStyle="#374151";
+  ctx.font=`500 88px ${FONT}`;
+  ctx.fillText(archT.name, W/2, 1080);
+  ctx.fillStyle=arch.deep;
+  ctx.font=`400 40px ${FONT}`;
+  ctx.fillText(`${u.levelOf} · ${lo}`, W/2, 1160);
+
+  /* two-domain panel */
+  ctx.save();
+  ctx.fillStyle="rgba(255,255,255,.72)";
+  roundedRect(ctx,110,1250,W-220,300,46); ctx.fill();
+  ctx.fillStyle="#9CA3AF"; ctx.font=`300 32px ${FONT}`;
+  ctx.fillText(u.innerBase, W*0.31, 1350);
+  ctx.fillText(u.stressFreq, W*0.69, 1350);
+  ctx.fillStyle="#78866B"; ctx.font=`500 64px ${FONT}`;
+  ctx.fillText(la, W*0.31, 1450);
+  ctx.fillStyle="#7B86B8";
+  ctx.fillText(lb, W*0.69, 1450);
+  ctx.strokeStyle="rgba(156,163,175,.35)"; ctx.lineWidth=2;
+  ctx.beginPath(); ctx.moveTo(W/2,1300); ctx.lineTo(W/2,1500); ctx.stroke();
+  ctx.restore();
+
+  /* date + CTA */
+  const now=new Date();
+  const dateStr=`${now.getFullYear()}.${String(now.getMonth()+1).padStart(2,"0")}.${String(now.getDate()).padStart(2,"0")}`;
+  ctx.fillStyle="#6B7280"; ctx.font=`300 34px ${FONT}`;
+  ctx.fillText(dateStr, W/2, 1660);
+  ctx.fillStyle="#374151"; ctx.font=`400 38px ${FONT}`;
+  ctx.fillText(u.cardCta, W/2, 1770);
+  ctx.fillStyle="#6B7280"; ctx.font=`300 30px ${FONT}`;
+  ctx.fillText(location.host ? location.host+location.pathname : "energy-awareness", W/2, 1830);
+
+  lastCardDataUrl = cv.toDataURL("image/png");
+  $("cardImg").src = lastCardDataUrl;
+  $("modal").classList.add("open");
+}
+
+$("btnClose").addEventListener("click",()=>$("modal").classList.remove("open"));
+$("modal").addEventListener("click",(e)=>{ if(e.target.id==="modal") $("modal").classList.remove("open"); });
+
+$("btnShare").addEventListener("click",async ()=>{
+  if(!lastCardDataUrl) return;
+  try{
+    const blob = await (await fetch(lastCardDataUrl)).blob();
+    const file = new File([blob],"energy-card.png",{type:"image/png"});
+    if(navigator.canShare && navigator.canShare({files:[file]})){
+      await navigator.share({files:[file], title:T().ui.appTitle});
+      return;
+    }
+  }catch(e){ /* fall through to download */ }
+  const aEl=document.createElement("a");
+  aEl.href=lastCardDataUrl; aEl.download="energy-card.png";
+  document.body.appendChild(aEl); aEl.click(); aEl.remove();
+});
+
+render();
+</script>
+</body>
+</html>
